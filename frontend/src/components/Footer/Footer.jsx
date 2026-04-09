@@ -19,7 +19,7 @@ const FOOTER_COLS = [
          { label: "Components", path: "/components" },
          { label: "Headers", path: "/components/headers" },
          { label: "Hero Sections", path: "/components/hero" },
-         { label: "Product Cards", path: "/components/product-cards" },
+         { label: "Product Cards", path: "/components/product-card-slider" },
       ],
    },
    {
@@ -169,16 +169,16 @@ const Footer = () => {
 
                   {/* Social icons */}
                   <div className={socialRow}>
-                     {SOCIAL.map(({ Icon, label, href }) => (
+                     {SOCIAL.map((social) => (
                         <a
-                           key={label}
+                           key={social.label}
                            className={socialBtn}
-                           href={href}
+                           href={social.href}
                            target="_blank"
                            rel="noopener noreferrer"
-                           aria-label={label}
+                           aria-label={social.label}
                         >
-                           <Icon size={14} />
+                           <social.Icon size={14} />
                         </a>
                      ))}
                   </div>

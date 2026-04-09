@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
    FiSearch,
@@ -12,7 +12,7 @@ import {
    FiBookOpen,
    FiFrown,
 } from "react-icons/fi";
-import { getAllComponents } from "../../registry/componentRegistry";
+import { getAllComponents, getAllCategories } from "../../registry/componentRegistry";
 
 // ── Nav Data ───────────────────────────────────────────────────
 const NAV_LINKS = [
@@ -32,7 +32,7 @@ const SECTION_META = {
       iconBg: "rgba(124,58,237,0.1)",
       iconColor: "#7c3aed",
    },
-   "product-cards": {
+   "product-card-slider": {
       Icon: FiLayers,
       iconBg: "rgba(234,88,12,0.1)",
       iconColor: "#ea580c",
@@ -176,9 +176,10 @@ const Header = () => {
       if (searchOpen) setTimeout(() => inputRef.current?.focus(), 50);
    }, [searchOpen]);
 
-   const allComponents = getAllComponents();
+   const allComponents = useMemo(() => getAllComponents(), []);
+   const categories = useMemo(() => getAllCategories(), []);
 
-   const results = useCallback(() => {
+   const results = useMemo(() => {
       if (!query.trim()) return [];
       const q = query.toLowerCase().trim();
       return allComponents.filter(
@@ -188,17 +189,29 @@ const Header = () => {
             (item.description || "").toLowerCase().includes(q) ||
             (item.tags || []).some((t) => t.toLowerCase().includes(q)),
       );
-   }, [query, allComponents])();
+   }, [query, allComponents]);
 
-   const grouped = results.reduce((acc, item) => {
-      if (!acc[item.section]) acc[item.section] = [];
-      acc[item.section].push(item);
-      return acc;
-   }, {});
+   const grouped = useMemo(
+      () =>
+         results.reduce((acc, item) => {
+            if (!acc[item.section]) acc[item.section] = [];
+            acc[item.section].push(item);
+            return acc;
+         }, {}),
+      [results],
+   );
 
-   const groupKeys = Object.keys(grouped);
-   const flatResults = groupKeys.flatMap((k) => grouped[k]);
+   const groupKeys = useMemo(() => Object.keys(grouped), [grouped]);
+   const flatResults = useMemo(() => groupKeys.flatMap((k) => grouped[k]), [groupKeys, grouped]);
    const totalCount = flatResults.length;
+   const categoryVariantCounts = useMemo(
+      () =>
+         categories.reduce((acc, category) => {
+            acc[category.slug] = category.variants?.length ?? 0;
+            return acc;
+         }, {}),
+      [categories],
+   );
 
    const handleKeyDown = (e) => {
       if (!searchOpen) return;
@@ -329,8 +342,13 @@ const Header = () => {
                                  <div className={dropdownLabel}>
                                     Browse sections
                                  </div>
-                                 {Object.entries(SECTION_META).map(
-                                    ([sec, meta]) => {
+                                 {categories.map((category) => {
+                                    const sec = category.slug;
+                                    const meta = SECTION_META[sec] ?? {
+                                       Icon: FiGrid,
+                                       iconBg: "rgba(37,99,235,0.08)",
+                                       iconColor: "#2563eb",
+                                    };
                                        flatIndex++;
                                        const fi = flatIndex;
                                        const SectionIcon = meta.Icon;
@@ -362,7 +380,7 @@ const Header = () => {
                                                       )}
                                                 </div>
                                                 <div className={itemMeta}>
-                                                   {grouped[sec]?.length ?? 3}{" "}
+                                                   {categoryVariantCounts[sec] ?? 0}{" "}
                                                    variants
                                                 </div>
                                              </div>
@@ -372,8 +390,7 @@ const Header = () => {
                                              />
                                           </button>
                                        );
-                                    },
-                                 )}
+                                 })}
                               </div>
                            )}
 
@@ -506,21 +523,21 @@ const Header = () => {
                </button>
             </div>
             <div className={mobileNavBody}>
-               {NAV_LINKS.map(({ label, path, Icon }) => (
+               {NAV_LINKS.map((link) => (
                   <button
-                     key={label}
-                     className={`${mobileNavLinkBase} ${isActive(path) ? mobileNavLinkActive : mobileNavLinkInactive}`}
-                     onClick={() => go(path)}
+                     key={link.label}
+                     className={`${mobileNavLinkBase} ${isActive(link.path) ? mobileNavLinkActive : mobileNavLinkInactive}`}
+                     onClick={() => go(link.path)}
                   >
-                     <Icon
+                     <link.Icon
                         size={15}
                         className={
-                           isActive(path)
+                           isActive(link.path)
                               ? mobileNavIconActive
                               : mobileNavIconInactive
                         }
                      />
-                     {label}
+                     {link.label}
                   </button>
                ))}
             </div>

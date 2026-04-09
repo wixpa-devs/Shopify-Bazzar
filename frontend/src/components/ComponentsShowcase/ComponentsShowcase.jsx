@@ -141,7 +141,7 @@ const SHOWCASE = [
       live: true,
    },
    {
-      id: "product-cards",
+      id: "product-card-slider",
       name: "Product Cards",
       count: 3,
       tag: {
@@ -150,7 +150,7 @@ const SHOWCASE = [
          color: "#ea580c",
       },
       bg: "#fff7f0",
-      path: "/components/product-cards",
+      path: "/components/product-card-slider",
       preview: <ProductCardsPreview />,
       live: true,
    },
