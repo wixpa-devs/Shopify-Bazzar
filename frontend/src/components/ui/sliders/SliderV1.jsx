@@ -27,13 +27,7 @@ export function getSliderV1Code(config = {}) {
   const slide4LinkText = config.slide4LinkText || "See More";
   const slide4LinkUrl = config.slide4LinkUrl || "#";
 
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
+  return `<style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; overflow: hidden; background: #111; }
   body { font-family: 'Open Sans', Arial, sans-serif; cursor: grab; user-select: none; }
@@ -204,8 +198,6 @@ export function getSliderV1Code(config = {}) {
     .sc-text-desc { display: none; }
   }
 </style>
-</head>
-<body>
 
 <div class="sc" id="sc">
   <div class="sc-track" id="sc-track">
@@ -382,9 +374,7 @@ export function getSliderV1Code(config = {}) {
   updateControls();
   autoTimer = setTimeout(function() { goTo(1); }, autoDelay);
 })();
-<\/script>
-</body>
-</html>`;
+</script>`;
 }
 
 export default function SliderV1({ config }) {

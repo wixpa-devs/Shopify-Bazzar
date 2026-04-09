@@ -26,6 +26,7 @@ import { getPricingV1Code } from "../ui/pricing/PricingV1";
 import { getSliderV1Code } from "../ui/sliders/SliderV1";
 import { getSliderV2Code } from "../ui/sliders/SliderV2";
 import { getSliderV3Code } from "../ui/sliders/SliderV3";
+import { getSliderV4Code } from "../ui/sliders/SliderV4";
 
 const generateComponentCode = (variantId, config) => {
    switch (variantId) {
@@ -57,6 +58,7 @@ const generateComponentCode = (variantId, config) => {
       case "slider-v1": return getSliderV1Code(config);
       case "slider-v2": return getSliderV2Code(config);
       case "slider-v3": return getSliderV3Code(config);
+      case "slider-v4": return getSliderV4Code(config);
       default:
          return `<!-- No code generator found for variant: "${variantId}" -->`;
    }

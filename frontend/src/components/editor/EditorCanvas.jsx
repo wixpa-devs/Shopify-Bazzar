@@ -1,4 +1,4 @@
-import { useEffect, useCallback, memo } from "react";
+import { useEffect, useCallback, memo, useMemo, useRef, useState } from "react";
 import {
   ReactFlow,
   Background,
@@ -45,6 +45,10 @@ const nodeBarLeft = [
 ].join(" ");
 
 const trafficLights = "flex gap-[5px]";
+const loadingOverlay =
+  "absolute inset-0 bg-white/70 backdrop-blur-[1px] z-20 pointer-events-none";
+const loadingRail =
+  "absolute top-0 left-0 h-[3px] w-full bg-[#dbeafe] overflow-hidden";
 
 const getViewportWidth = (viewport) => {
   if (viewport === "mobile") return 375;
@@ -52,13 +56,25 @@ const getViewportWidth = (viewport) => {
   return 1280;
 };
 
+const getViewportMinHeight = (viewport) => {
+  if (viewport === "mobile") return 680;
+  if (viewport === "tablet") return 760;
+  return 860;
+};
+
 // ── Custom Node ────────────────────────────────────────────────
 
 const ComponentNode = memo(({ data }) => {
   const { config, variantName, viewport, getCode } = data;
   const width = getViewportWidth(viewport);
+  const minHeight = getViewportMinHeight(viewport);
+  const [isLoading, setIsLoading] = useState(true);
+  const [progress, setProgress] = useState(8);
+  const progressTimerRef = useRef(null);
+  const hideTimerRef = useRef(null);
 
-  const srcdoc = `<!DOCTYPE html>
+  const srcdoc = useMemo(
+    () => `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
@@ -70,10 +86,54 @@ const ComponentNode = memo(({ data }) => {
 <body>
   ${getCode(config)}
 </body>
-</html>`;
+</html>`,
+    [config, getCode],
+  );
+
+  useEffect(() => {
+    setIsLoading(true);
+    setProgress(8);
+
+    if (progressTimerRef.current) clearInterval(progressTimerRef.current);
+    progressTimerRef.current = setInterval(() => {
+      setProgress((prev) => (prev >= 90 ? prev : Math.min(prev + 6, 90)));
+    }, 120);
+
+    return () => {
+      if (progressTimerRef.current) clearInterval(progressTimerRef.current);
+      if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
+    };
+  }, [srcdoc]);
+
+  const handleLoad = useCallback((event) => {
+    try {
+      const doc = event.target.contentDocument;
+      if (doc?.documentElement) {
+        const htmlEl = doc.documentElement;
+        const bodyEl = doc.body;
+        const measuredHeight = Math.max(
+          htmlEl.scrollHeight || 0,
+          htmlEl.offsetHeight || 0,
+          htmlEl.clientHeight || 0,
+          bodyEl?.scrollHeight || 0,
+          bodyEl?.offsetHeight || 0,
+          bodyEl?.clientHeight || 0,
+          minHeight,
+        );
+        event.target.style.height = measuredHeight + "px";
+      }
+    } catch {
+      // ignore cross-document sizing errors
+    } finally {
+      setProgress(100);
+      if (progressTimerRef.current) clearInterval(progressTimerRef.current);
+      if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
+      hideTimerRef.current = setTimeout(() => setIsLoading(false), 180);
+    }
+  }, [minHeight]);
 
   return (
-    <div className={nodeFrameBase} style={{ width: `${width}px` }}>
+    <div className={`${nodeFrameBase} relative`} style={{ width: `${width}px` }}>
       {/* Title bar — drag handle */}
       <div className={nodeBar}>
         <div className={nodeBarLeft}>
@@ -96,20 +156,22 @@ const ComponentNode = memo(({ data }) => {
             display: "block",
             border: "none",
             width: `${width}px`,
-            height: "0px",
+            height: `${minHeight}px`,
           }}
-          onLoad={(e) => {
-            try {
-              const doc = e.target.contentDocument;
-              if (doc?.documentElement) {
-                e.target.style.height =
-                  doc.documentElement.scrollHeight + "px";
-              }
-            } catch (_) {}
-          }}
+          onLoad={handleLoad}
           title={variantName}
         />
       </div>
+      {isLoading && (
+        <div className={loadingOverlay}>
+          <div className={loadingRail}>
+            <div
+              className="h-full bg-[#2563eb] transition-[width] duration-150 ease-out"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 });

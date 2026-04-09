@@ -26,14 +26,8 @@ export function getSliderV3Code(config = {}) {
   const slide3Chapter     = config.slide3Chapter     || "Chapter III, page XI";
   const slide3Paragraph   = config.slide3Paragraph   || "Every man carries Two Bags about with him, one in front and one behind, and both are packed full of faults. The Bag in front contains his neighbours' faults, the one behind his own.";
 
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600;1,700&family=Cormorant+SC:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-<style>
+  return `<style>
+  @import url('https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css');
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; overflow: hidden; }
   body { background-color: #fff; font-family: 'Cormorant Garamond', serif; }
@@ -183,8 +177,6 @@ export function getSliderV3Code(config = {}) {
     p.paragraph { font-size: .95rem; }
   }
 </style>
-</head>
-<body>
 
 <div class="page-wrap">
   <div id="home-slider">
@@ -242,7 +234,7 @@ export function getSliderV3Code(config = {}) {
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"><\/script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 <script>
   new Swiper(".swiper", {
     direction: "vertical",
@@ -257,9 +249,7 @@ export function getSliderV3Code(config = {}) {
       clickable: true
     }
   });
-<\/script>
-</body>
-</html>`;
+</script>`;
 }
 
 export default function SliderV3({ config }) {

@@ -34,13 +34,7 @@ export function getSliderV2Code(config = {}) {
   const slide3Title = config.slide3Title || "Brown Bear";
   const slide3Status = config.slide3Status || "Least Concern";
 
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
+  return `<style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; overflow: hidden; background: ${bgColor}; }
   body { font-family: 'Open Sans', Arial, sans-serif; }
@@ -200,8 +194,6 @@ export function getSliderV2Code(config = {}) {
     .sw-content-inner { padding: 0 60px 0 20px; }
   }
 </style>
-</head>
-<body>
 
 <div class="sw" id="sw">
 
@@ -316,9 +308,7 @@ export function getSliderV2Code(config = {}) {
 
   startProgress();
 })();
-<\/script>
-</body>
-</html>`;
+</script>`;
 }
 
 export default function SliderV2({ config }) {
