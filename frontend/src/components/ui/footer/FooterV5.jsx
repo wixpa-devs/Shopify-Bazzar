@@ -1,6 +1,6 @@
 // Named export — used by generateComponentCode.js
 export function getFooterV5Code(config) {
-  return `
+    return `
 <style>
     :root {
         --color-text-main: ${config.textMain};
@@ -11,7 +11,7 @@ export function getFooterV5Code(config) {
         --color-border: ${config.borderColor};
         --color-input-border: ${config.inputBorder};
         --color-bg: ${config.bgColor};
-        --font-family: 'Inter', sans-serif;
+        --font-family: inherit;
         --container-width: 1320px;
     }
 
@@ -353,12 +353,44 @@ export function getFooterV5Code(config) {
                     <p>${config.newsletterText}</p>
                     <p class="small-print">${config.smallPrintText} <a href="${config.termsUrl}">${config.termsLabel}</a></p>
                 </div>
-                <form class="newsletter-form" onsubmit="event.preventDefault();">
+                <form method="post" action="/contact#contact_form" id="ContactFooter" accept-charset="UTF-8" class="newsletter-form">
+                    <input type="hidden" name="form_type" value="customer" />
+                    <input type="hidden" name="utf8" value="✓" />
+                    <input type="hidden" name="contact[tags]" value="newsletter">
                     <div class="input-group">
-                        <input type="email" class="newsletter-input" placeholder="${config.emailPlaceholder}" aria-label="Email address" required>
+                        <input
+                          type="email"
+                          name="contact[email]"
+                          class="newsletter-input"
+                          value="{{ form.email }}"
+                          autocorrect="off"
+                          autocapitalize="off"
+                          autocomplete="email"
+                          {% if form.errors %}
+                            autofocus
+                            aria-invalid="true"
+                            aria-describedby="ContactFooter-error"
+                          {% elsif form.posted_successfully? %}
+                            aria-describedby="ContactFooter-success"
+                          {% endif %}
+                          placeholder="${config.emailPlaceholder}"
+                          aria-label="Email address"
+                          required
+                        >
                     </div>
                     <button type="submit" class="btn-subscribe">${config.subscribeButtonText}</button>
                 </form>
+                {% if form.errors %}
+                  <div id="ContactFooter-error" style="margin-top: 10px; color: #d64545; font-size: 14px;">
+                    {{ form.errors.translated_fields.email | capitalize }}
+                    {{ form.errors.messages.email }}
+                  </div>
+                {% endif %}
+                {% if form.posted_successfully? %}
+                  <div id="ContactFooter-success" tabindex="-1" autofocus style="margin-top: 10px; color: #2e7d32; font-size: 14px;">
+                    Thanks for subscribing!
+                  </div>
+                {% endif %}
             </div>
         </section>
 
@@ -466,32 +498,13 @@ export function getFooterV5Code(config) {
         });
     });
     
-    // Newsletter form feedback
-    const form = document.querySelector('.newsletter-form');
-    if (form) {
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const btn = form.querySelector('.btn-subscribe');
-            const input = form.querySelector('.newsletter-input');
-            if (input.value) {
-                const originalText = btn.innerText;
-                btn.innerText = '${config.subscribedText}';
-                btn.style.backgroundColor = '${config.accentHover}';
-                setTimeout(() => {
-                    btn.innerText = originalText;
-                    btn.style.backgroundColor = '';
-                    input.value = '';
-                }, 3000);
-            }
-        });
-    }
 </script>
   `;
 }
 
 // Default export — React component used by the editor canvas
 export default function FooterV5({ config }) {
-  // This component only exists to satisfy the registry import.
-  // The editor renders via getCode() → iframe, not this JSX directly.
-  return null;
+    // This component only exists to satisfy the registry import.
+    // The editor renders via getCode() → iframe, not this JSX directly.
+    return null;
 }

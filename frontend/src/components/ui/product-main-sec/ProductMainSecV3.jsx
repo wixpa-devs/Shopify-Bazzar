@@ -1,87 +1,61 @@
 export function getProductMainSecV3Code(config = {}) {
-   const bgColor = config.bgColor || "#f0f0f0";
-   const colorTextMain = config.colorTextMain || "#1a1a1a";
-   const colorTextSecond = config.colorTextSecond || "#595959";
-   const colorTextLight = config.colorTextLight || "#888888";
-   const colorBorder = config.colorBorder || "#dcdcdc";
-   const colorBtnSolidBg = config.colorBtnSolidBg || "#1a1a1a";
-   const colorBtnSolidTx = config.colorBtnSolidTx || "#ffffff";
+  const bgColor = config.bgColor || "#f0f0f0";
+  const colorTextMain = config.colorTextMain || "#1a1a1a";
+  const colorTextSecond = config.colorTextSecond || "#595959";
+  const colorTextLight = config.colorTextLight || "#888888";
+  const colorBorder = config.colorBorder || "#dcdcdc";
+  const colorBtnSolidBg = config.colorBtnSolidBg || "#1a1a1a";
+  const colorBtnSolidTx = config.colorBtnSolidTx || "#ffffff";
 
-   const swatchDark = config.swatchDark || "#2c2e33";
-   const swatchIvory = config.swatchIvory || "#eee5d8";
-   const swatchOlive = config.swatchOlive || "#8f9e8b";
-   const swatchBlue = config.swatchBlue || "#aebbc5";
-   const swatchBlack = config.swatchBlack || "#000000";
-   const swatchCognac = config.swatchCognac || "#a0522d";
+  const swatchDark = config.swatchDark || "#2c2e33";
+  const swatchIvory = config.swatchIvory || "#eee5d8";
+  const swatchOlive = config.swatchOlive || "#8f9e8b";
+  const swatchBlue = config.swatchBlue || "#aebbc5";
+  const swatchBlack = config.swatchBlack || "#000000";
+  const swatchCognac = config.swatchCognac || "#a0522d";
 
-   const bestSellerLabel = config.bestSellerLabel || "Best Seller";
-   const productTitle = config.productTitle || "Le Grand Nova Ivory Liégé";
-   const productPrice = config.productPrice || "$450.00";
-   const ratingScore = config.ratingScore || "(4.7)";
-   const selectedColor = config.selectedColor || "Ivory Liégé";
-   const descriptionText =
-      config.descriptionText ||
-      "Flap 'Box' bag in calfskin, with secure brass push clasp. Back pocket. Interior lined in suede. Long and adjustable shoulder strap included. Inside pocket with bellows.";
-   const demoNoteText =
-      config.demoNoteText ||
-      "This is a demo store. To buy this product, visit Leo & Violette official store.";
-   const addToCartText = config.addToCartText || "Add to Cart";
-   const buyNowText = config.buyNowText || "Buy it Now";
+  const bestSellerLabel = config.bestSellerLabel || "Best Seller";
+  const productTitle = config.productTitle || "Le Grand Nova Ivory Liégé";
+  const productPrice = config.productPrice || "$450.00";
+  const ratingScore = config.ratingScore || "(4.7)";
+  const selectedColor = config.selectedColor || "Ivory Liégé";
+  const descriptionText = config.descriptionText || "Flap 'Box' bag in calfskin, with secure brass push clasp. Back pocket. Interior lined in suede. Long and adjustable shoulder strap included. Inside pocket with bellows.";
+  const demoNoteText = config.demoNoteText || "This is a demo store. To buy this product, visit Leo & Violette official store.";
+  const addToCartText = config.addToCartText || "Add to Cart";
+  const buyNowText = config.buyNowText || "Buy it Now";
 
-   const feature1Icon = config.feature1Icon || "fa-bag-shopping";
-   const feature1Text = config.feature1Text || "Shoulder bags";
-   const feature2Icon = config.feature2Icon || "fa-scroll";
-   const feature2Text = config.feature2Text || "Full Grain Leather";
-   const feature3Icon = config.feature3Icon || "fa-sliders";
-   const feature3Text = config.feature3Text || "Adjustable strap";
-   const feature4Icon = config.feature4Icon || "fa-location-dot";
-   const feature4Text = config.feature4Text || "Handmade in Italy";
+  const feature1Icon = config.feature1Icon || "fa-bag-shopping";
+  const feature1Text = config.feature1Text || "Shoulder bags";
+  const feature2Icon = config.feature2Icon || "fa-scroll";
+  const feature2Text = config.feature2Text || "Full Grain Leather";
+  const feature3Icon = config.feature3Icon || "fa-sliders";
+  const feature3Text = config.feature3Text || "Adjustable strap";
+  const feature4Icon = config.feature4Icon || "fa-location-dot";
+  const feature4Text = config.feature4Text || "Handmade in Italy";
 
-   const accordionTitle = config.accordionTitle || "More Information";
-   const accordionBody =
-      config.accordionBody ||
-      "<strong>Dimensions:</strong> 24cm x 19cm x 7cm<br><strong>Weight:</strong> 0.6 kg<br><strong>Material:</strong> Italian Calfskin Leather<br><strong>Hardware:</strong> Gold-tone brass<br><strong>Care:</strong> Clean with a soft, dry cloth.";
+  const accordionTitle = config.accordionTitle || "More Information";
+  const accordionBody = config.accordionBody || "<strong>Dimensions:</strong> 24cm x 19cm x 7cm<br><strong>Weight:</strong> 0.6 kg<br><strong>Material:</strong> Italian Calfskin Leather<br><strong>Hardware:</strong> Gold-tone brass<br><strong>Care:</strong> Clean with a soft, dry cloth.";
 
-   const thumb1Url =
-      config.thumb1Url ||
-      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80";
-   const thumb1Full =
-      config.thumb1Full ||
-      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
-   const thumb1Alt = config.thumb1Alt || "Bag Front";
-   const thumb2Url =
-      config.thumb2Url ||
-      "https://images.unsplash.com/photo-1591561954557-26941169b49e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80";
-   const thumb2Full =
-      config.thumb2Full ||
-      "https://images.unsplash.com/photo-1591561954557-26941169b49e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
-   const thumb2Alt = config.thumb2Alt || "Bag Side";
-   const thumb3Url =
-      config.thumb3Url ||
-      "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80";
-   const thumb3Full =
-      config.thumb3Full ||
-      "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
-   const thumb3Alt = config.thumb3Alt || "Bag Detail";
-   const thumb4Url =
-      config.thumb4Url ||
-      "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80";
-   const thumb4Full =
-      config.thumb4Full ||
-      "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
-   const thumb4Alt = config.thumb4Alt || "Model with Bag";
-   const thumb5Url =
-      config.thumb5Url ||
-      "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80";
-   const thumb5Full =
-      config.thumb5Full ||
-      "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
-   const thumb5Alt = config.thumb5Alt || "Lifestyle";
+  const thumb1Url = config.thumb1Url || "https://images.unsplash.com/photo-1584917865442-de89df76afd3?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80";
+  const thumb1Full = config.thumb1Full || "https://images.unsplash.com/photo-1584917865442-de89df76afd3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
+  const thumb1Alt = config.thumb1Alt || "Bag Front";
+  const thumb2Url = config.thumb2Url || "https://images.unsplash.com/photo-1591561954557-26941169b49e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80";
+  const thumb2Full = config.thumb2Full || "https://images.unsplash.com/photo-1591561954557-26941169b49e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
+  const thumb2Alt = config.thumb2Alt || "Bag Side";
+  const thumb3Url = config.thumb3Url || "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80";
+  const thumb3Full = config.thumb3Full || "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
+  const thumb3Alt = config.thumb3Alt || "Bag Detail";
+  const thumb4Url = config.thumb4Url || "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80";
+  const thumb4Full = config.thumb4Full || "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
+  const thumb4Alt = config.thumb4Alt || "Model with Bag";
+  const thumb5Url = config.thumb5Url || "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80";
+  const thumb5Full = config.thumb5Full || "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
+  const thumb5Alt = config.thumb5Alt || "Lifestyle";
 
-   return `<!-- Product Main Section V3 — Luxury Bag | Shopify Bazzar -->
+  return `<!-- Product Main Section V3 — Luxury Bag | Shopify Bazzar -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
@@ -102,7 +76,7 @@ export function getProductMainSecV3Code(config = {}) {
     --pms3-swatch-cognac: ${swatchCognac};
   }
 
-  .pms3-wrap * {
+  .pms3-wrap *, .pms3-wrap *::before, .pms3-wrap *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -116,9 +90,9 @@ export function getProductMainSecV3Code(config = {}) {
     -webkit-font-smoothing: antialiased;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     min-height: 100vh;
-    padding: 20px;
+    padding: 40px 20px;
   }
 
   .pms3-product-container {
@@ -130,8 +104,10 @@ export function getProductMainSecV3Code(config = {}) {
     background-color: var(--pms3-bg-color);
   }
 
+  /* ── GALLERY ── */
   .pms3-gallery-wrapper {
     display: flex;
+    flex-direction: row;
     gap: 20px;
     align-items: flex-start;
   }
@@ -152,6 +128,7 @@ export function getProductMainSecV3Code(config = {}) {
     border: 1px solid transparent;
     transition: border-color 0.2s;
     background-color: #fff;
+    display: block;
   }
 
   .pms3-thumb:hover,
@@ -166,6 +143,7 @@ export function getProductMainSecV3Code(config = {}) {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
   }
 
   .pms3-main-image {
@@ -174,8 +152,11 @@ export function getProductMainSecV3Code(config = {}) {
     object-fit: contain;
     max-height: 600px;
     mix-blend-mode: multiply;
+    transition: opacity 0.15s ease;
+    display: block;
   }
 
+  /* ── PRODUCT DETAILS ── */
   .pms3-product-details {
     padding-top: 20px;
     display: flex;
@@ -243,25 +224,19 @@ export function getProductMainSecV3Code(config = {}) {
     margin: 10px 0;
   }
 
-  .pms3-color-selection {
-    margin-bottom: 10px;
-  }
+  .pms3-color-selection { margin-bottom: 10px; }
 
   .pms3-color-label {
     font-size: 0.85rem;
     color: var(--pms3-text-secondary);
     margin-bottom: 10px;
   }
-
   .pms3-color-label span {
     color: var(--pms3-text-main);
     font-weight: 600;
   }
 
-  .pms3-swatches {
-    display: flex;
-    gap: 10px;
-  }
+  .pms3-swatches { display: flex; gap: 10px; flex-wrap: wrap; }
 
   .pms3-swatch {
     width: 24px;
@@ -269,19 +244,19 @@ export function getProductMainSecV3Code(config = {}) {
     cursor: pointer;
     border: 1px solid rgba(0,0,0,0.1);
     position: relative;
+    flex-shrink: 0;
   }
-
   .pms3-swatch.selected {
     outline: 1px solid var(--pms3-text-main);
     outline-offset: 3px;
   }
 
-  .pms3-swatch-dark    { background-color: var(--pms3-swatch-dark); }
-  .pms3-swatch-ivory   { background-color: var(--pms3-swatch-ivory); }
-  .pms3-swatch-olive   { background-color: var(--pms3-swatch-olive); }
-  .pms3-swatch-blue    { background-color: var(--pms3-swatch-blue); }
-  .pms3-swatch-black   { background-color: var(--pms3-swatch-black); }
-  .pms3-swatch-cognac  { background-color: var(--pms3-swatch-cognac); }
+  .pms3-swatch-dark   { background-color: var(--pms3-swatch-dark); }
+  .pms3-swatch-ivory  { background-color: var(--pms3-swatch-ivory); }
+  .pms3-swatch-olive  { background-color: var(--pms3-swatch-olive); }
+  .pms3-swatch-blue   { background-color: var(--pms3-swatch-blue); }
+  .pms3-swatch-black  { background-color: var(--pms3-swatch-black); }
+  .pms3-swatch-cognac { background-color: var(--pms3-swatch-cognac); }
 
   .pms3-description {
     font-size: 0.85rem;
@@ -322,7 +297,6 @@ export function getProductMainSecV3Code(config = {}) {
     border: 1px solid #ccc;
     color: var(--pms3-text-main);
   }
-
   .pms3-btn-outline:hover {
     border-color: var(--pms3-text-main);
   }
@@ -332,7 +306,6 @@ export function getProductMainSecV3Code(config = {}) {
     border: 1px solid ${colorBtnSolidBg};
     color: ${colorBtnSolidTx};
   }
-
   .pms3-btn-solid:hover {
     background-color: #333;
     border-color: #333;
@@ -356,19 +329,18 @@ export function getProductMainSecV3Code(config = {}) {
     color: var(--pms3-text-secondary);
     font-family: var(--pms3-font-body);
   }
-
   .pms3-feature-item i {
     font-size: 0.9rem;
     color: #999;
     width: 16px;
     text-align: center;
+    flex-shrink: 0;
   }
 
   .pms3-accordion {
     border-top: 1px solid #e0e0e0;
     border-bottom: 1px solid #e0e0e0;
   }
-
   .pms3-accordion-header {
     padding: 15px 0;
     display: flex;
@@ -381,10 +353,7 @@ export function getProductMainSecV3Code(config = {}) {
     text-transform: uppercase;
     color: var(--pms3-text-secondary);
   }
-
-  .pms3-accordion-header:hover {
-    color: var(--pms3-text-main);
-  }
+  .pms3-accordion-header:hover { color: var(--pms3-text-main); }
 
   .pms3-accordion-content {
     max-height: 0;
@@ -393,53 +362,209 @@ export function getProductMainSecV3Code(config = {}) {
     font-size: 0.8rem;
     color: var(--pms3-text-secondary);
   }
-
-  .pms3-accordion-content p {
-    padding-bottom: 15px;
-  }
+  .pms3-accordion-content p { padding-bottom: 15px; }
 
   .pms3-accordion-icon {
     font-size: 0.7rem;
     transition: transform 0.3s ease;
+    flex-shrink: 0;
   }
+  .pms3-accordion.active .pms3-accordion-icon { transform: rotate(180deg); }
+  .pms3-accordion.active .pms3-accordion-content { max-height: 200px; }
 
-  .pms3-accordion.active .pms3-accordion-icon {
-    transform: rotate(180deg);
-  }
+  /* ══════════════════════════════════════════════════════
+     RESPONSIVE BREAKPOINTS
+     Mobile  : < 480px   — single column, compact spacing
+     Mobile L: 480–639px — single column, slightly more room
+     Tablet  : 640–899px — single column, side-by-side thumbs
+     Tablet L: 900–1023px — two columns, narrower gap
+     Desktop : 1024px+  — full two-column layout
+  ══════════════════════════════════════════════════════ */
 
-  .pms3-accordion.active .pms3-accordion-content {
-    max-height: 200px;
-  }
-
-  @media (max-width: 900px) {
+  /* ── < 480px : small phones ── */
+  @media (max-width: 479px) {
+    .pms3-wrap {
+      padding: 16px 12px;
+      align-items: flex-start;
+    }
     .pms3-product-container {
       grid-template-columns: 1fr;
-      gap: 40px;
+      gap: 24px;
     }
+
+    /* Gallery: thumbnails below main image, scrollable row */
     .pms3-gallery-wrapper {
-      flex-direction: column-reverse;
+      flex-direction: column;
+      gap: 12px;
     }
     .pms3-thumbnails {
       flex-direction: row;
       width: 100%;
-      justify-content: center;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      gap: 8px;
+      padding-bottom: 4px;
     }
+    .pms3-thumbnails::-webkit-scrollbar { display: none; }
     .pms3-thumb {
-      width: 60px;
-      height: 60px;
+      width: 52px;
+      height: 52px;
+      flex-shrink: 0;
+      aspect-ratio: 1;
     }
-  }
+    .pms3-main-image {
+      max-height: 320px;
+    }
 
-  @media (max-width: 480px) {
-    .pms3-wrap {
-      padding: 10px;
+    /* Details */
+    .pms3-product-details {
+      padding-top: 0;
+      gap: 14px;
     }
     .pms3-product-title {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
     }
     .pms3-features-grid {
       grid-template-columns: 1fr;
+      gap: 8px;
     }
+    .pms3-btn {
+      padding: 14px;
+      font-size: 0.7rem;
+    }
+    .pms3-actions { margin-bottom: 20px; }
+    .pms3-description { font-size: 0.82rem; }
+  }
+
+  /* ── 480–639px : large phones / small landscape ── */
+  @media (min-width: 480px) and (max-width: 639px) {
+    .pms3-wrap { padding: 20px 16px; }
+    .pms3-product-container {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .pms3-gallery-wrapper {
+      flex-direction: column;
+      gap: 14px;
+    }
+    .pms3-thumbnails {
+      flex-direction: row;
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      gap: 10px;
+    }
+    .pms3-thumbnails::-webkit-scrollbar { display: none; }
+    .pms3-thumb {
+      width: 60px;
+      height: 60px;
+      flex-shrink: 0;
+      aspect-ratio: 1;
+    }
+    .pms3-main-image { max-height: 380px; }
+
+    .pms3-product-details { padding-top: 0; gap: 16px; }
+    .pms3-product-title { font-size: 1.2rem; }
+    .pms3-features-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  }
+
+  /* ── 640–899px : tablet portrait ── */
+  @media (min-width: 640px) and (max-width: 899px) {
+    .pms3-wrap { padding: 32px 24px; }
+    .pms3-product-container {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+
+    /* Side-by-side thumbs below main image */
+    .pms3-gallery-wrapper {
+      flex-direction: column;
+      gap: 16px;
+    }
+    .pms3-thumbnails {
+      flex-direction: row;
+      width: 100%;
+      justify-content: flex-start;
+      gap: 12px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .pms3-thumbnails::-webkit-scrollbar { display: none; }
+    .pms3-thumb {
+      width: 70px;
+      height: 70px;
+      flex-shrink: 0;
+      aspect-ratio: 1;
+    }
+    .pms3-main-image { max-height: 480px; }
+
+    .pms3-product-details { padding-top: 0; gap: 18px; }
+    .pms3-product-title { font-size: 1.35rem; }
+    .pms3-features-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  }
+
+  /* ── 900–1023px : tablet landscape — two-column layout ── */
+  @media (min-width: 900px) and (max-width: 1023px) {
+    .pms3-wrap { padding: 36px 28px; }
+    .pms3-product-container {
+      grid-template-columns: 1.1fr 1fr;
+      gap: 36px;
+    }
+
+    /* Vertical thumbs on the left — original desktop layout */
+    .pms3-gallery-wrapper {
+      flex-direction: row;
+      gap: 14px;
+    }
+    .pms3-thumbnails {
+      flex-direction: column;
+      width: 68px;
+      gap: 12px;
+      overflow-x: unset;
+    }
+    .pms3-thumb {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1;
+    }
+    .pms3-main-image { max-height: 500px; }
+
+    .pms3-product-details { padding-top: 10px; gap: 18px; }
+    .pms3-product-title { font-size: 1.35rem; }
+    .pms3-features-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ── 1024px+ : desktop — full layout ── */
+  @media (min-width: 1024px) {
+    .pms3-wrap { padding: 40px 20px; align-items: center; }
+    .pms3-product-container {
+      grid-template-columns: 1.2fr 1fr;
+      gap: 60px;
+    }
+    .pms3-gallery-wrapper {
+      flex-direction: row;
+      gap: 20px;
+    }
+    .pms3-thumbnails {
+      flex-direction: column;
+      width: 80px;
+      gap: 15px;
+      overflow-x: unset;
+    }
+    .pms3-thumb {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1;
+    }
+    .pms3-main-image { max-height: 600px; }
+    .pms3-product-details { padding-top: 20px; gap: 20px; }
+    .pms3-product-title { font-size: 1.5rem; }
+    .pms3-features-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
   }
 </style>
 
@@ -484,19 +609,16 @@ export function getProductMainSecV3Code(config = {}) {
       <div class="pms3-color-selection">
         <div class="pms3-color-label">Color: <span id="pms3SelectedColorName">${selectedColor}</span></div>
         <div class="pms3-swatches">
-          <div class="pms3-swatch pms3-swatch-dark"   data-color="Dark Grey"    onclick="pms3SelectColor(this)"></div>
-          <div class="pms3-swatch pms3-swatch-ivory selected" data-color="${selectedColor}" onclick="pms3SelectColor(this)"></div>
-          <div class="pms3-swatch pms3-swatch-olive"  data-color="Olive Green"  onclick="pms3SelectColor(this)"></div>
-          <div class="pms3-swatch pms3-swatch-blue"   data-color="Blue Grey"    onclick="pms3SelectColor(this)"></div>
-          <div class="pms3-swatch pms3-swatch-black"  data-color="Black"        onclick="pms3SelectColor(this)"></div>
-          <div class="pms3-swatch pms3-swatch-cognac" data-color="Cognac"       onclick="pms3SelectColor(this)"></div>
+          <div class="pms3-swatch pms3-swatch-dark"            data-color="Dark Grey"       onclick="pms3SelectColor(this)"></div>
+          <div class="pms3-swatch pms3-swatch-ivory selected"  data-color="${selectedColor}" onclick="pms3SelectColor(this)"></div>
+          <div class="pms3-swatch pms3-swatch-olive"           data-color="Olive Green"     onclick="pms3SelectColor(this)"></div>
+          <div class="pms3-swatch pms3-swatch-blue"            data-color="Blue Grey"       onclick="pms3SelectColor(this)"></div>
+          <div class="pms3-swatch pms3-swatch-black"           data-color="Black"           onclick="pms3SelectColor(this)"></div>
+          <div class="pms3-swatch pms3-swatch-cognac"          data-color="Cognac"          onclick="pms3SelectColor(this)"></div>
         </div>
       </div>
 
-      <div class="pms3-description">
-        <p>${descriptionText}</p>
-      </div>
-
+      <div class="pms3-description"><p>${descriptionText}</p></div>
       <div class="pms3-demo-note">${demoNoteText}</div>
 
       <div class="pms3-actions">
@@ -506,20 +628,16 @@ export function getProductMainSecV3Code(config = {}) {
 
       <div class="pms3-features-grid">
         <div class="pms3-feature-item">
-          <i class="fa-solid ${feature1Icon}"></i>
-          <span>${feature1Text}</span>
+          <i class="fa-solid ${feature1Icon}"></i><span>${feature1Text}</span>
         </div>
         <div class="pms3-feature-item">
-          <i class="fa-solid ${feature2Icon}"></i>
-          <span>${feature2Text}</span>
+          <i class="fa-solid ${feature2Icon}"></i><span>${feature2Text}</span>
         </div>
         <div class="pms3-feature-item">
-          <i class="fa-solid ${feature3Icon}"></i>
-          <span>${feature3Text}</span>
+          <i class="fa-solid ${feature3Icon}"></i><span>${feature3Text}</span>
         </div>
         <div class="pms3-feature-item">
-          <i class="fa-solid ${feature4Icon}"></i>
-          <span>${feature4Text}</span>
+          <i class="fa-solid ${feature4Icon}"></i><span>${feature4Text}</span>
         </div>
       </div>
 
@@ -533,8 +651,8 @@ export function getProductMainSecV3Code(config = {}) {
         </div>
       </div>
       <div class="pms3-divider" style="margin-top:0;"></div>
-
     </div>
+
   </main>
 </div>
 
@@ -581,5 +699,5 @@ export function getProductMainSecV3Code(config = {}) {
 }
 
 export default function ProductMainSecV3({ config }) {
-   return null;
+  return null;
 }

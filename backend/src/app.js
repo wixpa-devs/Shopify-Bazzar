@@ -4,6 +4,7 @@ import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import cookieParser from "cookie-parser";
 import { accessRouter } from "./routes/access.routes.js";
+import { shopifyRouter } from "./routes/shopify.routes.js";
 import { isOriginAllowed } from "./config.js";
 import { logCorsDecision } from "./envDebug.js";
 
@@ -52,6 +53,7 @@ export function createApp() {
   });
 
   app.use("/api/access", accessRouter(express));
+  app.use("/api/shopify", shopifyRouter);
 
   // 404 handler
   app.use((req, res) => {

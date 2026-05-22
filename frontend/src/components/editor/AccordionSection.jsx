@@ -19,13 +19,12 @@ const subtitleCls =
    "text-[0.71rem] text-[#9ca3af] font-[var(--inter-font)] whitespace-nowrap overflow-hidden text-ellipsis";
 
 const bodyOpen =
-   "pl-[58px] pr-4 pb-4 pt-1 max-h-[700px] overflow-hidden transition-[max-height,padding] duration-[280ms] ease-[ease]";
+   "pl-[58px] pr-4 pb-4 pt-1 max-h-auto overflow-hidden transition-[max-height,padding] duration-[280ms] ease-[ease]";
 const bodyClosed =
    "pl-[58px] pr-4 pb-0 pt-0 max-h-0 overflow-hidden transition-[max-height,padding] duration-[280ms] ease-[ease]";
 
 const getChevronCls = (isOpen) =>
-   `w-5 h-5 flex items-center justify-center rounded-[4px] flex-shrink-0 transition-all duration-150 ${
-      isOpen ? "bg-[#eff6ff] text-[#3b82f6]" : "bg-transparent text-[#9ca3af]"
+   `w-5 h-5 flex items-center justify-center rounded-[4px] flex-shrink-0 transition-all duration-150 ${isOpen ? "bg-[#eff6ff] text-[#3b82f6]" : "bg-transparent text-[#9ca3af]"
    }`;
 
 // Control atoms
@@ -54,57 +53,172 @@ const colorHex = [
    "transition-[border-color,box-shadow,background] duration-150",
    "focus:border-[#3b82f6] focus:shadow-[0_0_0_3px_rgba(59,130,246,0.1)] focus:bg-white",
 ].join(" ");
+const helperText = "mt-1 text-[0.68rem] text-[#6b7280] font-[var(--inter-font)]";
+
+const IMAGE_KEY_RE =
+   /(image|img|thumb|thumbnail|avatar|photo|picture|icon)/i;
+const IMAGE_URL_KEY_RE = /(image.*url|img.*url|logoimage|iconimage)/i;
+const IMAGE_ALT_RE = /(alt|alternative)/i;
+const NON_IMAGE_URL_RE = /(btn|button|link|badge|logo).*url/i;
 
 // ── Control renderer ──────────────────────────────────────────
 
-const Control = memo(({ ctrl, value, onChange }) => (
-   <div className={ctrlWrap}>
-      <label className={ctrlLabel}>{ctrl.label}</label>
+const readFileAsDataUrl = (file) =>
+   new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(typeof reader.result === "string" ? reader.result : "");
+      reader.onerror = () => reject(new Error("Failed to read file"));
+      reader.readAsDataURL(file);
+   });
 
-      {ctrl.type === "text" && (
-         <input
-            className={textInput}
-            type="text"
-            value={value ?? ""}
-            onChange={(e) => onChange(ctrl.key, e.target.value)}
-            placeholder={`Enter ${ctrl.label.toLowerCase()}…`}
-         />
-      )}
+const Control = memo(({ ctrl, value, onChange }) => {
+   const key = (ctrl.key || "").toLowerCase();
+   const label = (ctrl.label || "").toLowerCase();
+   const isImageField =
+      IMAGE_KEY_RE.test(key) &&
+      !IMAGE_ALT_RE.test(key) &&
+      !NON_IMAGE_URL_RE.test(key) &&
+      !IMAGE_ALT_RE.test(label);
 
-      {ctrl.type === "color" && (
-         <div className={colorRow}>
-            <input
-               className={colorPicker}
-               type="color"
-               value={value ?? "#000000"}
-               onChange={(e) => onChange(ctrl.key, e.target.value)}
-            />
-            <input
-               className={colorHex}
-               type="text"
+   const isVideoField =
+      /(video.*url|video.*src|videourl|videosrc)/i.test(key) &&
+      !/(thumb|poster|image|img)/i.test(key) &&
+      !IMAGE_ALT_RE.test(key) &&
+      !NON_IMAGE_URL_RE.test(key) &&
+      !IMAGE_ALT_RE.test(label);
+
+   return (
+      <div className={ctrlWrap}>
+         <label className={ctrlLabel}>{ctrl.label}</label>
+
+         {ctrl.type === "text" && (
+            <>
+               <input
+                  className={textInput}
+                  type="text"
+                  value={value ?? ""}
+                  onChange={(e) => onChange(ctrl.key, e.target.value)}
+                  placeholder={`Enter ${ctrl.label.toLowerCase()}…`}
+               />
+               {isImageField && (
+                  <>
+                     <input
+                        className={`${textInput} mt-2`}
+                        type="file"
+                        accept="image/*"
+                        onChange={async (e) => {
+                           const file = e.target.files?.[0];
+                           if (!file) return;
+                           try {
+                              const dataUrl = await readFileAsDataUrl(file);
+                              if (dataUrl) onChange(ctrl.key, dataUrl);
+                           } catch (err) {
+                              console.error("Image upload failed:", err);
+                           } finally {
+                              e.target.value = "";
+                           }
+                        }}
+                     />
+                     <p className={helperText}>
+                        Paste an image URL or upload a file.
+                     </p>
+                  </>
+               )}
+               {isVideoField && (
+                  <>
+                     <input
+                        className={`${textInput} mt-2`}
+                        type="file"
+                        accept="video/*"
+                        onChange={async (e) => {
+                           const file = e.target.files?.[0];
+                           if (!file) return;
+                           try {
+                              const dataUrl = await readFileAsDataUrl(file);
+                              if (dataUrl) onChange(ctrl.key, dataUrl);
+                           } catch (err) {
+                              console.error("Video upload failed:", err);
+                           } finally {
+                              e.target.value = "";
+                           }
+                        }}
+                     />
+                     <p className={helperText}>
+                        Paste a video URL or upload a file.
+                     </p>
+                  </>
+               )}
+            </>
+         )}
+
+         {ctrl.type === "textarea" && (
+            <textarea
+               className={textInput}
+               rows={4}
                value={value ?? ""}
                onChange={(e) => onChange(ctrl.key, e.target.value)}
-               placeholder="#000000"
-               maxLength={9}
+               placeholder={`Enter ${ctrl.label.toLowerCase()}…`}
             />
-         </div>
-      )}
+         )}
 
-      {ctrl.type === "select" && (
-         <select
-            className={selectInput}
-            value={value ?? ""}
-            onChange={(e) => onChange(ctrl.key, e.target.value)}
-         >
-            {ctrl.options.map((opt) => (
-               <option key={opt} value={opt}>
-                  {opt}
-               </option>
-            ))}
-         </select>
-      )}
-   </div>
-));
+         {ctrl.type === "image-upload" && (
+            <>
+               <input
+                  className={textInput}
+                  type="file"
+                  accept="image/*"
+                  onChange={async (e) => {
+                     const file = e.target.files?.[0];
+                     if (!file) return;
+                     try {
+                        const dataUrl = await readFileAsDataUrl(file);
+                        if (dataUrl) onChange(ctrl.key, dataUrl);
+                     } catch (err) {
+                        console.error("Image upload failed:", err);
+                     } finally {
+                        e.target.value = "";
+                     }
+                  }}
+               />
+               <p className={helperText}>Upload a logo image file.</p>
+            </>
+         )}
+
+         {ctrl.type === "color" && (
+            <div className={colorRow}>
+               <input
+                  className={colorPicker}
+                  type="color"
+                  value={value ?? "#000000"}
+                  onChange={(e) => onChange(ctrl.key, e.target.value)}
+               />
+               <input
+                  className={colorHex}
+                  type="text"
+                  value={value ?? ""}
+                  onChange={(e) => onChange(ctrl.key, e.target.value)}
+                  placeholder="#000000"
+                  maxLength={9}
+               />
+            </div>
+         )}
+
+         {ctrl.type === "select" && (
+            <select
+               className={selectInput}
+               value={value ?? ""}
+               onChange={(e) => onChange(ctrl.key, e.target.value)}
+            >
+               {ctrl.options.map((opt) => (
+                  <option key={opt} value={opt}>
+                     {opt}
+                  </option>
+               ))}
+            </select>
+         )}
+      </div>
+   );
+});
 
 Control.displayName = "Control";
 
@@ -139,9 +253,8 @@ const AccordionSection = memo(({ acc, isOpen, onToggle, config, onUpdate }) => {
             <div className={getChevronCls(isOpen)}>
                <ChevronDown
                   size={12}
-                  className={`transition-transform duration-200 ${
-                     isOpen ? "rotate-180" : "rotate-0"
-                  }`}
+                  className={`transition-transform duration-200 ${isOpen ? "rotate-180" : "rotate-0"
+                     }`}
                />
             </div>
          </button>

@@ -11,27 +11,27 @@ export function getCollectionSliderV2Code(config = {}) {
   const card1LinkUrl = config.card1LinkUrl || "#";
   const card1Heading = config.card1Heading || "Welcome";
   const card1Body = config.card1Body || "Discover new sales & fitness updates everyday.";
-  const card1Img1 = config.card1Img1 || "https://picsum.photos/400/300?random=1";
-  const card1Img2 = config.card1Img2 || "https://picsum.photos/400/300?random=2";
-  const card1Img3 = config.card1Img3 || "https://picsum.photos/400/300?random=3";
+  const card1Img1 = config.card1CollectionUrl || config.card1Img1 || "https://picsum.photos/400/300?random=1";
+  const card1Img2 = config.card1CollectionUrl || config.card1Img2 || "https://picsum.photos/400/300?random=2";
+  const card1Img3 = config.card1CollectionUrl || config.card1Img3 || "https://picsum.photos/400/300?random=3";
 
   const card2Label = config.card2Label || "Numero2";
   const card2LinkText = config.card2LinkText || "SHOP NOW";
   const card2LinkUrl = config.card2LinkUrl || "#";
   const card2Heading = config.card2Heading || "Browse";
   const card2Body = config.card2Body || "Find all best deals in one place.";
-  const card2Img1 = config.card2Img1 || "https://picsum.photos/400/300?random=4";
-  const card2Img2 = config.card2Img2 || "https://picsum.photos/400/300?random=5";
-  const card2Img3 = config.card2Img3 || "https://picsum.photos/400/300?random=6";
+  const card2Img1 = config.card2CollectionUrl || config.card2Img1 || "https://picsum.photos/400/300?random=4";
+  const card2Img2 = config.card2CollectionUrl || config.card2Img2 || "https://picsum.photos/400/300?random=5";
+  const card2Img3 = config.card2CollectionUrl || config.card2Img3 || "https://picsum.photos/400/300?random=6";
 
   const card3Label = config.card3Label || "Numero3";
   const card3LinkText = config.card3LinkText || "SHOP NOW";
   const card3LinkUrl = config.card3LinkUrl || "#";
   const card3Heading = config.card3Heading || "Ready, set..";
   const card3Body = config.card3Body || "Find the perfect fit for you.";
-  const card3Img1 = config.card3Img1 || "https://picsum.photos/400/300?random=7";
-  const card3Img2 = config.card3Img2 || "https://picsum.photos/400/300?random=8";
-  const card3Img3 = config.card3Img3 || "https://picsum.photos/400/300?random=9";
+  const card3Img1 = config.card3CollectionUrl || config.card3Img1 || "https://picsum.photos/400/300?random=7";
+  const card3Img2 = config.card3CollectionUrl || config.card3Img2 || "https://picsum.photos/400/300?random=8";
+  const card3Img3 = config.card3CollectionUrl || config.card3Img3 || "https://picsum.photos/400/300?random=9";
 
   return `
 <style>

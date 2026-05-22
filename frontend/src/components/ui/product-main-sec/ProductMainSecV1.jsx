@@ -1,50 +1,50 @@
 export function getProductMainSecV1Code(config = {}) {
-   const bgColor = config.bgColor || "#ffffff";
-   const textMain = config.textMain || "#4a4a4a";
-   const textLight = config.textLight || "#888888";
-   const accentColor = config.accentColor || "#6e817d";
-   const accentHover = config.accentHover || "#5a6b67";
-   const borderColor = config.borderColor || "#e6e6e6";
-   const productTitle = config.productTitle || "Heather Gray Long Sleeve Tunic";
-   const productPrice = config.productPrice || "$32";
-   const colorLabel = config.colorLabel || "Heather Gray";
-   const descriptionText =
-      config.descriptionText ||
-      "It only takes this Heather Gray PIKO Long Sleeve Tunic to jump start your outfit. Fluid in execution, this tunic has a natural carefree fit as it glides along the torso to the mid-thigh. A scooping rounded neckline adds a softness that every Original PIKO Tunic has.";
-   const shippingText =
-      config.shippingText ||
-      "We offer free worldwide shipping on all orders over $50. Standard shipping takes 5-7 business days. Express shipping options are available at checkout.";
-   const addToCartText = config.addToCartText || "Add to Cart";
-   const buyNowText = config.buyNowText || "Buy it Now";
-   const demoText =
-      config.demoText ||
-      "This is a demonstration store. You can purchase products like this from PIKO.";
-   const img1 =
-      config.img1 ||
-      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80";
-   const img1Thumb =
-      config.img1Thumb ||
-      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80";
-   const img2 =
-      config.img2 ||
-      "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80";
-   const img2Thumb =
-      config.img2Thumb ||
-      "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80";
-   const img3 =
-      config.img3 ||
-      "https://images.unsplash.com/photo-1509631179647-0177331693ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80";
-   const img3Thumb =
-      config.img3Thumb ||
-      "https://images.unsplash.com/photo-1509631179647-0177331693ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80";
-   const facebookUrl = config.facebookUrl || "#";
-   const twitterUrl = config.twitterUrl || "#";
-   const pinterestUrl = config.pinterestUrl || "#";
+  const bgColor = config.bgColor || "#ffffff";
+  const textMain = config.textMain || "#4a4a4a";
+  const textLight = config.textLight || "#888888";
+  const accentColor = config.accentColor || "#6e817d";
+  const accentHover = config.accentHover || "#5a6b67";
+  const borderColor = config.borderColor || "#e6e6e6";
+  const productTitle = config.productTitle || "Heather Gray Long Sleeve Tunic";
+  const productPrice = config.productPrice || "$32";
+  const colorLabel = config.colorLabel || "Heather Gray";
+  const descriptionText =
+    config.descriptionText ||
+    "It only takes this Heather Gray PIKO Long Sleeve Tunic to jump start your outfit. Fluid in execution, this tunic has a natural carefree fit as it glides along the torso to the mid-thigh. A scooping rounded neckline adds a softness that every Original PIKO Tunic has.";
+  const shippingText =
+    config.shippingText ||
+    "We offer free worldwide shipping on all orders over $50. Standard shipping takes 5-7 business days. Express shipping options are available at checkout.";
+  const addToCartText = config.addToCartText || "Add to Cart";
+  const buyNowText = config.buyNowText || "Buy it Now";
+  const demoText =
+    config.demoText ||
+    "This is a demonstration store. You can purchase products like this from PIKO.";
+  const img1 =
+    config.img1 ||
+    "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80";
+  const img1Thumb =
+    config.img1Thumb ||
+    "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80";
+  const img2 =
+    config.img2 ||
+    "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80";
+  const img2Thumb =
+    config.img2Thumb ||
+    "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80";
+  const img3 =
+    config.img3 ||
+    "https://images.unsplash.com/photo-1509631179647-0177331693ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80";
+  const img3Thumb =
+    config.img3Thumb ||
+    "https://images.unsplash.com/photo-1509631179647-0177331693ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80";
+  const facebookUrl = config.facebookUrl || "#";
+  const twitterUrl = config.twitterUrl || "#";
+  const pinterestUrl = config.pinterestUrl || "#";
 
-   return `<!-- Product Main Section V1 — Classic | Shopify Bazzar -->
+  return `<!-- Product Main Section V1 — Classic | Shopify Bazzar -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
@@ -520,5 +520,5 @@ export function getProductMainSecV1Code(config = {}) {
 }
 
 export default function ProductMainSecV1({ config }) {
-   return null;
+  return null;
 }

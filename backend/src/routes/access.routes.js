@@ -83,6 +83,27 @@ export const accessRouter = (express) => {
     }),
   );
 
+  router.post(
+    "/newsletter",
+    asyncHandler(async (req, res) => {
+      const parsed = emailSchema.safeParse(req.body?.email);
+      if (!parsed.success) {
+        return res.status(400).json({
+          error: parsed.error.issues?.[0]?.message || "Invalid email.",
+        });
+      }
+
+      const email = parsed.data.toLowerCase();
+      await Subscriber.findOneAndUpdate(
+        { email },
+        { $setOnInsert: { email } },
+        { upsert: true, new: true },
+      ).exec();
+
+      return res.json({ ok: true });
+    }),
+  );
+
   return router;
 };
 

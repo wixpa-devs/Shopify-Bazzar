@@ -29,11 +29,8 @@ export function getSliderV1Code(config = {}) {
 
   return `<style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { height: 100%; overflow: hidden; background: #111; }
-  body { font-family: 'Open Sans', Arial, sans-serif; cursor: grab; user-select: none; }
-  body.dragging { cursor: grabbing; }
-
-  .sc { position: relative; width: 100%; height: 100vh; overflow: hidden; }
+  .sc { position: relative; width: 100%; height: 100vh; overflow: hidden; background: #111; font-family: inherit; cursor: grab; user-select: none; }
+  .sc.dragging { cursor: grabbing; }
 
   /* Slides */
   .sc-track {
@@ -192,10 +189,45 @@ export function getSliderV1Code(config = {}) {
   .sc-ctrl.disabled { cursor: default; }
 
   @media (max-width: 700px) {
-    .sc-text { width: 80%; left: 50%; bottom: 0; transform: translate(-50%, 28px); text-align: center; min-width: unset; }
+    .sc-bg { inset: 0; }
+    .sc-text {
+      width: calc(100% - 24px);
+      left: 50%;
+      bottom: 72px;
+      transform: translate(-50%, 28px);
+      text-align: center;
+      min-width: unset;
+      padding: 16px 14px;
+      border-radius: 14px;
+      background: linear-gradient(to top, rgba(0,0,0,0.58), rgba(0,0,0,0.32));
+      backdrop-filter: blur(1px);
+    }
     .sc-slide.is-active .sc-text { transform: translate(-50%, 0); }
     .sc-svg { display: none; }
-    .sc-text-desc { display: none; }
+    .sc-text-heading { font-size: clamp(1.8rem, 9vw, 2.5rem); margin-bottom: 0.6rem; }
+    .sc-text-desc {
+      display: block;
+      font-size: 0.9rem;
+      line-height: 1.45;
+      margin-bottom: 0.8rem;
+      opacity: 0.95;
+    }
+    .sc-text-link { padding: 0.35rem 0.7rem; font-size: 0.92rem; }
+    .sc-pagi { bottom: 1.2rem; gap: 0.75rem; }
+    .sc-pagi-dot { width: 0.95rem; height: 0.95rem; }
+  }
+
+  @media (max-width: 420px) {
+    .sc-text {
+      width: calc(100% - 18px);
+      bottom: 62px;
+      padding: 13px 12px;
+      border-radius: 12px;
+    }
+    .sc-text-heading { font-size: clamp(1.45rem, 8vw, 2rem); margin-bottom: 0.45rem; }
+    .sc-text-desc { font-size: 0.82rem; line-height: 1.4; margin-bottom: 0.65rem; }
+    .sc-text-link { font-size: 0.84rem; padding: 0.3rem 0.62rem; }
+    .sc-pagi { bottom: 0.8rem; }
   }
 </style>
 
@@ -336,13 +368,13 @@ export function getSliderV1Code(config = {}) {
     if (animating) return;
     dragStartX = e.clientX;
     dragging = true;
-    document.body.classList.add("dragging");
+    container.classList.add("dragging");
     clearTimeout(autoTimer);
   });
   document.addEventListener("mouseup", function(e) {
     if (!dragging) return;
     dragging = false;
-    document.body.classList.remove("dragging");
+    container.classList.remove("dragging");
     var diff = dragStartX - e.clientX;
     if (Math.abs(diff) > 50) {
       if (diff > 0 && cur < total - 1) goTo(cur + 1);

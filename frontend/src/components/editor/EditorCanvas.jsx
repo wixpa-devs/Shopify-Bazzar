@@ -85,6 +85,27 @@ const ComponentNode = memo(({ data }) => {
 </head>
 <body>
   ${getCode(config)}
+  <script>
+    (function () {
+      document.addEventListener("click", function (event) {
+        var anchor = event.target.closest("a");
+        if (anchor) {
+          event.preventDefault();
+          anchor.setAttribute("href", "#");
+          return;
+        }
+
+        var button = event.target.closest("button");
+        if (button && (!button.type || button.type.toLowerCase() === "submit")) {
+          event.preventDefault();
+        }
+      }, true);
+
+      document.addEventListener("submit", function (event) {
+        event.preventDefault();
+      }, true);
+    })();
+  </script>
 </body>
 </html>`,
     [config, getCode],

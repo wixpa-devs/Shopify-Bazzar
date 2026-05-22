@@ -1,32 +1,32 @@
 // Named export — used by registry and generateComponentCode.js
 export function getFaqV4Code(config = {}) {
-   const bgColor = config.bgColor || "#ffffff";
-   const headingText = config.headingText || "FAQs";
-   const headingColor = config.headingColor || "#1a1a1a";
-   const cardBg = config.cardBg || "#ffffff";
-   const borderColor = config.borderColor || "#e5e7eb";
-   const questionColor = config.questionColor || "#1a1a1a";
-   const answerColor = config.answerColor || "#4b5563";
-   const iconColor = config.iconColor || "#1a1a1a";
+  const bgColor = config.bgColor || "#ffffff";
+  const headingText = config.headingText || "FAQs";
+  const headingColor = config.headingColor || "#1a1a1a";
+  const cardBg = config.cardBg || "#ffffff";
+  const borderColor = config.borderColor || "#e5e7eb";
+  const questionColor = config.questionColor || "#1a1a1a";
+  const answerColor = config.answerColor || "#4b5563";
+  const iconColor = config.iconColor || "#1a1a1a";
 
-   const faq1Q = config.faq1Q || "1/ What products do you offer?";
-   const faq1A =
-      config.faq1A ||
-      "We offer a wide range of premium skincare and beauty products, specifically formulated to provide luxury results with ethical ingredients.";
-   const faq2Q = config.faq2Q || "2/ Do you offer international shipping?";
-   const faq2A =
-      config.faq2A ||
-      "Yes, we ship to over 50 countries worldwide. Shipping costs and delivery times vary by location and are calculated at checkout.";
-   const faq3Q = config.faq3Q || "3/ What is your return policy?";
-   const faq3A =
-      config.faq3A ||
-      "We offer a 30-day money-back guarantee. If you are not satisfied with your purchase, you can return it for a full refund or exchange.";
-   const faq4Q = config.faq4Q || "4/ Do you offer product warranties?";
-   const faq4A =
-      config.faq4A ||
-      "All our electronic beauty tools come with a 1-year limited warranty covering manufacturing defects.";
+  const faq1Q = config.faq1Q || "1/ What products do you offer?";
+  const faq1A =
+    config.faq1A ||
+    "We offer a wide range of premium skincare and beauty products, specifically formulated to provide luxury results with ethical ingredients.";
+  const faq2Q = config.faq2Q || "2/ Do you offer international shipping?";
+  const faq2A =
+    config.faq2A ||
+    "Yes, we ship to over 50 countries worldwide. Shipping costs and delivery times vary by location and are calculated at checkout.";
+  const faq3Q = config.faq3Q || "3/ What is your return policy?";
+  const faq3A =
+    config.faq3A ||
+    "We offer a 30-day money-back guarantee. If you are not satisfied with your purchase, you can return it for a full refund or exchange.";
+  const faq4Q = config.faq4Q || "4/ Do you offer product warranties?";
+  const faq4A =
+    config.faq4A ||
+    "All our electronic beauty tools come with a 1-year limited warranty covering manufacturing defects.";
 
-   return `<!-- FAQ V4 — Card Style Accordion | Shopify Bazzar -->
+  return `<!-- FAQ V4 — Card Style Accordion | Shopify Bazzar -->
 <style>
   .faq4-wrapper * {
     box-sizing: border-box;
@@ -35,7 +35,7 @@ export function getFaqV4Code(config = {}) {
   }
 
   .faq4-wrapper {
-    font-family: 'Inter', -apple-system, sans-serif;
+    font-family: inherit;
     background-color: ${bgColor};
     color: ${headingColor};
     padding: 50px 20px;
@@ -52,6 +52,7 @@ export function getFaqV4Code(config = {}) {
     font-weight: 700;
     margin-bottom: 40px;
     color: ${headingColor};
+    font-family: inherit;
   }
 
   .faq4-item {
@@ -79,12 +80,14 @@ export function getFaqV4Code(config = {}) {
     cursor: pointer;
     text-align: left;
     outline: none;
+    font-family: inherit;
   }
 
   .faq4-question-text {
     font-size: 18px;
     font-weight: 500;
     color: ${questionColor};
+    font-family: inherit;
   }
 
   .faq4-arrow-icon {
@@ -111,6 +114,7 @@ export function getFaqV4Code(config = {}) {
     color: ${answerColor};
     line-height: 1.6;
     font-size: 16px;
+    font-family: inherit;
   }
 
   @media (max-width: 768px) {
@@ -151,7 +155,7 @@ export function getFaqV4Code(config = {}) {
     <h1 class="faq4-title">${headingText}</h1>
 
     <div class="faq4-item">
-      <button class="faq4-header">
+      <button class="faq4-header" type="button">
         <span class="faq4-question-text">${faq1Q}</span>
         <svg class="faq4-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="7" y1="17" x2="17" y2="7"></line>
@@ -164,7 +168,7 @@ export function getFaqV4Code(config = {}) {
     </div>
 
     <div class="faq4-item">
-      <button class="faq4-header">
+      <button class="faq4-header" type="button">
         <span class="faq4-question-text">${faq2Q}</span>
         <svg class="faq4-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="7" y1="17" x2="17" y2="7"></line>
@@ -177,7 +181,7 @@ export function getFaqV4Code(config = {}) {
     </div>
 
     <div class="faq4-item">
-      <button class="faq4-header">
+      <button class="faq4-header" type="button">
         <span class="faq4-question-text">${faq3Q}</span>
         <svg class="faq4-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="7" y1="17" x2="17" y2="7"></line>
@@ -190,7 +194,7 @@ export function getFaqV4Code(config = {}) {
     </div>
 
     <div class="faq4-item">
-      <button class="faq4-header">
+      <button class="faq4-header" type="button">
         <span class="faq4-question-text">${faq4Q}</span>
         <svg class="faq4-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="7" y1="17" x2="17" y2="7"></line>
@@ -229,5 +233,5 @@ export function getFaqV4Code(config = {}) {
 // Default export — React wrapper used by the registry.
 // ALWAYS returns null — editor and card preview render via getCode() → iframe.
 export default function FaqV4({ config }) {
-   return null;
+  return null;
 }

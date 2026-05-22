@@ -1,89 +1,89 @@
 export function getProductMainSecV2Code(config = {}) {
-   const bgColor = config.bgColor || "#ffffff";
-   const colorTextMain = config.colorTextMain || "#1a1a1a";
-   const colorTextLight = config.colorTextLight || "#555555";
-   const colorBorder = config.colorBorder || "#e5e5e5";
-   const colorBtnBg = config.colorBtnBg || "#111111";
-   const colorBtnText = config.colorBtnText || "#ffffff";
-   const colorAccentRed = config.colorAccentRed || "#d32f2f";
+  const bgColor = config.bgColor || "#ffffff";
+  const colorTextMain = config.colorTextMain || "#1a1a1a";
+  const colorTextLight = config.colorTextLight || "#555555";
+  const colorBorder = config.colorBorder || "#e5e5e5";
+  const colorBtnBg = config.colorBtnBg || "#111111";
+  const colorBtnText = config.colorBtnText || "#ffffff";
+  const colorAccentRed = config.colorAccentRed || "#d32f2f";
 
-   const brandName = config.brandName || "Herbivore";
-   const productTitle =
-      config.productTitle || "Orchid Antioxidant Beauty Face Oil";
-   const productPrice = config.productPrice || "$86.00";
+  const brandName = config.brandName || "Herbivore";
+  const productTitle =
+    config.productTitle || "Orchid Antioxidant Beauty Face Oil";
+  const productPrice = config.productPrice || "$86.00";
 
-   const tag1 = config.tag1 || "Jojoba";
-   const tag2 = config.tag2 || "Flower Extract";
-   const tag3 = config.tag3 || "Orchid Extract";
+  const tag1 = config.tag1 || "Jojoba";
+  const tag2 = config.tag2 || "Flower Extract";
+  const tag3 = config.tag3 || "Orchid Extract";
 
-   const benefit1 = config.benefit1 || "100% Vegan and Organic";
-   const benefit2 = config.benefit2 || "Deeply absorb, moisturize and nourish";
-   const benefit3 = config.benefit3 || "Suitable for all skin types";
+  const benefit1 = config.benefit1 || "100% Vegan and Organic";
+  const benefit2 = config.benefit2 || "Deeply absorb, moisturize and nourish";
+  const benefit3 = config.benefit3 || "Suitable for all skin types";
 
-   const mainImage1Url =
-      config.mainImage1Url ||
-      "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
-   const thumb1Url =
-      config.thumb1Url ||
-      "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80";
-   const thumb1Alt = config.thumb1Alt || "Product Front";
-   const mainImage2Url =
-      config.mainImage2Url ||
-      "https://images.unsplash.com/photo-1615397349754-cfa2066a298e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
-   const thumb2Url =
-      config.thumb2Url ||
-      "https://images.unsplash.com/photo-1615397349754-cfa2066a298e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80";
-   const thumb2Alt = config.thumb2Alt || "Product Lifestyle";
+  const mainImage1Url =
+    config.mainImage1Url ||
+    "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
+  const thumb1Url =
+    config.thumb1Url ||
+    "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80";
+  const thumb1Alt = config.thumb1Alt || "Product Front";
+  const mainImage2Url =
+    config.mainImage2Url ||
+    "https://images.unsplash.com/photo-1615397349754-cfa2066a298e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
+  const thumb2Url =
+    config.thumb2Url ||
+    "https://images.unsplash.com/photo-1615397349754-cfa2066a298e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80";
+  const thumb2Alt = config.thumb2Alt || "Product Lifestyle";
 
-   const descPara1 =
-      config.descPara1 ||
-      "A facial oil that defends against free radicals, supports natural elasticity, and provides beneficial vitamins and fatty acids to protect against premature aging.";
-   const descPara2 =
-      config.descPara2 ||
-      "Orchid Extract: A natural humectant that draws moisture to the skin, smoothing and conditioning. It contains calcium, magnesium, and zinc which are all beneficial to the skin.";
-   const howToUseText =
-      config.howToUseText ||
-      "Apply 3–6 drops to cleansed and toned skin morning and night. Massage in and allow to absorb for 1–3 minutes before applying makeup.";
-   const ingredientsText =
-      config.ingredientsText ||
-      "Caprylic/Capric Triglycerides, Orchid Extract, Camellia Oleifera (Camellia) Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Squalane, Tocopherol (Vitamin E), Jasminum Sambac (Jasmine) Flower Extract.";
-   const deliveryText =
-      config.deliveryText ||
-      "Free shipping on orders over $50. Returns accepted within 30 days of purchase.";
+  const descPara1 =
+    config.descPara1 ||
+    "A facial oil that defends against free radicals, supports natural elasticity, and provides beneficial vitamins and fatty acids to protect against premature aging.";
+  const descPara2 =
+    config.descPara2 ||
+    "Orchid Extract: A natural humectant that draws moisture to the skin, smoothing and conditioning. It contains calcium, magnesium, and zinc which are all beneficial to the skin.";
+  const howToUseText =
+    config.howToUseText ||
+    "Apply 3–6 drops to cleansed and toned skin morning and night. Massage in and allow to absorb for 1–3 minutes before applying makeup.";
+  const ingredientsText =
+    config.ingredientsText ||
+    "Caprylic/Capric Triglycerides, Orchid Extract, Camellia Oleifera (Camellia) Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Squalane, Tocopherol (Vitamin E), Jasminum Sambac (Jasmine) Flower Extract.";
+  const deliveryText =
+    config.deliveryText ||
+    "Free shipping on orders over $50. Returns accepted within 30 days of purchase.";
 
-   const ritualTitle = config.ritualTitle || "Complete your beauty ritual";
-   const ritual1Url =
-      config.ritual1Url ||
-      "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80";
-   const ritual2Url =
-      config.ritual2Url ||
-      "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80";
-   const ritual3Url =
-      config.ritual3Url ||
-      "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80";
-   const ritual4Url =
-      config.ritual4Url ||
-      "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80";
+  const ritualTitle = config.ritualTitle || "Complete your beauty ritual";
+  const ritual1Url =
+    config.ritual1Url ||
+    "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80";
+  const ritual2Url =
+    config.ritual2Url ||
+    "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80";
+  const ritual3Url =
+    config.ritual3Url ||
+    "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80";
+  const ritual4Url =
+    config.ritual4Url ||
+    "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80";
 
-   const pairedTitle = config.pairedTitle || "Frequently paired with";
-   const paired1ImgUrl =
-      config.paired1ImgUrl ||
-      "https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80";
-   const paired1Name = config.paired1Name || "Argan oil for nails";
-   const paired1OldPrice = config.paired1OldPrice || "$30.00";
-   const paired1NewPrice = config.paired1NewPrice || "From $19.00";
-   const paired1Badge = config.paired1Badge || "-36%";
-   const paired2ImgUrl =
-      config.paired2ImgUrl ||
-      "https://images.unsplash.com/photo-1629198688000-71f23e745b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80";
-   const paired2Name =
-      config.paired2Name || "Aquarius Pore Purifying Clarity Cream";
-   const paired2Price = config.paired2Price || "$165.00";
+  const pairedTitle = config.pairedTitle || "Frequently paired with";
+  const paired1ImgUrl =
+    config.paired1ImgUrl ||
+    "https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80";
+  const paired1Name = config.paired1Name || "Argan oil for nails";
+  const paired1OldPrice = config.paired1OldPrice || "$30.00";
+  const paired1NewPrice = config.paired1NewPrice || "From $19.00";
+  const paired1Badge = config.paired1Badge || "-36%";
+  const paired2ImgUrl =
+    config.paired2ImgUrl ||
+    "https://images.unsplash.com/photo-1629198688000-71f23e745b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80";
+  const paired2Name =
+    config.paired2Name || "Aquarius Pore Purifying Clarity Cream";
+  const paired2Price = config.paired2Price || "$165.00";
 
-   return `<!-- Product Main Section V2 — Elegant Beauty | Shopify Bazzar -->
+  return `<!-- Product Main Section V2 — Elegant Beauty | Shopify Bazzar -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
@@ -747,5 +747,5 @@ export function getProductMainSecV2Code(config = {}) {
 }
 
 export default function ProductMainSecV2({ config }) {
-   return null;
+  return null;
 }

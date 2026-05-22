@@ -1,12 +1,12 @@
 // Named export — used by registry and generateComponentCode.js
 export function getFaqV3Code(config = {}) {
-  const bgColor       = config.bgColor       || "#ffffff";
-  const headingText   = config.headingText   || "FAQs";
-  const headingColor  = config.headingColor  || "#121212";
-  const borderColor   = config.borderColor   || "#e8e8e8";
+  const bgColor = config.bgColor || "#ffffff";
+  const headingText = config.headingText || "FAQs";
+  const headingColor = config.headingColor || "#121212";
+  const borderColor = config.borderColor || "#e8e8e8";
   const questionColor = config.questionColor || "#121212";
-  const answerColor   = config.answerColor   || "#444444";
-  const iconColor     = config.iconColor     || "#121212";
+  const answerColor = config.answerColor || "#444444";
+  const iconColor = config.iconColor || "#121212";
 
   const faq1Q = config.faq1Q || "How long does an order take to arrive?";
   const faq1A = config.faq1A || "International orders normally arrive within 2-4 weeks of shipping. Please note that these orders need to pass through the customs office in your country before it will be released for final delivery, which can occasionally cause additional delays.";
@@ -23,19 +23,19 @@ export function getFaqV3Code(config = {}) {
 
   return `<!-- FAQ V3 — Uppercase Bold Accordion | Shopify Bazzar -->
 <style>
-  .faq3-wrapper * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
   .faq3-wrapper {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    font-family: inherit;
     padding: 40px 20px;
     color: ${headingColor};
     background-color: ${bgColor};
     display: flex;
     justify-content: center;
+  }
+
+  .faq3-wrapper *,
+  .faq3-wrapper *::before,
+  .faq3-wrapper *::after {
+    box-sizing: border-box;
   }
 
   .faq3-section {
@@ -50,6 +50,7 @@ export function getFaqV3Code(config = {}) {
     margin-bottom: 40px;
     letter-spacing: -0.5px;
     color: ${headingColor};
+    font-family: inherit;
   }
 
   .faq3-item {
@@ -72,6 +73,7 @@ export function getFaqV3Code(config = {}) {
     text-align: left;
     transition: opacity 0.2s;
     color: ${questionColor};
+    font-family: inherit;
   }
 
   .faq3-header:hover {
@@ -85,6 +87,7 @@ export function getFaqV3Code(config = {}) {
     letter-spacing: 1px;
     padding-right: 20px;
     color: ${questionColor};
+    font-family: inherit;
   }
 
   .faq3-icon {
@@ -134,15 +137,18 @@ export function getFaqV3Code(config = {}) {
     line-height: 1.6;
     color: ${answerColor};
     max-width: 95%;
+    font-family: inherit;
   }
 
   @media (max-width: 600px) {
     .faq3-title {
       font-size: 24px;
     }
+
     .faq3-header span {
       font-size: 12px;
     }
+
     .faq3-content-inner {
       font-size: 13px;
     }
@@ -152,10 +158,12 @@ export function getFaqV3Code(config = {}) {
     .faq3-wrapper {
       padding: 28px 14px;
     }
+
     .faq3-title {
       font-size: 20px;
       margin-bottom: 28px;
     }
+
     .faq3-header {
       padding: 16px 0;
     }
@@ -167,7 +175,7 @@ export function getFaqV3Code(config = {}) {
     <h2 class="faq3-title">${headingText}</h2>
 
     <div class="faq3-item active">
-      <button class="faq3-header">
+      <button class="faq3-header" type="button">
         <span>${faq1Q}</span>
         <div class="faq3-icon"></div>
       </button>
@@ -177,7 +185,7 @@ export function getFaqV3Code(config = {}) {
     </div>
 
     <div class="faq3-item">
-      <button class="faq3-header">
+      <button class="faq3-header" type="button">
         <span>${faq2Q}</span>
         <div class="faq3-icon"></div>
       </button>
@@ -187,7 +195,7 @@ export function getFaqV3Code(config = {}) {
     </div>
 
     <div class="faq3-item">
-      <button class="faq3-header">
+      <button class="faq3-header" type="button">
         <span>${faq3Q}</span>
         <div class="faq3-icon"></div>
       </button>
@@ -197,7 +205,7 @@ export function getFaqV3Code(config = {}) {
     </div>
 
     <div class="faq3-item">
-      <button class="faq3-header">
+      <button class="faq3-header" type="button">
         <span>${faq4Q}</span>
         <div class="faq3-icon"></div>
       </button>
@@ -207,7 +215,7 @@ export function getFaqV3Code(config = {}) {
     </div>
 
     <div class="faq3-item">
-      <button class="faq3-header">
+      <button class="faq3-header" type="button">
         <span>${faq5Q}</span>
         <div class="faq3-icon"></div>
       </button>
@@ -217,7 +225,7 @@ export function getFaqV3Code(config = {}) {
     </div>
 
     <div class="faq3-item">
-      <button class="faq3-header">
+      <button class="faq3-header" type="button">
         <span>${faq6Q}</span>
         <div class="faq3-icon"></div>
       </button>
@@ -225,7 +233,6 @@ export function getFaqV3Code(config = {}) {
         <div class="faq3-content-inner">${faq6A}</div>
       </div>
     </div>
-
   </div>
 </div>
 

@@ -1,112 +1,134 @@
 import { useEffect, useRef } from "react";
 
-export default function FooterV1({ config }) {
-  const footerRef = useRef(null);
+export function getFooterV1Code(config = {}, options = {}) {
+  const isShopifyExport = options.isShopifyExport ?? false;
 
-  useEffect(() => {
-    if (!footerRef.current) return;
+  const bgColor = config.bgColor || "#0e0e0e";
+  const textColor = config.textColor || "#f5f5f5";
+  const textMuted = config.textMuted || "#9f9f9f";
+  const borderColor = config.borderColor || "rgba(255,255,255,0.12)";
+  const accentColor = config.accentColor || "#ffffff";
+  const inputBg = config.inputBg || "#f1f1f1";
+  const inputText = config.inputText || "#111111";
 
-    const root = footerRef.current;
+  const brandName = config.brandName || "Brand";
+  const brandDesc =
+    config.brandDesc || "A short brand description goes here.";
 
-    // Newsletter form submit
-    const form = root.querySelector(".newsletter-form");
-    if (form) {
-      const handler = function (e) {
-        e.preventDefault();
-        const input = this.querySelector(".newsletter-input");
-        if (input.value) {
-          const btn = this.querySelector(".newsletter-submit");
-          const originalContent = btn.innerHTML;
-          btn.innerHTML = '<i class="fa-solid fa-check"></i>';
-          input.value = "Thanks for subscribing!";
-          input.disabled = true;
-          setTimeout(() => {
-            btn.innerHTML = originalContent;
-            input.value = "";
-            input.disabled = false;
-          }, 3000);
-        }
-      };
-      form.addEventListener("submit", handler);
-    }
+  const facebookUrl = config.facebookUrl || "#";
+  const instagramUrl = config.instagramUrl || "#";
+  const twitterUrl = config.twitterUrl || "#";
+  const linkedinUrl = config.linkedinUrl || "#";
+  const threadsUrl = config.threadsUrl || "#";
 
-    // Accordion — mobile only
-    function initAccordions() {
-      const triggers = root.querySelectorAll(".accordion-trigger");
-      triggers.forEach((trigger) => {
-        trigger.addEventListener("click", function () {
-          if (window.innerWidth > 768) return;
-          const bodyId = this.getAttribute("aria-controls");
-          const body = root.getElementById
-            ? root.getElementById(bodyId)
-            : document.getElementById(bodyId);
-          const isOpen = this.classList.contains("is-open");
+  const col2Heading = config.col2Heading || "Delivery & Returns";
+  const col2Link1 = config.col2Link1 || "Shipping Policy";
+  const col2Link2 = config.col2Link2 || "Returns";
+  const col2Link3 = config.col2Link3 || "Track Order";
+  const col2Link4 = config.col2Link4 || "FAQs";
 
-          triggers.forEach((t) => {
-            const bId = t.getAttribute("aria-controls");
-            const b = document.getElementById(bId);
-            t.classList.remove("is-open");
-            t.setAttribute("aria-expanded", "false");
-            if (b) b.classList.remove("is-open");
-          });
+  const col3Heading = config.col3Heading || "About";
+  const col3Link1 = config.col3Link1 || "Our Story";
+  const col3Link2 = config.col3Link2 || "Journal";
+  const col3Link3 = config.col3Link3 || "Careers";
+  const col3Link4 = config.col3Link4 || "Contact";
 
-          if (!isOpen) {
-            this.classList.add("is-open");
-            this.setAttribute("aria-expanded", "true");
-            if (body) body.classList.add("is-open");
-          }
-        });
-      });
-    }
+  const newsletterHeading = config.newsletterHeading || "Sign up to our newsletter";
+  const newsletterText =
+    config.newsletterText ||
+    "Sign up for exclusive offers, original stories, events and more.";
+  const newsletterPlaceholder = config.newsletterPlaceholder || "Your email";
 
-    function handleResize() {
-      if (window.innerWidth > 768) {
-        root.querySelectorAll(".accordion-trigger").forEach((t) => {
-          const b = document.getElementById(t.getAttribute("aria-controls"));
-          t.classList.remove("is-open");
-          t.setAttribute("aria-expanded", "false");
-          if (b) b.classList.remove("is-open");
-        });
-      }
-    }
+  const copyrightText =
+    config.copyrightText || "© 2026 Brand. All rights reserved.";
+  const policy1 = config.policy1 || "Privacy Policy";
+  const policy2 = config.policy2 || "Terms of Service";
+  const policy3 = config.policy3 || "Refund Policy";
+  const policy4 = config.policy4 || "Cookies";
 
-    initAccordions();
-    window.addEventListener("resize", handleResize);
+  const newsletterMarkup = isShopifyExport
+    ? `
+{% form 'customer', id: 'ContactFooter', class: 'newsletter-form' %}
+  {% if form.posted_successfully? %}
+    <p class="newsletter-success">Thanks for subscribing!</p>
+  {% endif %}
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [config]);
+  {% if form.errors %}
+    <div class="newsletter-error">
+      {{ form.errors | default_errors }}
+    </div>
+  {% endif %}
 
-  const css = `
+  <input type="hidden" name="contact[tags]" value="newsletter">
+
+  <div class="newsletter-field">
+    <label for="FooterEmail" class="visually-hidden">Email address</label>
+    <input
+      id="FooterEmail"
+      type="email"
+      name="contact[email]"
+      class="newsletter-input"
+      value="{% if customer %}{{ customer.email }}{% endif %}"
+      placeholder="${newsletterPlaceholder}"
+      autocorrect="off"
+      autocapitalize="off"
+      autocomplete="email"
+      required
+    />
+    <button type="submit" class="newsletter-submit" aria-label="Subscribe">
+      <span aria-hidden="true">→</span>
+    </button>
+  </div>
+{% endform %}
+`
+    : `
+<form class="newsletter-form" onsubmit="event.preventDefault()">
+  <div class="newsletter-field">
+    <label for="FooterEmailPreview" class="visually-hidden">Email address</label>
+    <input
+      id="FooterEmailPreview"
+      type="email"
+      class="newsletter-input"
+      placeholder="${newsletterPlaceholder}"
+      required
+    />
+    <button type="submit" class="newsletter-submit" aria-label="Subscribe">
+      <span aria-hidden="true">→</span>
+    </button>
+  </div>
+</form>
+`;
+
+  return `
+<div class="footer-v1-wrap">
+  <style>
     .footer-v1-wrap {
-      --bg-color: ${config.bgColor};
-      --text-color: ${config.textColor};
-      --text-muted: ${config.textMuted};
-      --border-color: ${config.borderColor};
-      --accent-color: ${config.accentColor};
-      --input-bg: ${config.inputBg};
-      --input-text: ${config.inputText};
-      --font-main: 'Inter', sans-serif;
+      --bg-color: ${bgColor};
+      --text-color: ${textColor};
+      --text-muted: ${textMuted};
+      --border-color: ${borderColor};
+      --accent-color: ${accentColor};
+      --input-bg: ${inputBg};
+      --input-text: ${inputText};
+      --font-main: inherit;
     }
 
+    .footer-v1-wrap,
     .footer-v1-wrap * {
-      margin: 0;
-      padding: 0;
       box-sizing: border-box;
     }
 
     .footer-v1-wrap .site-footer {
       background-color: var(--bg-color);
-      padding: 80px 0 40px;
-      width: 100%;
-      font-family: var(--font-main);
       color: var(--text-color);
-      line-height: 1.5;
+      font-family: var(--font-main);
+      width: 100%;
+      padding: 80px 0 40px;
       -webkit-font-smoothing: antialiased;
     }
 
     .footer-v1-wrap .container {
+      width: 100%;
       max-width: 1400px;
       margin: 0 auto;
       padding: 0 40px;
@@ -120,23 +142,23 @@ export default function FooterV1({ config }) {
     }
 
     .footer-v1-wrap .brand-logo {
+      display: inline-block;
+      color: var(--text-color);
+      text-decoration: none;
       font-size: 2rem;
       font-weight: 900;
       font-style: italic;
       text-transform: uppercase;
       letter-spacing: -0.5px;
       margin-bottom: 24px;
-      display: inline-block;
-      color: var(--text-color);
-      text-decoration: none;
     }
 
     .footer-v1-wrap .brand-desc {
       color: var(--text-muted);
       font-size: 0.95rem;
       line-height: 1.6;
-      margin-bottom: 32px;
       max-width: 320px;
+      margin-bottom: 32px;
     }
 
     .footer-v1-wrap .social-icons {
@@ -146,7 +168,8 @@ export default function FooterV1({ config }) {
 
     .footer-v1-wrap .social-link {
       color: var(--text-color);
-      font-size: 1.5rem;
+      text-decoration: none;
+      font-size: 1rem;
       transition: opacity 0.2s ease;
     }
 
@@ -157,12 +180,14 @@ export default function FooterV1({ config }) {
     .footer-v1-wrap .footer-heading {
       font-size: 1.1rem;
       font-weight: 700;
-      margin-bottom: 24px;
+      margin: 0 0 24px;
       color: var(--text-color);
     }
 
     .footer-v1-wrap .footer-links {
       list-style: none;
+      margin: 0;
+      padding: 0;
     }
 
     .footer-v1-wrap .footer-links li {
@@ -189,50 +214,79 @@ export default function FooterV1({ config }) {
     }
 
     .footer-v1-wrap .newsletter-form {
+      width: 100%;
+      margin: 0;
+    }
+
+    .footer-v1-wrap .newsletter-field {
       position: relative;
-      max-width: 100%;
+      width: 100%;
     }
 
     .footer-v1-wrap .newsletter-input {
       width: 100%;
-      padding: 14px 50px 14px 24px;
-      border-radius: 50px;
+      padding: 14px 52px 14px 24px;
+      border-radius: 999px;
       border: 1px solid transparent;
-      background-color: var(--input-bg);
+      background: var(--input-bg);
       color: var(--input-text);
       font-family: var(--font-main);
       font-size: 1rem;
       outline: none;
-      transition: box-shadow 0.2s ease;
+      appearance: none;
+      -webkit-appearance: none;
     }
 
     .footer-v1-wrap .newsletter-input:focus {
-      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.24);
     }
 
     .footer-v1-wrap .newsletter-input::placeholder {
-      color: #888;
+      color: #777;
     }
 
     .footer-v1-wrap .newsletter-submit {
       position: absolute;
-      right: 8px;
       top: 50%;
+      right: 8px;
       transform: translateY(-50%);
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 8px;
+      width: 34px;
+      height: 34px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
       color: var(--input-text);
-      font-size: 1.1rem;
-      display: flex;
+      cursor: pointer;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      transition: transform 0.2s ease;
+      font: inherit;
+      font-size: 1.1rem;
+      transition: transform 0.2s ease, opacity 0.2s ease;
     }
 
     .footer-v1-wrap .newsletter-submit:hover {
-      transform: translateY(-50%) translateX(3px);
+      transform: translateY(-50%) translateX(2px);
+    }
+
+    .footer-v1-wrap .newsletter-success {
+      color: #b9f4c8;
+      background: rgba(63, 130, 77, 0.18);
+      border: 1px solid rgba(63, 130, 77, 0.22);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      font-size: 0.92rem;
+    }
+
+    .footer-v1-wrap .newsletter-error {
+      color: #ffc9c9;
+      background: rgba(160, 40, 40, 0.18);
+      border: 1px solid rgba(160, 40, 40, 0.22);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      font-size: 0.92rem;
     }
 
     .footer-v1-wrap .footer-bottom {
@@ -241,8 +295,8 @@ export default function FooterV1({ config }) {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      flex-wrap: wrap;
       gap: 20px;
+      flex-wrap: wrap;
     }
 
     .footer-v1-wrap .copyright {
@@ -262,6 +316,8 @@ export default function FooterV1({ config }) {
       display: flex;
       gap: 24px;
       flex-wrap: wrap;
+      margin: 0;
+      padding: 0;
     }
 
     .footer-v1-wrap .policy-links a {
@@ -275,30 +331,16 @@ export default function FooterV1({ config }) {
       color: var(--text-color);
     }
 
-    .footer-v1-wrap .payment-icons {
-      display: flex;
-      gap: 8px;
-    }
-
-    .footer-v1-wrap .payment-icon {
-      width: 38px;
-      height: 24px;
-      border-radius: 3px;
-      background-color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .footer-v1-wrap .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
       overflow: hidden;
-    }
-
-    .footer-v1-wrap .payment-icon svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-
-    .footer-v1-wrap .accordion-trigger {
-      display: none;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
     }
 
     @media (max-width: 1024px) {
@@ -306,6 +348,7 @@ export default function FooterV1({ config }) {
         grid-template-columns: 1fr 1fr;
         gap: 60px 40px;
       }
+
       .footer-v1-wrap .brand-desc {
         max-width: 100%;
       }
@@ -315,224 +358,125 @@ export default function FooterV1({ config }) {
       .footer-v1-wrap .site-footer {
         padding: 40px 0 30px;
       }
+
       .footer-v1-wrap .container {
-        padding: 0;
-      }
-      .footer-v1-wrap .footer-col--brand {
-        padding: 0 24px 30px;
-        border-bottom: 1px solid var(--border-color);
-      }
-      .footer-v1-wrap .footer-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 0;
-        margin-bottom: 0;
-      }
-      .footer-v1-wrap .social-icons {
-        gap: 24px;
-      }
-      .footer-v1-wrap .social-link {
-        font-size: 1.6rem;
-      }
-      .footer-v1-wrap .footer-col--accordion {
-        border-bottom: 1px solid var(--border-color);
-      }
-      .footer-v1-wrap .accordion-trigger {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 20px 24px;
-        color: var(--text-color);
-        font-family: var(--font-main);
-        font-size: 1rem;
-        font-weight: 600;
-        text-align: left;
-      }
-      .footer-v1-wrap .accordion-trigger .accordion-icon {
-        font-size: 1rem;
-        color: var(--text-muted);
-        transition: transform 0.3s ease;
-        flex-shrink: 0;
-      }
-      .footer-v1-wrap .accordion-trigger.is-open .accordion-icon {
-        transform: rotate(180deg);
-      }
-      .footer-v1-wrap .accordion-body {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.35s ease, padding 0.3s ease;
         padding: 0 24px;
       }
-      .footer-v1-wrap .accordion-body.is-open {
-        max-height: 400px;
-        padding: 0 24px 20px;
+
+      .footer-v1-wrap .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        margin-bottom: 40px;
       }
-      .footer-v1-wrap .footer-col--accordion .footer-heading {
-        display: none;
-      }
+
       .footer-v1-wrap .footer-bottom {
         flex-direction: column;
         align-items: flex-start;
-        padding: 24px 24px 10px;
-        margin-top: 0;
       }
+
       .footer-v1-wrap .bottom-right {
         align-items: flex-start;
-        width: 100%;
       }
+
       .footer-v1-wrap .policy-links {
         gap: 14px;
       }
-      .footer-v1-wrap .payment-icons {
-        flex-wrap: wrap;
-      }
     }
-  `;
+  </style>
 
-  return (
-    <div className="footer-v1-wrap" ref={footerRef}>
-      <style>{css}</style>
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-col--brand">
+          <a href="#" class="brand-logo">${brandName}</a>
+          <p class="brand-desc">${brandDesc}</p>
 
-      <footer className="site-footer">
-        <div className="container">
-          <div className="footer-grid">
-
-            {/* Brand Column */}
-            <div className="footer-col footer-col--brand">
-              <a href="#" className="brand-logo">{config.brandName}</a>
-              <p className="brand-desc">{config.brandDesc}</p>
-              <div className="social-icons">
-                <a href={config.facebookUrl} className="social-link" aria-label="Facebook"><i className="fab fa-facebook"></i></a>
-                <a href={config.instagramUrl} className="social-link" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
-                <a href={config.twitterUrl} className="social-link" aria-label="X"><i className="fab fa-x-twitter"></i></a>
-                <a href={config.linkedinUrl} className="social-link" aria-label="LinkedIn"><i className="fab fa-linkedin-in"></i></a>
-                <a href={config.threadsUrl} className="social-link" aria-label="Threads"><i className="fab fa-threads"></i></a>
-              </div>
-            </div>
-
-            {/* Delivery & Returns Column */}
-            <div className="footer-col footer-col--accordion">
-              <h3 className="footer-heading">{config.col2Heading}</h3>
-              <button className="accordion-trigger" aria-expanded="false" aria-controls="accordion-delivery">
-                {config.col2Heading}
-                <i className="fa-solid fa-chevron-down accordion-icon"></i>
-              </button>
-              <div className="accordion-body" id="accordion-delivery" role="region">
-                <ul className="footer-links">
-                  <li><a href="#">{config.col2Link1}</a></li>
-                  <li><a href="#">{config.col2Link2}</a></li>
-                  <li><a href="#">{config.col2Link3}</a></li>
-                  <li><a href="#">{config.col2Link4}</a></li>
-                </ul>
-              </div>
-            </div>
-
-            {/* About Column */}
-            <div className="footer-col footer-col--accordion">
-              <h3 className="footer-heading">{config.col3Heading}</h3>
-              <button className="accordion-trigger" aria-expanded="false" aria-controls="accordion-about">
-                {config.col3Heading}
-                <i className="fa-solid fa-chevron-down accordion-icon"></i>
-              </button>
-              <div className="accordion-body" id="accordion-about" role="region">
-                <ul className="footer-links">
-                  <li><a href="#">{config.col3Link1}</a></li>
-                  <li><a href="#">{config.col3Link2}</a></li>
-                  <li><a href="#">{config.col3Link3}</a></li>
-                  <li><a href="#">{config.col3Link4}</a></li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Newsletter Column */}
-            <div className="footer-col footer-col--accordion">
-              <h3 className="footer-heading">{config.newsletterHeading}</h3>
-              <button className="accordion-trigger" aria-expanded="false" aria-controls="accordion-newsletter">
-                {config.newsletterHeading}
-                <i className="fa-solid fa-chevron-down accordion-icon"></i>
-              </button>
-              <div className="accordion-body" id="accordion-newsletter" role="region">
-                <p className="newsletter-text">{config.newsletterText}</p>
-                <form className="newsletter-form" onSubmit={(e) => e.preventDefault()}>
-                  <input type="email" className="newsletter-input" placeholder={config.newsletterPlaceholder} required aria-label="Email address" />
-                  <button type="submit" className="newsletter-submit" aria-label="Subscribe">
-                    <i className="fa-solid fa-arrow-right"></i>
-                  </button>
-                </form>
-              </div>
-            </div>
-
+          <div class="social-icons">
+            <a href="${facebookUrl}" class="social-link" aria-label="Facebook">Fb</a>
+            <a href="${instagramUrl}" class="social-link" aria-label="Instagram">Ig</a>
+            <a href="${twitterUrl}" class="social-link" aria-label="X">X</a>
+            <a href="${linkedinUrl}" class="social-link" aria-label="LinkedIn">In</a>
+            <a href="${threadsUrl}" class="social-link" aria-label="Threads">Th</a>
           </div>
-
-          {/* Bottom Section */}
-          <div className="footer-bottom">
-            <div className="copyright">{config.copyrightText}</div>
-            <div className="bottom-right">
-              <ul className="policy-links">
-                <li><a href="#">{config.policy1}</a></li>
-                <li><a href="#">{config.policy2}</a></li>
-                <li><a href="#">{config.policy3}</a></li>
-                <li><a href="#">{config.policy4}</a></li>
-              </ul>
-              <div className="payment-icons">
-                {/* Visa */}
-                <div className="payment-icon" title="Visa">
-                  <svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="38" height="24" fill="white"/>
-                    <path d="M15.4 15.8L16.5 9.2H18.2L17.1 15.8H15.4ZM22.6 15.8L21.8 11.5C21.8 11.5 21.6 10.8 21.6 10.8C21.5 10.4 21.4 10.3 21.2 10.2C20.9 10.1 20.4 10 20.1 10H19.5L19.2 11.3L20.6 15.8H22.6ZM24.4 15.8L25.9 9.2H24.3C24 9.2 23.8 9.3 23.7 9.6L22.2 13.2L21.4 9.2H19.7L21.7 15.8H24.4ZM13.4 9.2L12.1 14.1C12 14.3 12 14.4 11.9 14.4C11.8 14.5 11.2 14.3 10.9 14.1L10.1 11.1C10.1 11.1 9.8 10 9.8 10C9.7 9.7 9.6 9.4 9.6 9.2H7.9C7.9 9.2 8.8 12.6 9.2 14.1C9.4 14.6 9.6 15.1 10.1 15.4C10.5 15.7 11.2 15.9 11.8 15.9C12.5 15.9 13.1 15.6 13.4 15.2C13.6 14.9 13.7 14.6 13.8 14.2L15.1 9.2H13.4Z" fill="#1A1F71"/>
-                  </svg>
-                </div>
-                {/* Mastercard */}
-                <div className="payment-icon" title="Mastercard">
-                  <svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="38" height="24" fill="white"/>
-                    <circle cx="14" cy="12" r="7" fill="#EB001B"/>
-                    <circle cx="24" cy="12" r="7" fill="#F79E1B" fillOpacity="0.8"/>
-                    <path d="M19 16.5C17.5 16.5 16.1 15.9 15.1 14.9C14.1 13.9 13.5 12.5 13.5 11C13.5 9.5 14.1 8.1 15.1 7.1C16.1 6.1 17.5 5.5 19 5.5C20.5 5.5 21.9 6.1 22.9 7.1C23.9 8.1 24.5 9.5 24.5 11C24.5 12.5 23.9 13.9 22.9 14.9C21.9 15.9 20.5 16.5 19 16.5Z" fill="#FF5F00"/>
-                  </svg>
-                </div>
-                {/* Amex */}
-                <div className="payment-icon" title="American Express">
-                  <svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="38" height="24" fill="#006FCF"/>
-                    <path d="M5 16H8L9 14H12L13 16H16L12 7H9L5 16ZM9.5 12L10.5 9L11.5 12H9.5ZM17 7H21L22 9L23 7H27L25 11L27 16H23L22 13L21 16H17V7ZM19.5 9V10.5H21L20.5 9H19.5ZM19.5 12V14H21L21.5 12H19.5ZM28 7H34V9H30V10.5H33V12.5H30V14H34V16H28V7Z" fill="white" transform="scale(0.8) translate(4, 3)"/>
-                  </svg>
-                </div>
-                {/* PayPal */}
-                <div className="payment-icon" title="PayPal">
-                  <svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="38" height="24" fill="white"/>
-                    <path d="M12.5 7.5H16.8C19.2 7.5 20.5 8.6 20.5 10.8C20.5 12.5 19.5 13.8 17.8 14.2L17.2 14.2L16.5 18.5H13.5L14.5 12.5H12.5L12.5 7.5Z" fill="#003087"/>
-                    <path d="M16.5 7.5H20.8C23.2 7.5 24.5 8.6 24.5 10.8C24.5 12.5 23.5 13.8 21.8 14.2L21.2 14.2L20.5 18.5H17.5L18.5 12.5H16.5L16.5 7.5Z" fill="#009cde" transform="translate(4,0)"/>
-                  </svg>
-                </div>
-                {/* Diners Club */}
-                <div className="payment-icon" title="Diners Club">
-                  <svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="38" height="24" fill="white"/>
-                    <circle cx="14" cy="12" r="6" fill="#004A97"/>
-                    <circle cx="24" cy="12" r="6" fill="#004A97"/>
-                    <path d="M14 8C11.8 8 10 9.8 10 12C10 14.2 11.8 16 14 16C16.2 16 18 14.2 18 12C18 9.8 16.2 8 14 8ZM24 8C21.8 8 20 9.8 20 12C20 14.2 21.8 16 24 16C26.2 16 28 14.2 28 12C28 9.8 26.2 8 24 8Z" fill="white"/>
-                    <path d="M19 8C16.8 8 15 9.8 15 12C15 14.2 16.8 16 19 16C21.2 16 23 14.2 23 12C23 9.8 21.2 8 19 8Z" fill="#004A97"/>
-                  </svg>
-                </div>
-                {/* Discover */}
-                <div className="payment-icon" title="Discover">
-                  <svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="38" height="24" fill="white"/>
-                    <text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="10" fill="#FF6600">DISCOVER</text>
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
-      </footer>
+
+        <div class="footer-col">
+          <h3 class="footer-heading">${col2Heading}</h3>
+          <ul class="footer-links">
+            <li><a href="#">${col2Link1}</a></li>
+            <li><a href="#">${col2Link2}</a></li>
+            <li><a href="#">${col2Link3}</a></li>
+            <li><a href="#">${col2Link4}</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3 class="footer-heading">${col3Heading}</h3>
+          <ul class="footer-links">
+            <li><a href="#">${col3Link1}</a></li>
+            <li><a href="#">${col3Link2}</a></li>
+            <li><a href="#">${col3Link3}</a></li>
+            <li><a href="#">${col3Link4}</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3 class="footer-heading">${newsletterHeading}</h3>
+          <p class="newsletter-text">${newsletterText}</p>
+          ${newsletterMarkup}
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="copyright">${copyrightText}</div>
+
+        <div class="bottom-right">
+          <ul class="policy-links">
+            <li><a href="#">${policy1}</a></li>
+            <li><a href="#">${policy2}</a></li>
+            <li><a href="#">${policy3}</a></li>
+            <li><a href="#">${policy4}</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
-  );
+  </footer>
+</div>`;
+}
+
+export default function FooterV1({ config = {} }) {
+  const rootRef = useRef(null);
+
+  useEffect(() => {
+    if (!rootRef.current) return;
+
+    const form = rootRef.current.querySelector(".newsletter-form");
+    const input = rootRef.current.querySelector(".newsletter-input");
+
+    if (!form || !input) return;
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      const existing = rootRef.current.querySelector(".newsletter-success.preview-message");
+      if (existing) existing.remove();
+
+      if (!input.value.trim()) return;
+
+      const msg = document.createElement("p");
+      msg.className = "newsletter-success preview-message";
+      msg.textContent = "Preview mode only — export as Shopify Liquid for real newsletter submission.";
+      form.insertAdjacentElement("beforebegin", msg);
+      input.value = "";
+    };
+
+    form.addEventListener("submit", handleSubmit);
+
+    return () => {
+      form.removeEventListener("submit", handleSubmit);
+    };
+  }, []);
+
+  const previewHtml = getFooterV1Code(config, { isShopifyExport: false });
+
+  return <div ref={rootRef} dangerouslySetInnerHTML={{ __html: previewHtml }} />;
 }

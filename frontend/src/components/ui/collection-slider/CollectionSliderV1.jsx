@@ -14,7 +14,7 @@ export function getCollectionSliderV1Code(config = {}) {
   const slide1Body = config.slide1Body || "Celebrate Eid in effortless elegance. Timeless designs made for moments that matter.";
   const slide1BtnText = config.slide1BtnText || "Shop The Look";
   const slide1BtnUrl = config.slide1BtnUrl || "#";
-  const slide1ImageUrl = config.slide1ImageUrl || "https://picsum.photos/seed/sale-1/950/500";
+  const slide1ImageUrl = config.slide1CollectionUrl || config.slide1ImageUrl || "https://picsum.photos/seed/sale-1/950/500";
   const slide1ImageAlt = config.slide1ImageAlt || "Slide 1";
 
   const slide2Tagline = config.slide2Tagline || "Eid Collection '26";
@@ -22,7 +22,7 @@ export function getCollectionSliderV1Code(config = {}) {
   const slide2Body = config.slide2Body || "Celebrate Eid in effortless elegance. Timeless designs made for moments that matter.";
   const slide2BtnText = config.slide2BtnText || "Shop The Look";
   const slide2BtnUrl = config.slide2BtnUrl || "#";
-  const slide2ImageUrl = config.slide2ImageUrl || "https://picsum.photos/seed/sale-2/950/500";
+  const slide2ImageUrl = config.slide2CollectionUrl || config.slide2ImageUrl || "https://picsum.photos/seed/sale-2/950/500";
   const slide2ImageAlt = config.slide2ImageAlt || "Slide 2";
 
   const slide3Tagline = config.slide3Tagline || "Eid Collection '26";
@@ -30,7 +30,7 @@ export function getCollectionSliderV1Code(config = {}) {
   const slide3Body = config.slide3Body || "Celebrate Eid in effortless elegance. Timeless designs made for moments that matter.";
   const slide3BtnText = config.slide3BtnText || "Shop The Look";
   const slide3BtnUrl = config.slide3BtnUrl || "#";
-  const slide3ImageUrl = config.slide3ImageUrl || "https://picsum.photos/seed/sale-3/950/500";
+  const slide3ImageUrl = config.slide3CollectionUrl || config.slide3ImageUrl || "https://picsum.photos/seed/sale-3/950/500";
   const slide3ImageAlt = config.slide3ImageAlt || "Slide 3";
 
   const slide4Tagline = config.slide4Tagline || "Eid Collection '26";
@@ -38,7 +38,7 @@ export function getCollectionSliderV1Code(config = {}) {
   const slide4Body = config.slide4Body || "Celebrate Eid in effortless elegance. Timeless designs made for moments that matter.";
   const slide4BtnText = config.slide4BtnText || "Shop The Look";
   const slide4BtnUrl = config.slide4BtnUrl || "#";
-  const slide4ImageUrl = config.slide4ImageUrl || "https://picsum.photos/seed/sale-4/950/500";
+  const slide4ImageUrl = config.slide4CollectionUrl || config.slide4ImageUrl || "https://picsum.photos/seed/sale-4/950/500";
   const slide4ImageAlt = config.slide4ImageAlt || "Slide 4";
 
   return `

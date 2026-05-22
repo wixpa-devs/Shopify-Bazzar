@@ -8,6 +8,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Body Font ────────────────────────────────────────────── */
+body {
+  font-family: var(--theme-font);
+}
+
 /* ── CSS Variables ────────────────────────────────────────────── */
 :root {
    /* Fonts */
@@ -15,6 +20,7 @@
    --montserrat-font: "Montserrat", sans-serif;
    --google-sans-font: "Google Sans", sans-serif;
    --roboto-mono-font: "Roboto Mono", monospace;
+   --theme-font: var(--inter-font);
 
    /* Brand Colors */
    --color-primary-purple: #4f46e5;

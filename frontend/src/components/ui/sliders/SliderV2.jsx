@@ -36,49 +36,10 @@ export function getSliderV2Code(config = {}) {
 
   return `<style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { height: 100%; overflow: hidden; background: ${bgColor}; }
-  body { font-family: 'Open Sans', Arial, sans-serif; }
-
   /* HEADER */
-  .sh {
-    position: absolute; top: 0; left: 0; width: 100%; height: 68px;
-    z-index: 20;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, transparent 100%);
-    display: flex; align-items: center;
-  }
-  .sh-inner {
-    max-width: 1060px; width: 100%; margin: 0 auto;
-    padding: 0 20px; display: flex; align-items: center;
-    justify-content: center; position: relative;
-  }
-  .sh-logo {
-    position: absolute; left: 20px; top: -4px;
-    width: 50px; height: 62px;
-    background: white;
-    display: flex; align-items: center; justify-content: center;
-    padding: 8px;
-  }
-  .sh-logo img { width: 100%; height: auto; object-fit: contain; }
-  .sh-nav { display: none; gap: 0; }
-  .sh-nav a {
-    font-size: 11px; color: #8c8c8e; text-transform: uppercase;
-    letter-spacing: 3px; text-decoration: none; margin: 0 14px;
-    transition: color 0.2s;
-  }
-  .sh-nav a.active, .sh-nav a:hover { color: #ffffff; }
-  .sh-donate {
-    position: absolute; right: 20px;
-    font-size: 11px; color: white; text-transform: uppercase;
-    letter-spacing: 3px; text-decoration: none;
-    padding-bottom: 5px;
-    border-bottom: 2px solid rgba(255,255,255,0.35);
-    transition: border-color 0.2s;
-  }
-  .sh-donate:hover { border-color: white; }
-  @media (min-width: 700px) { .sh-nav { display: flex; } }
 
   /* SLIDER */
-  .sw { position: relative; width: 100%; height: 100vh; overflow: hidden; background: ${bgColor}; }
+  .sw { position: relative; width: 100%; height: 100vh; overflow: hidden; background: ${bgColor}; font-family: inherit; }
 
   /* Slide */
   .sw-slide {
@@ -196,20 +157,6 @@ export function getSliderV2Code(config = {}) {
 </style>
 
 <div class="sw" id="sw">
-
-  <!-- Header -->
-  <header class="sh">
-    <div class="sh-inner">
-      <div class="sh-logo"><img src="${logoUrl}" alt="${logoAlt}"></div>
-      <nav class="sh-nav">
-        <a class="active" href="${nav1Url}">${nav1Text}</a>
-        <a href="${nav2Url}">${nav2Text}</a>
-        <a href="${nav3Url}">${nav3Text}</a>
-        <a href="${nav4Url}">${nav4Text}</a>
-      </nav>
-      <a href="${donateUrl}" class="sh-donate">${donateText}</a>
-    </div>
-  </header>
 
   <!-- Slides -->
   <div class="sw-slide active">

@@ -1,51 +1,51 @@
 // Named export — used by registry and generateComponentCode.js
 export function getTestimonialV1Code(config = {}) {
-  const bgColor      = config.bgColor      || "#ffffff";
-  const cardBg       = config.cardBg       || "#ffffff";
-  const borderColor  = config.borderColor  || "#f0f0f0";
-  const textDark     = config.textDark     || "#333333";
-  const textMuted    = config.textMuted    || "#666666";
-  const starColor    = config.starColor    || "#c9a078";
-  const headingText  = config.headingText  || "Customers";
+  const bgColor = config.bgColor || "#ffffff";
+  const cardBg = config.cardBg || "#ffffff";
+  const borderColor = config.borderColor || "#f0f0f0";
+  const textDark = config.textDark || "#333333";
+  const textMuted = config.textMuted || "#666666";
+  const starColor = config.starColor || "#c9a078";
+  const headingText = config.headingText || "Customers";
   const headingItalic = config.headingItalic || "love us.";
 
-  const slide1Image    = config.slide1Image    || "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=600";
-  const slide1Avatar   = config.slide1Avatar   || "https://i.pravatar.cc/150?u=rachel";
-  const slide1Name     = config.slide1Name     || "Rachel Nguyen";
-  const slide1Tag      = config.slide1Tag      || "Verified Customer";
-  const slide1Stars    = config.slide1Stars    || "★★★★★";
-  const slide1Title    = config.slide1Title    || "";
-  const slide1Text     = config.slide1Text     || "At Puff, your beauty journey is not just a routine; it's a luxurious escape into a realm of indulgence and self-celebration.";
+  const slide1Image = config.slide1Image || "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=600";
+  const slide1Avatar = config.slide1Avatar || "https://i.pravatar.cc/150?u=rachel";
+  const slide1Name = config.slide1Name || "Rachel Nguyen";
+  const slide1Tag = config.slide1Tag || "Verified Customer";
+  const slide1Stars = config.slide1Stars || "★★★★★";
+  const slide1Title = config.slide1Title || "";
+  const slide1Text = config.slide1Text || "At Puff, your beauty journey is not just a routine; it's a luxurious escape into a realm of indulgence and self-celebration.";
 
-  const slide2Image    = config.slide2Image    || "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=600";
-  const slide2Avatar   = config.slide2Avatar   || "https://i.pravatar.cc/150?u=jenny";
-  const slide2Name     = config.slide2Name     || "Jenny D.";
-  const slide2Tag      = config.slide2Tag      || "Verified Customer";
-  const slide2Stars    = config.slide2Stars    || "★★★★★";
-  const slide2Title    = config.slide2Title    || "Perfect for sensitive skin!";
-  const slide2Text     = config.slide2Text     || "This is so nourishing on my sensitive, damaged skin. And the perfect size to take with me in any bag!";
+  const slide2Image = config.slide2Image || "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=600";
+  const slide2Avatar = config.slide2Avatar || "https://i.pravatar.cc/150?u=jenny";
+  const slide2Name = config.slide2Name || "Jenny D.";
+  const slide2Tag = config.slide2Tag || "Verified Customer";
+  const slide2Stars = config.slide2Stars || "★★★★★";
+  const slide2Title = config.slide2Title || "Perfect for sensitive skin!";
+  const slide2Text = config.slide2Text || "This is so nourishing on my sensitive, damaged skin. And the perfect size to take with me in any bag!";
 
-  const slide3Image    = config.slide3Image    || "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600";
-  const slide3Avatar   = config.slide3Avatar   || "https://i.pravatar.cc/150?u=sarah";
-  const slide3Name     = config.slide3Name     || "Sarah J.";
-  const slide3Tag      = config.slide3Tag      || "Verified Customer";
-  const slide3Stars    = config.slide3Stars    || "★★★★★";
-  const slide3Title    = config.slide3Title    || "Highly Effective Serum";
-  const slide3Text     = config.slide3Text     || "I've seen a noticeable reduction in fine lines after just a month. This serum is lightweight and absorbs quickly.";
+  const slide3Image = config.slide3Image || "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600";
+  const slide3Avatar = config.slide3Avatar || "https://i.pravatar.cc/150?u=sarah";
+  const slide3Name = config.slide3Name || "Sarah J.";
+  const slide3Tag = config.slide3Tag || "Verified Customer";
+  const slide3Stars = config.slide3Stars || "★★★★★";
+  const slide3Title = config.slide3Title || "Highly Effective Serum";
+  const slide3Text = config.slide3Text || "I've seen a noticeable reduction in fine lines after just a month. This serum is lightweight and absorbs quickly.";
 
-  const slide4Image    = config.slide4Image    || "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600";
-  const slide4Avatar   = config.slide4Avatar   || "https://i.pravatar.cc/150?u=emma";
-  const slide4Name     = config.slide4Name     || "Emma L.";
-  const slide4Tag      = config.slide4Tag      || "Verified Customer";
-  const slide4Stars    = config.slide4Stars    || "★★★★★";
-  const slide4Title    = config.slide4Title    || "My Go-To Moisturizer";
-  const slide4Text     = config.slide4Text     || "This moisturizer smells heavenly and leaves my skin glowing all day long. It's so gentle on my sensitive skin.";
+  const slide4Image = config.slide4Image || "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600";
+  const slide4Avatar = config.slide4Avatar || "https://i.pravatar.cc/150?u=emma";
+  const slide4Name = config.slide4Name || "Emma L.";
+  const slide4Tag = config.slide4Tag || "Verified Customer";
+  const slide4Stars = config.slide4Stars || "★★★★★";
+  const slide4Title = config.slide4Title || "My Go-To Moisturizer";
+  const slide4Text = config.slide4Text || "This moisturizer smells heavenly and leaves my skin glowing all day long. It's so gentle on my sensitive skin.";
 
   return `<!-- Testimonial V1 — Swiper Slider with Image | Shopify Bazzar -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 <style>
   .tsv1-wrapper {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: inherit;
     background-color: ${bgColor};
     margin: 0;
     padding: 60px 0;
@@ -56,6 +56,7 @@ export function getTestimonialV1Code(config = {}) {
 
   .tsv1-wrapper * {
     box-sizing: border-box;
+    font-family: inherit;
   }
 
   .tsv1-section {
@@ -81,7 +82,6 @@ export function getTestimonialV1Code(config = {}) {
   }
 
   .tsv1-header h2 span {
-    font-family: 'Playfair Display', Georgia, serif;
     font-style: italic;
     font-weight: 400;
   }

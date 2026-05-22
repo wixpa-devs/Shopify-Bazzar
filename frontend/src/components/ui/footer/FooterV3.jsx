@@ -1,6 +1,6 @@
 // Named export — used by generateComponentCode.js
 export function getFooterV3Code(config) {
-  return `
+    return `
 <style>
     :root {
         --bg-color: ${config.bgColor};
@@ -22,7 +22,7 @@ export function getFooterV3Code(config) {
     }
 
     body {
-        font-family: 'Inter', sans-serif;
+        font-family: inherit;
         background-color: var(--bg-color);
         color: var(--text-primary);
         line-height: 1.5;
@@ -68,6 +68,12 @@ export function getFooterV3Code(config) {
         color: var(--text-primary);
         position: relative;
         line-height: 1;
+    }
+
+    .logo img {
+        max-height: 42px;
+        width: auto;
+        display: block;
     }
 
     .logo sup {
@@ -491,14 +497,47 @@ export function getFooterV3Code(config) {
 
         <!-- Brand & Newsletter -->
         <div class="brand-column">
-            <div class="logo">${config.logoText}<sup>${config.logoSuperscript}</sup></div>
+            <a class="logo" href="${config.logoUrl || "#"}">
+              ${config.logoImageUrl ? `<img src="${config.logoImageUrl}" alt="${config.logoText}" />` : `${config.logoText}<sup>${config.logoSuperscript}</sup>`}
+            </a>
             <h2 class="newsletter-heading">${config.newsletterHeading}</h2>
-            <form class="newsletter-form" id="newsletterForm">
-                <input type="email" class="form-input" placeholder="${config.newsletterPlaceholder}" aria-label="Email address" required>
-                <button type="submit" class="submit-btn" aria-label="Subscribe">
-                    <i class="fa-solid fa-arrow-right"></i>
-                </button>
+            <form method="post" action="/contact#contact_form" id="ContactFooter" accept-charset="UTF-8" class="newsletter-form">
+              <input type="hidden" name="form_type" value="customer" />
+              <input type="hidden" name="utf8" value="✓" />
+              <input type="hidden" name="contact[tags]" value="newsletter">
+              <input
+                type="email"
+                name="contact[email]"
+                class="form-input"
+                value="{{ form.email }}"
+                autocorrect="off"
+                autocapitalize="off"
+                autocomplete="email"
+                {% if form.errors %}
+                  autofocus
+                  aria-invalid="true"
+                  aria-describedby="ContactFooter-error"
+                {% elsif form.posted_successfully? %}
+                  aria-describedby="ContactFooter-success"
+                {% endif %}
+                placeholder="${config.newsletterPlaceholder}"
+                required
+              >
+              <button type="submit" class="submit-btn" aria-label="Subscribe">
+                  <i class="fa-solid fa-arrow-right"></i>
+              </button>
             </form>
+            {% if form.errors %}
+              <div id="ContactFooter-error" style="margin-top: 10px; color: #d64545; font-size: 14px;">
+                {{ form.errors.translated_fields.email | capitalize }}
+                {{ form.errors.messages.email }}
+              </div>
+            {% endif %}
+            {% if form.posted_successfully? %}
+              <div id="ContactFooter-success" tabindex="-1" autofocus style="margin-top: 10px; color: #2e7d32; font-size: 14px;">
+                Thanks for subscribing!
+              </div>
+            {% endif %}
         </div>
 
         <!-- Shop Column -->
@@ -582,23 +621,6 @@ export function getFooterV3Code(config) {
 </footer>
 
 <script>
-    document.getElementById('newsletterForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const input = this.querySelector('input');
-        const btn = this.querySelector('button');
-        if (input.value) {
-            const originalContent = btn.innerHTML;
-            btn.innerHTML = '<i class="fa-solid fa-check"></i>';
-            btn.style.backgroundColor = '#d1fae5';
-            setTimeout(() => {
-                alert(\`Thank you for subscribing with: \${input.value}\`);
-                input.value = '';
-                btn.innerHTML = originalContent;
-                btn.style.backgroundColor = '';
-            }, 500);
-        }
-    });
-
     document.getElementById('countrySelector').addEventListener('click', function() {
         this.style.opacity = '0.7';
         setTimeout(() => { this.style.opacity = '1'; }, 200);
@@ -609,7 +631,7 @@ export function getFooterV3Code(config) {
 
 // Default export — React component used by the editor canvas
 export default function FooterV3({ config }) {
-  // This component only exists to satisfy the registry import.
-  // The editor renders via getCode() → iframe, not this JSX directly.
-  return null;
+    // This component only exists to satisfy the registry import.
+    // The editor renders via getCode() → iframe, not this JSX directly.
+    return null;
 }

@@ -1,6 +1,7 @@
 const HeroV3 = ({ config = {} }) => {
    const {
       bgColor = "#f0fdf4",
+      bgImage = "",
       badge = "🌿 Eco-friendly designs",
       badgeBg = "#dcfce7",
       badgeColor = "#15803d",
@@ -12,6 +13,7 @@ const HeroV3 = ({ config = {} }) => {
       btnText = "Get Free Components",
       btnBg = "#16a34a",
       btnColor = "#ffffff",
+      btnUrl = "#",
       statsData = [
          { value: "50+", label: "Components" },
          { value: "10K+", label: "Developers" },
@@ -22,7 +24,11 @@ const HeroV3 = ({ config = {} }) => {
    return (
       <section
          style={{
-            background: bgColor,
+            backgroundColor: bgColor,
+            backgroundImage: bgImage ? `url(${bgImage})` : "none",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
             padding: "5rem 2rem",
             display: "flex",
             flexDirection: "column",
@@ -47,6 +53,7 @@ const HeroV3 = ({ config = {} }) => {
                {badge}
             </span>
          )}
+
          <h1
             style={{
                fontSize: titleSize,
@@ -59,6 +66,7 @@ const HeroV3 = ({ config = {} }) => {
          >
             {title}
          </h1>
+
          <p
             style={{
                fontSize: "1.1rem",
@@ -70,21 +78,28 @@ const HeroV3 = ({ config = {} }) => {
          >
             {subtitle}
          </p>
-         <button
-            style={{
-               background: btnBg,
-               color: btnColor,
-               border: "none",
-               padding: "0.75rem 1.75rem",
-               borderRadius: "8px",
-               fontSize: "0.95rem",
-               fontWeight: 600,
-               cursor: "pointer",
-               marginBottom: "3rem",
-            }}
-         >
-            {btnText}
-         </button>
+
+         {btnText && (
+            <a
+               href={btnUrl}
+               style={{
+                  background: btnBg,
+                  color: btnColor,
+                  border: "none",
+                  padding: "0.75rem 1.75rem",
+                  borderRadius: "8px",
+                  fontSize: "0.95rem",
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  marginBottom: "3rem",
+                  textDecoration: "none",
+                  display: "inline-block",
+               }}
+            >
+               {btnText}
+            </a>
+         )}
+
          <div
             style={{
                display: "flex",
@@ -126,6 +141,7 @@ export default HeroV3;
 // ── Code Generator ────────────────────────────────────────────────────────────
 export const getHeroV3Code = (c = {}) => {
    const bgColor = c.bgColor || "#f0fdf4";
+   const bgImage = c.bgImage || "";
    const badge = c.badge || "🌿 Eco-friendly designs";
    const badgeBg = c.badgeBg || "#dcfce7";
    const badgeColor = c.badgeColor || "#15803d";
@@ -138,6 +154,7 @@ export const getHeroV3Code = (c = {}) => {
    const btnText = c.btnText || "Get Free Components";
    const btnBg = c.btnBg || "#16a34a";
    const btnColor = c.btnColor || "#ffffff";
+   const btnUrl = c.btnUrl || "#";
    const statsData = c.statsData || [
       { value: "50+", label: "Components" },
       { value: "10K+", label: "Developers" },
@@ -147,7 +164,11 @@ export const getHeroV3Code = (c = {}) => {
    return `<!-- Hero V3 — With Stats | Shopify Bazzar -->
 <style>
   .hero3 {
-    background: ${bgColor};
+    background-color: ${bgColor};
+    ${bgImage ? `background-image: url('${bgImage}');` : ""}
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     padding: 5rem 2rem;
     display: flex;
     flex-direction: column;
@@ -192,6 +213,8 @@ export const getHeroV3Code = (c = {}) => {
     cursor: pointer;
     margin-bottom: 3rem;
     transition: opacity 0.2s;
+    text-decoration: none;
+    display: inline-block;
   }
   .hero3-btn:hover { opacity: 0.85; }
   .hero3-stats {
@@ -221,16 +244,17 @@ export const getHeroV3Code = (c = {}) => {
   ${badge ? `<span class="hero3-badge">${badge}</span>` : ""}
   <h1 class="hero3-title">${title}</h1>
   <p class="hero3-subtitle">${subtitle}</p>
-  <button class="hero3-btn">${btnText}</button>
+  ${btnText ? `<a href="${btnUrl}" class="hero3-btn">${btnText}</a>` : ""}
   <div class="hero3-stats">
     ${statsData
-       .map(
-          (s) => `<div class="hero3-stat">
+      .map(
+         (s) => `<div class="hero3-stat">
       <span class="hero3-stat-value">${s.value}</span>
       <span class="hero3-stat-label">${s.label}</span>
     </div>`,
-       )
-       .join("\n    ")}
+      )
+      .join("\n    ")}
   </div>
 </section>`;
 };
+

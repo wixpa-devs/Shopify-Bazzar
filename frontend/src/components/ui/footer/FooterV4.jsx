@@ -21,7 +21,7 @@ export function getFooterV4Code(config) {
     }
 
     body {
-        font-family: 'Inter', sans-serif;
+        font-family: inherit;
         background-color: var(--bg-color);
         color: var(--text-main);
         line-height: 1.5;
@@ -513,12 +513,43 @@ export function getFooterV4Code(config) {
                     <p class="subscribe-text">
                         ${config.subscribeText}
                     </p>
-                    <form class="subscribe-form" onsubmit="event.preventDefault();">
+                    <form method="post" action="/contact#contact_form" id="ContactFooter" accept-charset="UTF-8" class="subscribe-form">
+                        <input type="hidden" name="form_type" value="customer" />
+                        <input type="hidden" name="utf8" value="✓" />
+                        <input type="hidden" name="contact[tags]" value="newsletter">
                         <div class="input-group">
-                            <input type="email" class="email-input" placeholder="${config.emailPlaceholder}" required>
+                            <input
+                              type="email"
+                              name="contact[email]"
+                              class="email-input"
+                              value="{{ form.email }}"
+                              autocorrect="off"
+                              autocapitalize="off"
+                              autocomplete="email"
+                              {% if form.errors %}
+                                autofocus
+                                aria-invalid="true"
+                                aria-describedby="ContactFooter-error"
+                              {% elsif form.posted_successfully? %}
+                                aria-describedby="ContactFooter-success"
+                              {% endif %}
+                              placeholder="${config.emailPlaceholder}"
+                              required
+                            >
                         </div>
                         <button type="submit" class="btn-subscribe">${config.subscribeButtonText}</button>
                     </form>
+                    {% if form.errors %}
+                      <div id="ContactFooter-error" style="margin-top: 10px; color: #d64545; font-size: 14px;">
+                        {{ form.errors.translated_fields.email | capitalize }}
+                        {{ form.errors.messages.email }}
+                      </div>
+                    {% endif %}
+                    {% if form.posted_successfully? %}
+                      <div id="ContactFooter-success" tabindex="-1" autofocus style="margin-top: 10px; color: #2e7d32; font-size: 14px;">
+                        Thanks for subscribing!
+                      </div>
+                    {% endif %}
                     <p class="disclaimer">
                         ${config.disclaimerText} <a href="${config.termsUrl}">${config.termsLabel}</a> and <a href="${config.privacyUrl}">${config.privacyLabel}.</a>
                     </p>
@@ -580,21 +611,6 @@ export function getFooterV4Code(config) {
     });
     scrollTopBtn.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    // Subscribe form feedback
-    const form = document.querySelector('.subscribe-form');
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const btn = form.querySelector('.btn-subscribe');
-        const originalText = btn.innerText;
-        btn.innerText = '${config.subscribedText}';
-        btn.style.backgroundColor = '#163830';
-        setTimeout(() => {
-            btn.innerText = originalText;
-            btn.style.backgroundColor = '';
-            form.reset();
-        }, 3000);
     });
 
     // Accordion — mobile only

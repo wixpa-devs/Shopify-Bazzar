@@ -1,13 +1,13 @@
 // Named export — used by registry and generateComponentCode.js
 export function getFaqV2Code(config = {}) {
-  const bgColor       = config.bgColor       || "#ffffff";
-  const headingText   = config.headingText   || "FAQs";
-  const headingColor  = config.headingColor  || "#333333";
-  const borderColor   = config.borderColor   || "#e0e0e0";
+  const bgColor = config.bgColor || "#ffffff";
+  const headingText = config.headingText || "FAQs";
+  const headingColor = config.headingColor || "#333333";
+  const borderColor = config.borderColor || "#e0e0e0";
   const questionColor = config.questionColor || "#333333";
-  const answerColor   = config.answerColor   || "#666666";
-  const iconColor     = config.iconColor     || "#444444";
-  const chevronColor  = config.chevronColor  || "#999999";
+  const answerColor = config.answerColor || "#666666";
+  const iconColor = config.iconColor || "#444444";
+  const chevronColor = config.chevronColor || "#999999";
 
   const faq1Q = config.faq1Q || "What makes your store unique?";
   const faq1A = config.faq1A || "Our uniqueness lies in our commitment to clean formulations that provide heavy-duty results without the heavy-duty feel.";
@@ -20,16 +20,29 @@ export function getFaqV2Code(config = {}) {
   const faq5Q = config.faq5Q || "Are your products ethically made?";
   const faq5A = config.faq5A || "Yes, we are 100% certified. We never compromise on ethical standards at any stage of product development.";
 
-  return `<!-- FAQ V2 — Chevron Accordion with SVG Icon | Shopify Bazzar -->
+  const faq1Url = config.faq1Url || "";
+  const faq2Url = config.faq2Url || "";
+  const faq3Url = config.faq3Url || "";
+  const faq4Url = config.faq4Url || "";
+  const faq5Url = config.faq5Url || "";
+
+  return `<!-- FAQ V2 — Chevron Accordion with URL Input + Default Icon | Shopify Bazzar -->
 <style>
   .faq2-wrapper {
     margin: 0;
-    padding: 20px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    padding: 50px 20px;
+    font-family: inherit;
     background-color: ${bgColor};
     display: flex;
     justify-content: center;
     box-sizing: border-box;
+  }
+
+  .faq2-wrapper *,
+  .faq2-wrapper *::before,
+  .faq2-wrapper *::after {
+    box-sizing: border-box;
+    font-family: inherit;
   }
 
   .faq2-section {
@@ -56,7 +69,7 @@ export function getFaqV2Code(config = {}) {
 
   .faq2-question {
     width: 100%;
-    padding: 24px 0;
+    padding: 20px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -65,25 +78,54 @@ export function getFaqV2Code(config = {}) {
     cursor: pointer;
     text-align: left;
     outline: none;
+    gap: 20px;
   }
 
   .faq2-question-wrapper {
     display: flex;
     align-items: center;
     gap: 20px;
+    width: 100%;
+    min-width: 0;
   }
 
-  .faq2-icon {
+  .faq2-link-wrap {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .faq2-default-icon {
     width: 32px;
     height: 32px;
     color: ${iconColor};
-    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .faq2-default-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .faq2-url-input {
+    width: 32px;
+    height: 32px;
+    opacity: 0;
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
   }
 
   .faq2-question-text {
     font-size: 1.15rem;
     color: ${questionColor};
     line-height: 1.4;
+    min-width: 0;
   }
 
   .faq2-chevron {
@@ -118,13 +160,16 @@ export function getFaqV2Code(config = {}) {
     .faq2-title {
       font-size: 1.8rem;
     }
+
     .faq2-question-text {
       font-size: 1rem;
     }
+
     .faq2-answer-content {
       padding-left: 0;
       padding-top: 10px;
     }
+
     .faq2-question-wrapper {
       gap: 12px;
     }
@@ -134,16 +179,20 @@ export function getFaqV2Code(config = {}) {
     .faq2-wrapper {
       padding: 14px;
     }
+
     .faq2-title {
       font-size: 1.5rem;
       margin-bottom: 30px;
     }
+
     .faq2-question {
       padding: 18px 0;
     }
+
     .faq2-question-text {
       font-size: 0.95rem;
     }
+
     .faq2-answer-content {
       font-size: 0.9rem;
     }
@@ -155,15 +204,18 @@ export function getFaqV2Code(config = {}) {
     <h1 class="faq2-title">${headingText}</h1>
 
     <div class="faq2-container">
-
       <div class="faq2-item">
-        <button class="faq2-question">
+        <button class="faq2-question" type="button">
           <div class="faq2-question-wrapper">
-            <svg class="faq2-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-              <line x1="12" y1="17" x2="12.01" y2="17"></line>
-            </svg>
+            <div class="faq2-link-wrap">
+              <div class="faq2-default-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M10 13a5 5 0 0 0 7.07 0l2.12-2.12a5 5 0 0 0-7.07-7.07L10.7 5.22"></path>
+                  <path d="M14 11a5 5 0 0 0-7.07 0L4.81 13.12a5 5 0 1 0 7.07 7.07L13.3 18.78"></path>
+                </svg>
+              </div>
+              <input class="faq2-url-input" type="url" value="${faq1Url}" aria-label="FAQ URL 1" />
+            </div>
             <span class="faq2-question-text">${faq1Q}</span>
           </div>
           <div class="faq2-chevron"></div>
@@ -174,13 +226,17 @@ export function getFaqV2Code(config = {}) {
       </div>
 
       <div class="faq2-item">
-        <button class="faq2-question">
+        <button class="faq2-question" type="button">
           <div class="faq2-question-wrapper">
-            <svg class="faq2-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-              <line x1="12" y1="17" x2="12.01" y2="17"></line>
-            </svg>
+            <div class="faq2-link-wrap">
+              <div class="faq2-default-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M10 13a5 5 0 0 0 7.07 0l2.12-2.12a5 5 0 0 0-7.07-7.07L10.7 5.22"></path>
+                  <path d="M14 11a5 5 0 0 0-7.07 0L4.81 13.12a5 5 0 1 0 7.07 7.07L13.3 18.78"></path>
+                </svg>
+              </div>
+              <input class="faq2-url-input" type="url" value="${faq2Url}" aria-label="FAQ URL 2" />
+            </div>
             <span class="faq2-question-text">${faq2Q}</span>
           </div>
           <div class="faq2-chevron"></div>
@@ -191,13 +247,17 @@ export function getFaqV2Code(config = {}) {
       </div>
 
       <div class="faq2-item">
-        <button class="faq2-question">
+        <button class="faq2-question" type="button">
           <div class="faq2-question-wrapper">
-            <svg class="faq2-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-              <line x1="12" y1="17" x2="12.01" y2="17"></line>
-            </svg>
+            <div class="faq2-link-wrap">
+              <div class="faq2-default-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M10 13a5 5 0 0 0 7.07 0l2.12-2.12a5 5 0 0 0-7.07-7.07L10.7 5.22"></path>
+                  <path d="M14 11a5 5 0 0 0-7.07 0L4.81 13.12a5 5 0 1 0 7.07 7.07L13.3 18.78"></path>
+                </svg>
+              </div>
+              <input class="faq2-url-input" type="url" value="${faq3Url}" aria-label="FAQ URL 3" />
+            </div>
             <span class="faq2-question-text">${faq3Q}</span>
           </div>
           <div class="faq2-chevron"></div>
@@ -208,13 +268,17 @@ export function getFaqV2Code(config = {}) {
       </div>
 
       <div class="faq2-item">
-        <button class="faq2-question">
+        <button class="faq2-question" type="button">
           <div class="faq2-question-wrapper">
-            <svg class="faq2-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-              <line x1="12" y1="17" x2="12.01" y2="17"></line>
-            </svg>
+            <div class="faq2-link-wrap">
+              <div class="faq2-default-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M10 13a5 5 0 0 0 7.07 0l2.12-2.12a5 5 0 0 0-7.07-7.07L10.7 5.22"></path>
+                  <path d="M14 11a5 5 0 0 0-7.07 0L4.81 13.12a5 5 0 1 0 7.07 7.07L13.3 18.78"></path>
+                </svg>
+              </div>
+              <input class="faq2-url-input" type="url" value="${faq4Url}" aria-label="FAQ URL 4" />
+            </div>
             <span class="faq2-question-text">${faq4Q}</span>
           </div>
           <div class="faq2-chevron"></div>
@@ -225,13 +289,17 @@ export function getFaqV2Code(config = {}) {
       </div>
 
       <div class="faq2-item">
-        <button class="faq2-question">
+        <button class="faq2-question" type="button">
           <div class="faq2-question-wrapper">
-            <svg class="faq2-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-              <line x1="12" y1="17" x2="12.01" y2="17"></line>
-            </svg>
+            <div class="faq2-link-wrap">
+              <div class="faq2-default-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M10 13a5 5 0 0 0 7.07 0l2.12-2.12a5 5 0 0 0-7.07-7.07L10.7 5.22"></path>
+                  <path d="M14 11a5 5 0 0 0-7.07 0L4.81 13.12a5 5 0 1 0 7.07 7.07L13.3 18.78"></path>
+                </svg>
+              </div>
+              <input class="faq2-url-input" type="url" value="${faq5Url}" aria-label="FAQ URL 5" />
+            </div>
             <span class="faq2-question-text">${faq5Q}</span>
           </div>
           <div class="faq2-chevron"></div>
@@ -240,7 +308,6 @@ export function getFaqV2Code(config = {}) {
           <div class="faq2-answer-content">${faq5A}</div>
         </div>
       </div>
-
     </div>
   </section>
 </div>
@@ -264,6 +331,13 @@ export function getFaqV2Code(config = {}) {
           const answer = item.querySelector(".faq2-answer");
           answer.style.maxHeight = answer.scrollHeight + "px";
         }
+      });
+    });
+
+    const urlInputs = document.querySelectorAll(".faq2-url-input");
+    urlInputs.forEach(function(input) {
+      input.addEventListener("click", function(event) {
+        event.stopPropagation();
       });
     });
   });

@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Info } from "lucide-react";
 import PanelHeader from "./PanelHeader";
 import PanelActions from "./PanelActions";
@@ -41,6 +42,20 @@ const SCROLL_STYLES = `
   .rp-scroll::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
 `;
 
+const COLOR_KEY_RE = /(color|bg|background|border|shadow|fill|stroke|overlay|accent|text)/i;
+const COLOR_VALUE_RE = /^(#([0-9a-f]{3,8})|rgba?\(|hsla?\()/i;
+
+const inferControlType = (key, value) => {
+   if (typeof value === "string") {
+      if (COLOR_KEY_RE.test(key) && COLOR_VALUE_RE.test(value.trim())) {
+         return "color";
+      }
+      return "text";
+   }
+   if (typeof value === "number" || typeof value === "boolean") return "text";
+   return null;
+};
+
 // ── Component ──────────────────────────────────────────────────
 
 const EditorRightPanel = ({
@@ -53,8 +68,66 @@ const EditorRightPanel = ({
    copied,
    openAccordion,
    onToggleAccordion,
-}) => (
-   <aside className={panel}>
+}) => {
+   const shopifyDataAccordion = useMemo(() => {
+      if (section !== "collection-slider" && section !== "product-card-slider") {
+         return null;
+      }
+
+      return {
+         id: "shopify-data-source",
+         icon: "fa-store",
+         iconBg: "#ecfeff",
+         iconColor: "#0e7490",
+         title: "Shopify Data Source",
+         subtitle: "Auto-pull products/collections in generated code",
+         controls: [
+            { type: "select", label: "Use Shopify Data", key: "useShopifyData", options: ["false", "true"] },
+            { type: "text", label: "Collection Handle", key: "collectionHandle" },
+            { type: "text", label: "Products Limit", key: "productsLimit" },
+         ],
+      };
+   }, [section]);
+
+   const fallbackAccordion = useMemo(() => {
+      const defaultConfig = variantData?.defaultConfig || {};
+      const existingKeys = new Set(
+         (variantData?.accordions || []).flatMap((acc) =>
+            (acc.controls || []).map((ctrl) => ctrl.key),
+         ),
+      );
+
+      const controls = Object.keys(defaultConfig)
+         .filter((key) => !existingKeys.has(key))
+         .map((key) => {
+            const controlType = inferControlType(key, defaultConfig[key]);
+            if (!controlType) return null;
+            return {
+               type: controlType,
+               label: key
+                  .replace(/([A-Z])/g, " $1")
+                  .replace(/^./, (c) => c.toUpperCase())
+                  .trim(),
+               key,
+            };
+         })
+         .filter(Boolean);
+
+      if (!controls.length) return null;
+
+      return {
+         id: "additional-settings",
+         icon: "fa-layer-group",
+         iconBg: "#eff6ff",
+         iconColor: "#2563eb",
+         title: "Additional Settings",
+         subtitle: "Auto-detected editable options",
+         controls,
+      };
+   }, [variantData]);
+
+   return (
+      <aside className={panel}>
       <style>{SCROLL_STYLES}</style>
 
       {/* ── Fixed top area ── */}
@@ -80,6 +153,28 @@ const EditorRightPanel = ({
             />
          ))}
 
+         {fallbackAccordion && (
+            <AccordionSection
+               key={fallbackAccordion.id}
+               acc={fallbackAccordion}
+               isOpen={openAccordion === fallbackAccordion.id}
+               onToggle={onToggleAccordion}
+               config={config}
+               onUpdate={onUpdate}
+            />
+         )}
+
+         {shopifyDataAccordion && (
+            <AccordionSection
+               key={shopifyDataAccordion.id}
+               acc={shopifyDataAccordion}
+               isOpen={openAccordion === shopifyDataAccordion.id}
+               onToggle={onToggleAccordion}
+               config={config}
+               onUpdate={onUpdate}
+            />
+         )}
+
          <div className={sectionLabel}>Add to Shopify</div>
 
          <HowToSection />
@@ -96,6 +191,7 @@ const EditorRightPanel = ({
          </div>
       </div>
    </aside>
-);
+   );
+};
 
 export default EditorRightPanel;

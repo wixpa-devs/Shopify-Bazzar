@@ -66,20 +66,21 @@ export function getSliderV4Code(config = {}) {
 
   return `
 <link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Poppins:wght@700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
 <style>
   *, *::before, *::after {
     box-sizing: border-box;
   }
 
-  body {
+  .slider__warpper {
     position: relative;
     font-size: 100%;
-    font-family: 'Montserrat', sans-serif;
+    font-family: inherit;
     font-weight: 400;
     min-height: 100vh;
     overflow: hidden;
+    background-color: #212121; /* Added base background color if needed */
   }
 
   .slider__navi {
@@ -131,7 +132,7 @@ export function getSliderV4Code(config = {}) {
   }
 
   .text--big {
-    font-family: 'Poppins', sans-serif;
+    font-family: inherit;
     font-size: clamp(3rem, 7.5vw, 7.5em);
     font-weight: 700;
     line-height: 1.1;
@@ -146,7 +147,7 @@ export function getSliderV4Code(config = {}) {
   }
 
   .text__background {
-    font-family: 'Poppins', sans-serif;
+    font-family: inherit;
     position: absolute;
     left: 72px;
     bottom: -60px;
@@ -253,8 +254,17 @@ export function getSliderV4Code(config = {}) {
   }
 
   @media (max-width: 768px) {
-    .flex__item--left  { width: 100%; height: 60vh; align-items: flex-start; padding-top: 40px; }
-    .flex__item--right { display: none; }
+    .flex__container { height: 100vh; }
+    .flex__item--left  { width: 100%; height: 58vh; align-items: flex-start; padding-top: 40px; }
+    .flex__item--right {
+      display: flex;
+      width: 100%;
+      height: 42vh;
+      align-items: stretch;
+      justify-content: stretch;
+      opacity: 1;
+      transform-origin: center bottom;
+    }
     .flex__content     { margin-left: 30px; width: 70%; }
     .text--big         { font-size: clamp(2.5rem, 10vw, 5rem); line-height: 1; }
     .text__background  { font-size: clamp(60px, 18vw, 100px); left: 20px; }
@@ -264,6 +274,9 @@ export function getSliderV4Code(config = {}) {
   }
 
   @media (max-width: 480px) {
+    .flex__container { height: 100vh; }
+    .flex__item--left { height: 56vh; }
+    .flex__item--right { height: 44vh; }
     .flex__content  { margin-left: 20px; width: 80%; }
     .text--big      { font-size: clamp(2rem, 13vw, 3.5rem); }
     .text--sub      { font-size: 10px; margin-bottom: 20px; }

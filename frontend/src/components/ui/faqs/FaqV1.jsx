@@ -1,12 +1,12 @@
 // Named export — used by registry and generateComponentCode.js
 export function getFaqV1Code(config = {}) {
-  const bgColor       = config.bgColor       || "#ffffff";
-  const headingText   = config.headingText   || "FAQs";
-  const headingColor  = config.headingColor  || "#111111";
-  const borderColor   = config.borderColor   || "#dddddd";
+  const bgColor = config.bgColor || "#ffffff";
+  const headingText = config.headingText || "FAQs";
+  const headingColor = config.headingColor || "#111111";
+  const borderColor = config.borderColor || "#dddddd";
   const questionColor = config.questionColor || "#111111";
-  const answerColor   = config.answerColor   || "#555555";
-  const iconColor     = config.iconColor     || "#111111";
+  const answerColor = config.answerColor || "#555555";
+  const iconColor = config.iconColor || "#111111";
 
   const faq1Q = config.faq1Q || "How do I make a purchase?";
   const faq1A = config.faq1A || "You can make a purchase by adding items to your cart and proceeding to checkout.";
@@ -20,10 +20,17 @@ export function getFaqV1Code(config = {}) {
   return `<!-- FAQ V1 — Minimal Accordion | Shopify Bazzar -->
 <style>
   .faq1-wrapper {
-    font-family: Arial, sans-serif;
+    font-family: inherit;
     margin: 0;
     background: ${bgColor};
     box-sizing: border-box;
+  }
+
+  .faq1-wrapper *,
+  .faq1-wrapper *::before,
+  .faq1-wrapper *::after {
+    box-sizing: border-box;
+    font-family: inherit;
   }
 
   .faq1-container {
@@ -54,7 +61,6 @@ export function getFaqV1Code(config = {}) {
     background: none;
     border: none;
     font-size: 16px;
-    font-family: Arial, sans-serif;
     text-align: left;
     display: flex;
     justify-content: space-between;
@@ -96,9 +102,11 @@ export function getFaqV1Code(config = {}) {
     .faq1-heading {
       font-size: 24px;
     }
+
     .faq1-question {
       font-size: 15px;
     }
+
     .faq1-answer p {
       font-size: 13px;
     }
@@ -108,9 +116,11 @@ export function getFaqV1Code(config = {}) {
     .faq1-container {
       padding: 28px 16px;
     }
+
     .faq1-heading {
       font-size: 20px;
     }
+
     .faq1-question {
       font-size: 14px;
       padding: 14px 0;
@@ -123,9 +133,8 @@ export function getFaqV1Code(config = {}) {
     <h2 class="faq1-heading">${headingText}</h2>
 
     <div class="faq1-list">
-
       <div class="faq1-item">
-        <button class="faq1-question">
+        <button class="faq1-question" type="button">
           <span>${faq1Q}</span>
           <span class="faq1-icon">+</span>
         </button>
@@ -135,7 +144,7 @@ export function getFaqV1Code(config = {}) {
       </div>
 
       <div class="faq1-item">
-        <button class="faq1-question">
+        <button class="faq1-question" type="button">
           <span>${faq2Q}</span>
           <span class="faq1-icon">+</span>
         </button>
@@ -145,7 +154,7 @@ export function getFaqV1Code(config = {}) {
       </div>
 
       <div class="faq1-item">
-        <button class="faq1-question">
+        <button class="faq1-question" type="button">
           <span>${faq3Q}</span>
           <span class="faq1-icon">+</span>
         </button>
@@ -155,7 +164,7 @@ export function getFaqV1Code(config = {}) {
       </div>
 
       <div class="faq1-item">
-        <button class="faq1-question">
+        <button class="faq1-question" type="button">
           <span>${faq4Q}</span>
           <span class="faq1-icon">+</span>
         </button>
@@ -163,7 +172,6 @@ export function getFaqV1Code(config = {}) {
           <p>${faq4A}</p>
         </div>
       </div>
-
     </div>
   </div>
 </div>
