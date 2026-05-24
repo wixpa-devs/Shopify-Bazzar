@@ -17,6 +17,8 @@ export function logStartupEnv() {
   // eslint-disable-next-line no-console
   console.log("[backend][env] MONGODB_URI:", maskMongoUri(config.mongodbUri));
   // eslint-disable-next-line no-console
+  console.log("[backend][env] MONGODB_DB_NAME:", config.mongodbDbName);
+  // eslint-disable-next-line no-console
   console.log("[backend][env] FRONTEND_ORIGIN (raw):", env.FRONTEND_ORIGIN ?? "(unset)");
   // eslint-disable-next-line no-console
   console.log("[backend][env] ALLOWED_ORIGINS (raw):", env.ALLOWED_ORIGINS ?? "(unset)");

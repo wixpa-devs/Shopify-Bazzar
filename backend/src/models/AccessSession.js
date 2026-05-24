@@ -4,7 +4,7 @@ const accessSessionSchema = new mongoose.Schema(
   {
     token: { type: String, required: true, unique: true, index: true },
     email: { type: String, required: true },
-    expiresAt: { type: Date, required: true, index: true },
+    expiresAt: { type: Date, required: true },
     lastSeenAt: { type: Date, default: () => new Date() },
   },
   { timestamps: true },
@@ -18,4 +18,3 @@ export const AccessSession = mongoose.model(
   accessSessionSchema,
   "code_access_sessions",
 );
-

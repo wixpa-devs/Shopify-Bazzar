@@ -2,6 +2,7 @@
  * Shopify Collection Product Fetcher
  * Reusable utility for all ProductCardSlider variants
  */
+import { apiUrl } from "./apiBase.js";
 
 export async function fetchShopifyCollectionProducts(collectionUrl, limit = 8) {
   try {
@@ -9,7 +10,7 @@ export async function fetchShopifyCollectionProducts(collectionUrl, limit = 8) {
       return null;
     }
 
-    const response = await fetch("/api/shopify/collection-products", {
+    const response = await fetch(apiUrl("/api/shopify/collection-products"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ collectionUrl, limit }),
@@ -34,13 +35,12 @@ export async function fetchShopifyCollectionProducts(collectionUrl, limit = 8) {
 /**
  * Build product card HTML from transformed Shopify product data
  * @param {Object} product - Product object with: title, price, comparePrice, imageUrl, imageAlt, productUrl, variantId, description, vendor
- * @param {Object} options - Styling options: currencySymbol, addToCartText, textColor, vendor
+ * @param {Object} options - Styling options: currencySymbol, addToCartText, vendor
  */
 export function buildProductCardHTML(product, options = {}) {
   const {
     currencySymbol = "$",
     addToCartText = "Add to cart",
-    textColor = "#111111",
     vendor: defaultVendor = "Brand",
   } = options;
 

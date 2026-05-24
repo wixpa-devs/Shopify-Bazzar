@@ -298,4 +298,44 @@ body {
          width: 100%;
       }
    }
+
+   @keyframes heroGreenFogOne {
+      0%,
+      100% {
+         transform: translate3d(-2%, 1%, 0) scale(1);
+         opacity: 0.62;
+      }
+      45% {
+         transform: translate3d(8%, -5%, 0) scale(1.12);
+         opacity: 0.78;
+      }
+      70% {
+         transform: translate3d(3%, 5%, 0) scale(0.96);
+         opacity: 0.55;
+      }
+   }
+
+   @keyframes heroGreenFogTwo {
+      0%,
+      100% {
+         transform: translate3d(4%, 0, 0) scale(1);
+         opacity: 0.52;
+      }
+      50% {
+         transform: translate3d(-10%, -7%, 0) scale(1.18);
+         opacity: 0.72;
+      }
+   }
+}
+
+@layer components {
+   .component-slider {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      scroll-behavior: smooth;
+   }
+
+   .component-slider::-webkit-scrollbar {
+      display: none;
+   }
 }

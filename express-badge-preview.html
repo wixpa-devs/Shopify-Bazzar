@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Express Tomorrow Badge Preview</title>
+    <style>
+      :root {
+        --badge-width: 520px;
+        --badge-height: 68px;
+        --yellow: #ffe600;
+        --black: #030303;
+        --text-dark: #232323;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        display: grid;
+        place-items: center;
+        background: #f5f5f2;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .preview-card {
+        padding: 42px;
+        background: #ffffff;
+        border: 1px solid #ecece8;
+        border-radius: 18px;
+        box-shadow: 0 24px 80px rgba(17, 24, 39, 0.08);
+      }
+
+      .express-tomorrow-badge {
+        position: relative;
+        isolation: isolate;
+        width: min(var(--badge-width), calc(100vw - 56px));
+        height: calc(min(var(--badge-width), calc(100vw - 56px)) * 0.1307);
+        min-height: 44px;
+        max-height: var(--badge-height);
+        overflow: visible;
+      }
+
+      .express-tomorrow-badge::after,
+      .express-tomorrow-badge::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        z-index: -1;
+      }
+
+      .express-tomorrow-badge::before {
+        left: 0;
+        width: 49%;
+        background: var(--yellow);
+        border-radius: 999px 0 0 999px;
+        clip-path: polygon(0 0, 100% 0, 84% 100%, 0 100%);
+        box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.04);
+      }
+
+      .express-tomorrow-badge::after {
+        left: 36.9%;
+        right: 0;
+        background: var(--black);
+        border-radius: 0 0 999px 0;
+        clip-path: polygon(14.4% 0, 100% 0, 86.8% 100%, 0 100%);
+      }
+
+      .express-tomorrow-badge__text {
+        position: absolute;
+        top: 50%;
+        display: block;
+        transform: translateY(-53%);
+        font-style: italic;
+        font-weight: 900;
+        line-height: 1;
+        letter-spacing: -0.035em;
+        white-space: nowrap;
+      }
+
+      .express-tomorrow-badge__text--express {
+        left: 4.3%;
+        color: var(--text-dark);
+        font-size: clamp(28px, 6.55vw, 43px);
+      }
+
+      .express-tomorrow-badge__text--tomorrow {
+        left: 47.8%;
+        color: #ffffff;
+        font-size: clamp(27px, 6.25vw, 41px);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="preview-card" aria-label="Express Tomorrow badge preview">
+      <div class="express-tomorrow-badge" role="img" aria-label="express Tomorrow">
+        <span class="express-tomorrow-badge__text express-tomorrow-badge__text--express">express</span>
+        <span class="express-tomorrow-badge__text express-tomorrow-badge__text--tomorrow">Tomorrow</span>
+      </div>
+    </main>
+  </body>
+</html>

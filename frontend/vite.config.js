@@ -2,41 +2,41 @@
 import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 
+function normalizeProxyTarget(rawTarget) {
+  const target = rawTarget?.trim() || "http://localhost:4000";
+
+  if (target.startsWith("http://") || target.startsWith("https://")) {
+    return target;
+  }
+
+  if (target.startsWith("localhost") || target.startsWith("127.0.0.1")) {
+    return `http://${target}`;
+  }
+
+  return `https://${target}`;
+}
+
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
-  // Vite config runs in Node, so use loadEnv/process.env (NOT import.meta.env).
   const env = loadEnv(mode, process.cwd(), "");
 
   if (mode === "production" && !env.VITE_BACKEND_URL?.trim()) {
     console.warn(
-      "[vite] VITE_BACKEND_URL is not set — production API calls will fail.",
+      "[vite] VITE_BACKEND_URL is not set - production API calls will fail.",
     );
   }
 
-  const rawTarget = env.VITE_BACKEND_URL?.trim();
-  if (!rawTarget) {
-    console.warn(
-      "[vite] VITE_BACKEND_URL is not set — dev /api proxy disabled. Add it to frontend/.env.",
-    );
-  }
-
-  const target = rawTarget
-    ? rawTarget.startsWith("http://") || rawTarget.startsWith("https://")
-      ? rawTarget
-      : `https://${rawTarget}`
-    : null;
+  const target = normalizeProxyTarget(env.VITE_BACKEND_URL);
 
   return {
     plugins: [react()],
     server: {
-      proxy: target
-        ? {
-            "/api": {
-              target,
-              changeOrigin: true,
-            },
-          }
-        : {},
+      proxy: {
+        "/api": {
+          target,
+          changeOrigin: true,
+        },
+      },
     },
   };
 });
