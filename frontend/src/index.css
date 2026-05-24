@@ -338,4 +338,42 @@ body {
    .component-slider::-webkit-scrollbar {
       display: none;
    }
+
+   .footer-main-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      align-items: start;
+   }
+
+   .footer-newsletter {
+      min-width: 0;
+   }
+
+   @media (min-width: 640px) {
+      .footer-main-grid {
+         grid-template-columns: repeat(2, minmax(0, 1fr));
+         gap: 34px 44px;
+      }
+
+      .footer-newsletter {
+         grid-column: 1 / -1;
+      }
+   }
+
+   @media (min-width: 1180px) {
+      .footer-main-grid {
+         grid-template-columns:
+            minmax(255px, 1.45fr)
+            minmax(105px, 0.65fr)
+            minmax(105px, 0.65fr)
+            minmax(125px, 0.72fr)
+            minmax(300px, 1.35fr);
+         gap: 46px;
+      }
+
+      .footer-newsletter {
+         grid-column: auto;
+      }
+   }
 }

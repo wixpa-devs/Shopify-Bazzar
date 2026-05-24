@@ -45,8 +45,8 @@ const featurePoints = [
 ];
 
 const section =
-   "overflow-hidden bg-[#f5f6f4] px-4 py-10 sm:px-7 sm:py-12 lg:px-10 lg:py-16";
-const shell = "mx-auto max-w-[1320px]";
+   "overflow-hidden bg-[#f5f6f4] px-4 py-10 sm:px-7 sm:py-12 lg:px-4 lg:py-16";
+const shell = "mx-auto max-w-[1400px]";
 const topRow =
    "mb-5 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-center sm:justify-between";
 const heading =
@@ -55,14 +55,14 @@ const viewAll =
    "inline-flex w-fit items-center gap-2 text-[13px] font-bold text-[#2f3a34] transition-colors hover:text-[#1f9c45]";
 const slider =
    "component-slider -mx-4 overflow-x-auto px-4 pb-2 sm:-mx-7 sm:px-7 lg:mx-0 lg:px-0";
-const sliderTrack = "flex min-w-full gap-3 sm:gap-4";
+const sliderTrack = "flex min-w-full gap-3";
 const componentCard =
-   "group flex-none w-[156px] rounded-[12px] border border-[#dfe7e1] bg-white p-2.5 shadow-[0_10px_24px_rgba(25,31,28,0.05)] transition duration-200 hover:-translate-y-0.5 hover:border-[#bcdcc5] hover:shadow-[0_16px_34px_rgba(25,31,28,0.08)] min-[420px]:w-[176px] sm:w-[190px] lg:w-[calc((100%_-_80px)/6)]";
+   "group flex-none w-[164px] rounded-[13px] border border-[#dfe7e1] bg-white p-3 shadow-[0_10px_24px_rgba(25,31,28,0.055)] transition duration-200 hover:-translate-y-0.5 hover:border-[#bcdcc5] hover:shadow-[0_18px_36px_rgba(25,31,28,0.09)] min-[420px]:w-[184px] sm:w-[204px] lg:w-[calc((100%_-_60px)/6)]";
 const cardImage =
-   "block aspect-[3/2] w-full rounded-[9px] border border-[#eef2ef] bg-[#f8faf8] object-cover";
+   "block aspect-[3/2] w-full rounded-[10px] border border-[#eef2ef] bg-[#f8faf8] object-cover";
 const cardTitle =
-   "mt-3 text-[13px] font-black tracking-[-0.01em] text-[#151c18]";
-const cardCount = "mt-1 text-[11px] font-semibold text-[#6d7771]";
+   "mt-3.5 text-[13.5px] font-black tracking-[-0.01em] text-[#151c18]";
+const cardCount = "mt-1 text-[11.5px] font-semibold text-[#6d7771]";
 const liveBlock =
    "mt-9 grid items-center gap-7 rounded-[18px] border border-[#dfe7e1] bg-white/42 p-4 sm:mt-11 sm:p-6 lg:grid-cols-[0.42fr_0.58fr] lg:gap-7 lg:bg-transparent lg:p-0 lg:border-0";
 const liveCopy = "max-w-[390px] lg:pl-1";
@@ -99,7 +99,7 @@ const LibraryEditorSection = () => {
 
       let frameId;
       let lastTime = performance.now();
-      const speed = 26;
+      const speed = 42;
 
       const tick = (time) => {
          const delta = time - lastTime;

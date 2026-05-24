@@ -54,7 +54,7 @@ const stepTitle =
 const stepText =
    "mt-3 max-w-[150px] text-[12px] font-semibold leading-[1.55] text-[#6a726d] sm:max-w-[158px]";
 const connector =
-   "absolute left-[calc(50%+43px)] top-[40px] z-10 hidden h-3 w-[calc(100%-86px)] lg:block";
+   "absolute left-[calc(50%+44px)] top-[40px] z-10 hidden h-3 w-[calc(100%-96px)] lg:block";
 
 const ConnectorArrow = ({ id }) => (
    <svg
@@ -66,22 +66,22 @@ const ConnectorArrow = ({ id }) => (
       <defs>
          <marker
             id={id}
-            markerHeight="7"
-            markerWidth="7"
+            markerHeight="8"
+            markerWidth="8"
             orient="auto"
-            refX="6"
-            refY="3.5"
+            refX="7.2"
+            refY="4"
          >
-            <path d="M0 0L7 3.5L0 7" fill="none" stroke="#38a763" strokeWidth="1.7" />
+            <path d="M0.8 1.1L7.2 4L0.8 6.9Z" fill="#31a65a" />
          </marker>
       </defs>
       <path
-         d="M0 6H97"
+         d="M1 6H94"
          fill="none"
          markerEnd={`url(#${id})`}
-         stroke="#8ecaa2"
+         stroke="#9bcdaa"
          strokeLinecap="round"
-         strokeWidth="1.25"
+         strokeWidth="1.35"
       />
    </svg>
 );

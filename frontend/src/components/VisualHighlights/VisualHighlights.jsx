@@ -17,9 +17,10 @@ const section =
 const shell = "mx-auto max-w-[1320px]";
 const grid =
    "grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-5 lg:gap-4";
-const card = "min-w-0";
+const card =
+   "min-w-0 overflow-hidden rounded-[14px] shadow-[0_12px_28px_rgba(25,31,28,0.06)]";
 const image =
-   "block h-auto w-full select-none rounded-[14px] object-contain shadow-[0_14px_34px_rgba(25,31,28,0.08)]";
+   "block h-auto w-full select-none object-contain";
 
 const VisualHighlights = () => (
    <section className={section} aria-label="Component library visual highlights">
