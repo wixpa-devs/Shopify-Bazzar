@@ -1,58 +1,39 @@
-import { createElement, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
    Box,
-   Wand2,
-   PackageOpen,
-   CheckCircle2,
-   Sparkles,
-   GaugeCircle,
-   Search,
+   ChevronDown,
+   Check,
    Grid3X3,
    List,
-   Bookmark,
    MailPlus,
-   Check,
-   ChevronDown,
+   PackageOpen,
+   Search,
+   Wand2,
 } from "lucide-react";
 import { getAllCategories } from "../registry/componentRegistry";
-import allComponentsImage from "../../../temp-assets/all-components-main-img.png";
 
-// ── Tailwind Classes ───────────────────────────────────────────
-
-const heroSection =
-   "relative mb-16 overflow-visible bg-white py-[34px] animate-[fadeUp_0.5s_ease_both] max-[900px]:mb-12 max-[900px]:py-7 max-[640px]:mb-10 max-[640px]:py-5";
-const heroGrid =
-   "grid min-h-[360px] items-center gap-9 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] max-[1180px]:gap-5 max-[980px]:grid-cols-1 max-[980px]:min-h-0";
-const heroContent =
-   "relative z-10 flex flex-col items-start max-[980px]:items-center max-[980px]:text-center";
+const pageHero =
+   "relative left-1/2 isolate -mt-10 mb-10 w-screen -translate-x-1/2 overflow-hidden border-b border-[#e8f0eb] bg-[#f4fbf5] px-5 py-16 font-[var(--inter-font)] max-[1024px]:-mt-8 sm:py-20 lg:py-[84px] max-[900px]:-mt-24 max-[900px]:pt-[8.5rem] max-[640px]:-mt-[6.5rem] max-[640px]:pt-[7.5rem]";
+const pageHeroPattern =
+   "absolute inset-0 -z-10 opacity-75 [background-image:radial-gradient(rgba(26,89,47,0.16)_1px,transparent_1px)] [background-size:24px_24px]";
+const pageHeroGlow =
+   "absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.92)_0%,rgba(244,251,245,0.76)_46%,rgba(238,249,241,0.92)_100%)]";
+const pageHeroInner =
+   "mx-auto flex min-h-[190px] max-w-[980px] flex-col items-center justify-center text-center";
 const pageTitle =
-   "w-max max-w-none text-[clamp(2.65rem,3.9vw,4.75rem)] font-black leading-[1.05] text-[#05080a] font-[var(--inter-font)] max-[1320px]:text-[3rem] max-[980px]:text-[clamp(2.65rem,7vw,4rem)] max-[640px]:w-full max-[640px]:max-w-[430px] max-[640px]:text-[clamp(2.25rem,11vw,3.4rem)]";
-const pageTitleAccent = "text-[#5cc84e]";
-const pageDesc =
-   "mt-7 w-max max-w-none text-[clamp(1.02rem,1.1vw,1.18rem)] font-semibold leading-[1.8] text-[#5f6875] font-[var(--inter-font)] max-[900px]:mt-5 max-[640px]:w-full max-[640px]:max-w-[430px] max-[640px]:text-[0.98rem] max-[640px]:leading-[1.65]";
-const heroBadges =
-   "mt-11 flex w-max max-w-none items-center gap-5 max-[1320px]:gap-4 max-[1180px]:gap-3 max-[980px]:justify-center max-[640px]:mt-7 max-[640px]:grid max-[640px]:w-full max-[640px]:grid-cols-1 max-[640px]:gap-3";
-const heroBadge =
-   "inline-flex h-[50px] min-w-[170px] shrink-0 items-center justify-center gap-3 rounded-[11px] border border-[#dbe9df] bg-[#fbfdfb] px-4 text-[0.9rem] font-extrabold text-[#23312a] shadow-[0_10px_28px_rgba(17,37,23,0.055)] font-[var(--inter-font)] max-[1320px]:px-3.5 max-[640px]:h-[54px] max-[640px]:min-w-0 max-[640px]:justify-start";
-const heroBadgeIcon =
-   "grid h-7 w-7 flex-shrink-0 place-items-center rounded-full border border-[#a5ddb7] bg-white text-[#18a44a] shadow-[0_8px_18px_rgba(24,164,74,0.12)]";
-const heroVisual =
-   "relative flex min-h-[360px] items-center justify-end max-[1180px]:min-h-[340px] max-[980px]:min-h-0 max-[980px]:justify-center";
-const heroImage =
-   "relative z-10 w-full max-w-[790px] object-contain drop-shadow-[0_24px_55px_rgba(10,24,14,0.08)] max-[1180px]:max-w-[640px] max-[980px]:max-w-[720px] max-[640px]:w-[114%] max-[640px]:max-w-none";
+   "text-[clamp(3.2rem,6.8vw,5.9rem)] font-black leading-[0.98] tracking-[-0.055em] text-[#090d0b]";
+const pageDescription =
+   "mt-8 max-w-[770px] text-[clamp(1.04rem,1.35vw,1.5rem)] font-semibold leading-[1.55] tracking-[-0.015em] text-[#59636c] max-[640px]:mt-6";
 
 const cardsGrid =
    "grid grid-cols-1 gap-5 sm:grid-cols-[repeat(auto-fill,minmax(300px,1fr))]";
-
 const cardBase =
    "border border-[var(--color-sidebar-border)] [border-left-width:3px] [border-left-color:transparent] rounded-xl overflow-hidden bg-[var(--color-bg-white)] flex flex-col cursor-pointer transition-[border-color,background-color] duration-200 ease-out hover:[border-left-color:#2563eb] hover:bg-[#fafbff]";
-
 const cardPreview =
    "h-[220px] bg-[var(--color-bg-light,#f9fafb)] flex items-start justify-center border-b border-[var(--color-sidebar-border)] overflow-hidden pointer-events-none relative";
 const previewOverlay =
    "absolute inset-0 bg-[rgba(37,99,235,0.04)] opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-[1] pointer-events-none";
-
 const cardFooter =
    "px-[14px] py-3 flex items-center justify-between gap-[10px] bg-white flex-shrink-0";
 const cardNameWrap = "flex flex-col gap-[2px] min-w-0 flex-1";
@@ -66,12 +47,6 @@ const customizeBtn =
 const emptyState =
    "text-center py-16 px-8 text-[var(--color-nav-text-secondary)] font-[var(--inter-font)]";
 const emptyText = "text-[0.88rem] leading-[1.7] mt-4";
-
-const heroBadgesData = [
-   { label: "Production ready", icon: CheckCircle2 },
-   { label: "Fully customizable", icon: Sparkles },
-   { label: "Performance optimized", icon: GaugeCircle },
-];
 
 const browseSection =
    "mb-16 animate-[fadeUp_0.55s_ease_both] font-[var(--inter-font)]";
@@ -100,25 +75,16 @@ const layoutButton =
    "grid h-11 w-11 place-items-center rounded-[9px] border border-[#e4eae5] bg-[#f7faf8] text-[#1f2a24] transition-all duration-200 hover:border-[#b6dfc1] hover:text-[#10963d]";
 const layoutButtonActive =
    "border-[#89d39a] bg-[#eaf9ee] text-[#0b8d37] shadow-[inset_0_0_0_1px_rgba(22,163,74,0.18)]";
-const tabsNav =
-   "mt-5 flex gap-4 overflow-x-auto pb-0.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden";
-const tabButton =
-   "inline-flex h-11 shrink-0 items-center gap-3 rounded-[9px] border border-[#e4eae5] bg-white px-5 text-[0.82rem] font-extrabold text-[#151f19] shadow-[0_6px_16px_rgba(17,24,39,0.035)] transition-all duration-200 hover:border-[#b6dfc1] hover:text-[#158d3d]";
-const tabButtonActive =
-   "border-[#9bddaa] bg-[#effcf2] text-[#0f8f3a] shadow-[0_8px_20px_rgba(18,148,61,0.1)]";
-const tabCount =
-   "rounded-full bg-[#f2f5f3] px-2 py-[2px] text-[0.68rem] font-black text-[#26312a]";
-const tabCountActive = "bg-white text-[#0f8f3a]";
 const browseContent =
-   "mt-8 grid items-start gap-8 lg:grid-cols-[290px_minmax(0,1fr)] max-[980px]:grid-cols-1";
+   "mt-8 grid items-start gap-8 lg:grid-cols-[286px_minmax(0,1fr)] max-[980px]:grid-cols-1";
 const filtersStack = "flex flex-col gap-7";
 const filterPanel =
-   "rounded-[13px] border border-[#e2e9e4] bg-white shadow-[0_10px_30px_rgba(17,24,39,0.055)] overflow-hidden";
+   "overflow-hidden rounded-[15px] border border-[#e2e9e4] bg-white shadow-[0_12px_32px_rgba(17,24,39,0.055)]";
 const filterPanelHeader =
    "flex items-center justify-between border-b border-[#eef2ef] px-6 py-5";
 const filterTitle = "text-[0.92rem] font-black text-[#17201a]";
 const clearButton =
-   "text-[0.74rem] font-extrabold text-[#68736b] transition-colors hover:text-[#14883a]";
+   "text-[0.72rem] font-black text-[#68736b] transition-colors hover:text-[#14883a]";
 const filterBody = "px-6 py-5";
 const filterSectionHeader =
    "mb-4 flex items-center justify-between text-[0.78rem] font-black text-[#17201a]";
@@ -126,69 +92,65 @@ const filterList = "flex flex-col gap-3";
 const filterButton =
    "group flex w-full items-center gap-3 rounded-[8px] py-1.5 text-left transition-colors hover:bg-[#f7fbf8]";
 const fakeCheckbox =
-   "grid h-4 w-4 shrink-0 place-items-center rounded-[3px] border border-[#ccd6cf] bg-white text-transparent transition-all duration-200 group-hover:border-[#7bcc91]";
-const fakeCheckboxActive = "border-[#1cad4e] bg-[#17a34a] text-white";
+   "grid h-[17px] w-[17px] shrink-0 place-items-center rounded-[4px] border transition-all duration-200";
+const fakeCheckboxActive = "border-[#1cad4e] bg-[#16a34a]";
+const fakeCheckboxInactive = "border-[#cbd6d0] bg-white group-hover:border-[#7bcc91]";
+const fakeCheckboxIcon =
+   "text-white transition-opacity duration-150";
+const fakeCheckboxIconActive = "opacity-100";
+const fakeCheckboxIconInactive = "opacity-0";
 const filterLabel =
-   "min-w-0 flex-1 text-[0.78rem] font-bold text-[#5f6a63] transition-colors group-hover:text-[#1e2a22]";
-const filterLabelActive = "text-[#178d3d]";
+   "min-w-0 flex-1 text-[0.78rem] font-extrabold transition-colors group-hover:text-[#1e2a22]";
+const filterLabelActive = "text-[#148c3b]";
+const filterLabelInactive = "text-[#606b64]";
 const filterCount =
-   "rounded-full bg-[#eef2f0] px-2 py-[1px] text-[0.66rem] font-black text-[#5d6861]";
-const filterCountActive = "bg-[#e7f9eb] text-[#14933f]";
+   "rounded-full px-2 py-[2px] text-[0.64rem] font-black";
+const filterCountActive = "bg-[#e4f8e9] text-[#13913d]";
+const filterCountInactive = "bg-[#f0f4f2] text-[#68736b]";
 const showMoreButton =
-   "mt-4 inline-flex items-center gap-1.5 text-[0.76rem] font-extrabold text-[#159447] transition-colors hover:text-[#0f7637]";
+   "mt-5 inline-flex items-center gap-1.5 text-[0.76rem] font-black text-[#159447] transition-colors hover:text-[#0f7637]";
 const requestCard =
-   "rounded-[13px] border border-[#d7ecd9] bg-[#eef8f1] p-6 shadow-[0_10px_24px_rgba(22,101,52,0.07)]";
-const requestTop = "flex items-start gap-3";
+   "rounded-[15px] border border-[#d7ecd9] bg-[#eff9f2] p-6 shadow-[0_14px_34px_rgba(22,101,52,0.075)]";
+const requestTop = "flex items-start gap-4";
 const requestIcon =
-   "grid h-9 w-9 shrink-0 place-items-center rounded-[9px] bg-white text-[#18a44a] shadow-[0_6px_15px_rgba(22,101,52,0.08)]";
-const requestTitle = "text-[0.9rem] font-black text-[#17201a]";
-const requestText = "mt-2 text-[0.78rem] font-semibold leading-[1.55] text-[#526058]";
+   "grid h-9 w-9 shrink-0 place-items-center rounded-[10px] bg-white text-[#18a44a] shadow-[0_6px_15px_rgba(22,101,52,0.08)]";
+const requestTitle = "text-[0.84rem] font-black text-[#17201a]";
+const requestText = "mt-2 text-[0.76rem] font-semibold leading-[1.55] text-[#526058]";
 const requestButton =
-   "mt-5 h-10 w-full rounded-[8px] border border-[#dce5df] bg-white px-4 text-[0.78rem] font-black text-[#17201a] shadow-[0_6px_14px_rgba(17,24,39,0.04)] transition-all duration-200 hover:border-[#86d89a] hover:text-[#128d3d]";
+   "mt-5 h-10 w-full rounded-[8px] border border-[#dce5df] bg-white px-4 text-[0.76rem] font-black text-[#17201a] shadow-[0_6px_14px_rgba(17,24,39,0.04)] transition-all duration-200 hover:border-[#86d89a] hover:text-[#128d3d]";
 const resultsHeader =
    "mb-4 flex min-h-[24px] items-center justify-between gap-4 max-[640px]:flex-col max-[640px]:items-start";
 const resultsCount = "text-[0.8rem] font-bold text-[#26312a]";
 const activeFilterPill =
    "rounded-full bg-[#eefaf1] px-3 py-1 text-[0.72rem] font-black text-[#138b3b]";
 const componentsGrid =
-   "grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-6";
+   "grid auto-rows-fr grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-6";
 const componentsList = "flex flex-col gap-5";
 const componentCard =
-   "group flex min-h-[430px] flex-col overflow-hidden rounded-[13px] border border-[#dfe7e1] bg-white shadow-[0_10px_26px_rgba(17,24,39,0.055)] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#bddfc5] hover:shadow-[0_16px_36px_rgba(17,24,39,0.09)]";
+   "group flex h-[430px] flex-col overflow-hidden rounded-[13px] border border-[#dfe7e1] bg-white shadow-[0_10px_26px_rgba(17,24,39,0.055)] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#bddfc5] hover:shadow-[0_16px_36px_rgba(17,24,39,0.09)]";
 const componentCardList =
    "group grid min-h-[260px] grid-cols-[minmax(240px,0.84fr)_minmax(0,1fr)] overflow-hidden rounded-[13px] border border-[#dfe7e1] bg-white shadow-[0_10px_26px_rgba(17,24,39,0.055)] transition-all duration-200 hover:border-[#bddfc5] hover:shadow-[0_16px_36px_rgba(17,24,39,0.09)] max-[760px]:flex max-[760px]:min-h-[430px] max-[760px]:flex-col";
 const browsePreview =
    "relative h-[190px] overflow-hidden border-b border-[#edf2ee] bg-[#fafcfb] pointer-events-none";
 const browsePreviewList =
    "relative min-h-full overflow-hidden border-r border-[#edf2ee] bg-[#fafcfb] pointer-events-none max-[760px]:h-[190px] max-[760px]:border-b max-[760px]:border-r-0";
-const bookmarkBtn =
-   "absolute right-4 top-4 z-10 grid h-8 w-8 place-items-center rounded-full bg-white/90 text-[#2a352d] shadow-[0_6px_18px_rgba(17,24,39,0.1)]";
+const previewLoader =
+   "component-preview-loader absolute inset-0 z-[2] grid place-items-center bg-[#f8fbf9] transition-opacity duration-300";
+const previewLoaderHidden = "pointer-events-none opacity-0";
 const cardBody = "flex flex-1 flex-col p-5";
-const cardMeta =
-   "mb-2 flex items-center justify-between gap-3";
-const cardTitle =
-   "text-[0.96rem] font-black leading-snug text-[#17201a]";
+const cardMeta = "mb-2 flex items-center justify-between gap-3";
+const cardTitle = "text-[0.96rem] font-black leading-snug text-[#17201a]";
 const popularBadge =
    "rounded-full bg-[#e9f9ed] px-2 py-[2px] text-[0.64rem] font-black text-[#13913d]";
 const cardDesc =
-   "mt-3 min-h-[44px] text-[0.78rem] font-semibold leading-[1.55] text-[#5f6a63]";
+   "mt-3 min-h-[40px] text-[0.78rem] font-semibold leading-[1.55] text-[#5f6a63]";
 const tagRow = "mt-4 flex flex-wrap gap-2";
 const tagPill =
    "rounded-full bg-[#f3f6f4] px-3 py-1 text-[0.68rem] font-extrabold text-[#68736b]";
 const openEditorButton =
-   "mt-auto flex h-11 w-full items-center justify-center rounded-[8px] bg-[#079537] px-4 text-[0.78rem] font-black text-white shadow-[0_10px_18px_rgba(7,149,55,0.2)] transition-all duration-200 hover:bg-[#087c31] hover:shadow-[0_14px_24px_rgba(7,149,55,0.26)]";
+   "mt-5 flex h-11 w-full items-center justify-center rounded-[8px] bg-[#079537] px-4 text-[0.78rem] font-black text-white shadow-[0_10px_18px_rgba(7,149,55,0.2)] transition-all duration-200 hover:bg-[#087c31] hover:shadow-[0_14px_24px_rgba(7,149,55,0.26)]";
 const emptyBrowse =
    "rounded-[13px] border border-dashed border-[#cfd9d2] bg-[#fbfdfb] px-6 py-14 text-center";
-
-const tabSlugs = [
-   "all",
-   "headers",
-   "hero",
-   "product-card-slider",
-   "testimonials",
-   "faqs",
-   "announcementbar",
-];
 
 const labelOverrides = {
    announcementbar: "Announcement Bars",
@@ -202,6 +164,19 @@ const labelOverrides = {
    "collection-slider": "Collections",
 };
 
+const preferredFilterSlugs = [
+   "all",
+   "headers",
+   "hero",
+   "product-card-slider",
+   "testimonials",
+   "faqs",
+   "announcementbar",
+   "footer",
+   "marquee",
+   "collection-slider",
+];
+
 const getCategoryLabel = (category) =>
    labelOverrides[category.slug] || category.title;
 
@@ -214,14 +189,20 @@ const getSingularLabel = (label) =>
 
 const getDisplayName = (component) => {
    const rawName = component.name || component.id;
-   const parts = rawName.split(/\s+[—-]\s+/);
+   const parts = rawName.split(/\s+[-–—]\s+/);
    const variantName = parts.length > 1 ? parts.slice(1).join(" - ") : rawName;
    return `${getSingularLabel(component.categoryLabel)} - ${variantName}`;
 };
 
 const normalizeText = (value) => String(value || "").toLowerCase();
 
-// ── Preview iframe srcdoc builder ─────────────────────────────
+const truncateDescription = (value) => {
+   const fallback =
+      "Clean, responsive component for high-converting Shopify storefronts.";
+   const text = String(value || fallback).trim();
+
+   return text.length > 70 ? text.slice(0, 70).trimEnd() : text;
+};
 
 const buildPreviewSrcdoc = (htmlString) => `<!DOCTYPE html>
 <html lang="en">
@@ -238,15 +219,22 @@ const buildPreviewSrcdoc = (htmlString) => `<!DOCTYPE html>
 <body>${htmlString}</body>
 </html>`;
 
-// ── Card Preview with iframe ──────────────────────────────────
-// Renders getCode() output inside a scaled-down iframe.
-// The iframe is 238% wide then scaled to 42% → gives a desktop-width preview
-// compressed into the 220px tall card preview area.
+const PreviewLoader = ({ isLoaded }) => (
+   <div
+      className={`${previewLoader} ${isLoaded ? previewLoaderHidden : ""}`}
+      aria-hidden="true"
+   >
+      <div className="dot-spinner">
+         {Array.from({ length: 8 }, (_, index) => (
+            <div className="dot-spinner__dot" key={index} />
+         ))}
+      </div>
+   </div>
+);
 
 const CardPreviewIframe = ({ variant }) => {
-   const iframeRef = useRef(null);
+   const [isLoaded, setIsLoaded] = useState(false);
 
-   // Only build srcdoc if getCode exists — graceful fallback otherwise
    if (typeof variant.getCode !== "function") {
       return (
          <div className={cardPreview}>
@@ -263,20 +251,23 @@ const CardPreviewIframe = ({ variant }) => {
 
    return (
       <div className={cardPreview}>
+         <PreviewLoader isLoaded={isLoaded} />
          <iframe
-            ref={iframeRef}
             srcDoc={srcdoc}
             title={variant.name}
+            onLoad={() => setIsLoaded(true)}
             style={{
                position: "absolute",
                top: 0,
                left: "50%",
                width: "238%",
-               height: "520px", // tall enough to show full component
+               height: "520px",
                border: "none",
                transform: "translateX(-50%) scale(0.42)",
                transformOrigin: "top center",
                pointerEvents: "none",
+               opacity: isLoaded ? 1 : 0,
+               transition: "opacity 260ms ease",
             }}
             sandbox="allow-scripts"
             loading="lazy"
@@ -285,10 +276,6 @@ const CardPreviewIframe = ({ variant }) => {
       </div>
    );
 };
-
-// ══════════════════════════════════════════════════════════════
-// ── Exported VariantsGrid ─────────────────────────────────────
-// ══════════════════════════════════════════════════════════════
 
 export const VariantsGrid = ({ category }) => {
    const navigate = useNavigate();
@@ -317,16 +304,15 @@ export const VariantsGrid = ({ category }) => {
                }
                role="button"
                tabIndex={0}
-               onKeyDown={(e) => {
-                  if (e.key === "Enter")
+               onKeyDown={(event) => {
+                  if (event.key === "Enter") {
                      navigate(`/components/${category.slug}/${variant.id}`);
+                  }
                }}
                aria-label={`Open ${variant.name} in live editor`}
             >
-               {/* ── Preview — iframe renders getCode() output ── */}
                <CardPreviewIframe variant={variant} />
 
-               {/* ── Footer ── */}
                <div className={cardFooter}>
                   <div className={cardNameWrap}>
                      <span className={cardName} title={variant.name}>
@@ -339,8 +325,8 @@ export const VariantsGrid = ({ category }) => {
 
                   <button
                      className={customizeBtn}
-                     onClick={(e) => {
-                        e.stopPropagation();
+                     onClick={(event) => {
+                        event.stopPropagation();
                         navigate(`/components/${category.slug}/${variant.id}`);
                      }}
                      aria-label={`Open ${variant.name} editor`}
@@ -355,11 +341,9 @@ export const VariantsGrid = ({ category }) => {
    );
 };
 
-// ══════════════════════════════════════════════════════════════
-// ── Page Component ────────────────────────────────────────────
-// ══════════════════════════════════════════════════════════════
-
 const BrowsePreviewIframe = ({ variant, isList }) => {
+   const [isLoaded, setIsLoaded] = useState(false);
+
    if (typeof variant.getCode !== "function") {
       return (
          <div className={isList ? browsePreviewList : browsePreview}>
@@ -376,9 +360,11 @@ const BrowsePreviewIframe = ({ variant, isList }) => {
 
    return (
       <div className={isList ? browsePreviewList : browsePreview}>
+         <PreviewLoader isLoaded={isLoaded} />
          <iframe
             srcDoc={srcdoc}
             title={`${variant.name} preview`}
+            onLoad={() => setIsLoaded(true)}
             style={{
                position: "absolute",
                top: 0,
@@ -389,6 +375,8 @@ const BrowsePreviewIframe = ({ variant, isList }) => {
                transform: `translateX(-50%) scale(${isList ? 0.38 : 0.41})`,
                transformOrigin: "top center",
                pointerEvents: "none",
+               opacity: isLoaded ? 1 : 0,
+               transition: "opacity 260ms ease",
             }}
             sandbox="allow-scripts"
             loading="lazy"
@@ -436,17 +424,23 @@ const ComponentsBrowseSection = ({ categories }) => {
       [allComponents.length, categories],
    );
 
-   const tabs = useMemo(
-      () =>
-         tabSlugs
-            .map((slug) => categoryOptions.find((category) => category.slug === slug))
-            .filter(Boolean),
-      [categoryOptions],
-   );
+   const orderedCategoryOptions = useMemo(() => {
+      const categoryMap = new Map(
+         categoryOptions.map((category) => [category.slug, category]),
+      );
+      const preferred = preferredFilterSlugs
+         .map((slug) => categoryMap.get(slug))
+         .filter(Boolean);
+      const remaining = categoryOptions.filter(
+         (category) => !preferredFilterSlugs.includes(category.slug),
+      );
+
+      return [...preferred, ...remaining];
+   }, [categoryOptions]);
 
    const visibleFilterOptions = showAllFilters
-      ? categoryOptions
-      : categoryOptions.slice(0, 10);
+      ? orderedCategoryOptions
+      : orderedCategoryOptions.slice(0, 10);
 
    const filteredComponents = useMemo(() => {
       const searchValue = normalizeText(query.trim());
@@ -464,7 +458,9 @@ const ComponentsBrowseSection = ({ categories }) => {
             ].join(" "),
          );
 
-         return matchesCategory && (!searchValue || searchHaystack.includes(searchValue));
+         return (
+            matchesCategory && (!searchValue || searchHaystack.includes(searchValue))
+         );
       });
 
       return [...matches].sort((a, b) => {
@@ -480,14 +476,10 @@ const ComponentsBrowseSection = ({ categories }) => {
       });
    }, [allComponents, query, selectedCategory, sortBy]);
 
+   const isGrid = layout === "grid";
    const activeCategory =
       categoryOptions.find((category) => category.slug === selectedCategory) ||
       categoryOptions[0];
-   const isGrid = layout === "grid";
-
-   const chooseCategory = (slug) => {
-      setSelectedCategory(slug);
-   };
 
    const clearFilters = () => {
       setQuery("");
@@ -549,26 +541,6 @@ const ComponentsBrowseSection = ({ categories }) => {
                   </button>
                </div>
             </div>
-
-            <nav className={tabsNav} aria-label="Component categories">
-               {tabs.map((tab) => {
-                  const isActive = selectedCategory === tab.slug;
-
-                  return (
-                     <button
-                        key={tab.slug}
-                        className={`${tabButton} ${isActive ? tabButtonActive : ""}`}
-                        type="button"
-                        onClick={() => chooseCategory(tab.slug)}
-                     >
-                        <span>{tab.label}</span>
-                        <span className={`${tabCount} ${isActive ? tabCountActive : ""}`}>
-                           {tab.count}
-                        </span>
-                     </button>
-                  );
-               })}
-            </nav>
          </div>
 
          <div className={browseContent}>
@@ -584,7 +556,7 @@ const ComponentsBrowseSection = ({ categories }) => {
                   <div className={filterBody}>
                      <div className={filterSectionHeader}>
                         <span>Category</span>
-                        <ChevronDown size={14} />
+                        <ChevronDown size={14} className="rotate-180" />
                      </div>
 
                      <div className={filterList}>
@@ -596,26 +568,40 @@ const ComponentsBrowseSection = ({ categories }) => {
                                  key={category.slug}
                                  className={filterButton}
                                  type="button"
-                                 onClick={() => chooseCategory(category.slug)}
+                                 onClick={() => setSelectedCategory(category.slug)}
+                                 aria-pressed={isActive}
+                                 aria-label={`Filter by ${category.label}`}
                               >
                                  <span
                                     className={`${fakeCheckbox} ${
-                                       isActive ? fakeCheckboxActive : ""
+                                       isActive ? fakeCheckboxActive : fakeCheckboxInactive
                                     }`}
                                     aria-hidden="true"
                                  >
-                                    <Check size={11} strokeWidth={3} />
+                                    <Check
+                                       className={`${fakeCheckboxIcon} ${
+                                          isActive
+                                             ? fakeCheckboxIconActive
+                                             : fakeCheckboxIconInactive
+                                       }`}
+                                       size={11}
+                                       strokeWidth={3}
+                                    />
                                  </span>
                                  <span
                                     className={`${filterLabel} ${
-                                       isActive ? filterLabelActive : ""
+                                       isActive
+                                          ? filterLabelActive
+                                          : filterLabelInactive
                                     }`}
                                  >
                                     {category.label}
                                  </span>
                                  <span
                                     className={`${filterCount} ${
-                                       isActive ? filterCountActive : ""
+                                       isActive
+                                          ? filterCountActive
+                                          : filterCountInactive
                                     }`}
                                  >
                                     {category.count}
@@ -625,7 +611,7 @@ const ComponentsBrowseSection = ({ categories }) => {
                         })}
                      </div>
 
-                     {categoryOptions.length > 10 ? (
+                     {orderedCategoryOptions.length > 10 ? (
                         <button
                            className={showMoreButton}
                            type="button"
@@ -641,6 +627,7 @@ const ComponentsBrowseSection = ({ categories }) => {
                         </button>
                      ) : null}
                   </div>
+
                </div>
 
                <div className={requestCard}>
@@ -649,7 +636,7 @@ const ComponentsBrowseSection = ({ categories }) => {
                         <MailPlus size={17} strokeWidth={2.4} />
                      </span>
                      <div>
-                        <h3 className={requestTitle}>Missing Something?</h3>
+                        <h3 className={requestTitle}>Missing something?</h3>
                         <p className={requestText}>
                            Request a component and we'll build it.
                         </p>
@@ -669,7 +656,7 @@ const ComponentsBrowseSection = ({ categories }) => {
                <div className={resultsHeader}>
                   <p className={resultsCount}>
                      Showing {filteredComponents.length ? `1-${filteredComponents.length}` : "0"} of{" "}
-                     {filteredComponents.length} components
+                     {allComponents.length} components
                   </p>
                   <span className={activeFilterPill}>{activeCategory.label}</span>
                </div>
@@ -687,15 +674,7 @@ const ComponentsBrowseSection = ({ categories }) => {
                               className={isGrid ? componentCard : componentCardList}
                               key={`${component.section}-${component.id}`}
                            >
-                              <div className="relative">
-                                 <BrowsePreviewIframe
-                                    variant={component}
-                                    isList={!isGrid}
-                                 />
-                                 <span className={bookmarkBtn} aria-hidden="true">
-                                    <Bookmark size={15} />
-                                 </span>
-                              </div>
+                              <BrowsePreviewIframe variant={component} isList={!isGrid} />
 
                               <div className={cardBody}>
                                  <div className={cardMeta}>
@@ -708,8 +687,7 @@ const ComponentsBrowseSection = ({ categories }) => {
                                  </div>
 
                                  <p className={cardDesc}>
-                                    {component.description ||
-                                       "Clean, responsive component for high-converting Shopify storefronts."}
+                                    {truncateDescription(component.description)}
                                  </p>
 
                                  <div className={tagRow}>
@@ -757,60 +735,20 @@ const ComponentsPage = () => {
 
    return (
       <>
-         {/* ── Page Header ── */}
-         <section
-            className={heroSection}
-            aria-labelledby="components-hero-title"
-         >
-            <div className={heroGrid}>
-               <div className={heroContent}>
-                  <h1 id="components-hero-title" className={pageTitle}>
-                     <span className="block whitespace-nowrap max-[640px]:whitespace-normal">
-                        All Components
-                     </span>
-                     <span className="block whitespace-nowrap max-[640px]:whitespace-normal">
-                        Built For{" "}
-                        <span className={pageTitleAccent}>Every Need</span>
-                     </span>
-                  </h1>
-
-                  <p className={pageDesc}>
-                     <span className="block whitespace-nowrap max-[640px]:whitespace-normal">
-                        Browse, preview, and copy production-ready components
-                     </span>
-                     <span className="block whitespace-nowrap max-[640px]:whitespace-normal">
-                        built for performance, flexibility, and conversion.
-                     </span>
-                  </p>
-
-                  <div className={heroBadges} aria-label="Component benefits">
-                     {heroBadgesData.map(({ label, icon: BadgeIcon }) => (
-                        <div key={label} className={heroBadge}>
-                           <span className={heroBadgeIcon} aria-hidden="true">
-                              {createElement(BadgeIcon, {
-                                 size: 18,
-                                 strokeWidth: 2.5,
-                              })}
-                           </span>
-                           <span>{label}</span>
-                        </div>
-                     ))}
-                  </div>
-               </div>
-
-               <div className={heroVisual}>
-                  <img
-                     className={heroImage}
-                     src={allComponentsImage}
-                     alt="Shopify component preview showing a storefront, button editor, and Liquid code panel"
-                     loading="eager"
-                     decoding="async"
-                  />
-               </div>
+         <section className={pageHero} aria-labelledby="components-page-title">
+            <div className={pageHeroPattern} aria-hidden="true" />
+            <div className={pageHeroGlow} aria-hidden="true" />
+            <div className={pageHeroInner}>
+               <h1 id="components-page-title" className={pageTitle}>
+                  All Components
+               </h1>
+               <p className={pageDescription}>
+                  Browse, preview, and customize production-ready Shopify sections
+                  built for speed, flexibility, and conversion.
+               </p>
             </div>
          </section>
 
-         {/* ── Empty state ── */}
          {categories.length > 0 ? (
             <ComponentsBrowseSection categories={categories} />
          ) : (
@@ -823,8 +761,6 @@ const ComponentsPage = () => {
                </p>
             </div>
          )}
-
-         {/* ── Category sections ── */}
       </>
    );
 };
