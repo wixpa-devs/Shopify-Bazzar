@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { Menu } from "lucide-react";
 import Sidebar from "../Sidebar/Sidebar";
 import Header from "../Header/Header";
@@ -14,6 +14,8 @@ const middleRow = "flex flex-1";
 // Main content area
 const mainContent =
    "flex-1 min-w-0 px-12 py-10 bg-[var(--color-bg-white)] max-[1024px]:px-8 max-[1024px]:py-8 max-[900px]:px-6 max-[900px]:pt-24 max-[900px]:pb-8 max-[640px]:px-5 max-[640px]:pt-[6.5rem] max-[640px]:pb-8";
+const indexMainContent =
+   "flex-1 min-w-0 w-full max-w-[1440px] mx-auto px-12 py-10 bg-[var(--color-bg-white)] max-[1024px]:px-8 max-[1024px]:py-8 max-[900px]:px-6 max-[900px]:pt-24 max-[900px]:pb-8 max-[640px]:px-5 max-[640px]:pt-[6.5rem] max-[640px]:pb-8";
 
 // Mobile hamburger — fixed, only visible ≤900px
 const menuBtn =
@@ -23,6 +25,8 @@ const menuBtn =
 
 const ComponentsLayout = () => {
    const [sidebarOpen, setSidebarOpen] = useState(false);
+   const location = useLocation();
+   const isComponentsIndex = location.pathname.replace(/\/$/, "") === "/components";
 
    return (
       <div className={shell}>
@@ -32,32 +36,36 @@ const ComponentsLayout = () => {
          {/* ── Row 2: Sticky sidebar + page content ── */}
          <div className={middleRow}>
             {/* Sticky sidebar — desktop only */}
-            <aside
-               className={[
-                  "w-[var(--sidebar-width,260px)] flex-shrink-0 sticky top-24",
-                  "h-[calc(100vh-96px)] self-start border-r border-[var(--color-sidebar-border)]",
-                  "bg-[var(--color-sidebar-bg)] z-40 overflow-hidden",
-                  "hidden [&]:block max-[900px]:![display:none]",
-               ].join(" ")}
-               style={{ display: "block" }}
-            >
-               <Sidebar
-                  isOpen={sidebarOpen}
-                  onClose={() => setSidebarOpen(false)}
-               />
-            </aside>
+            {!isComponentsIndex ? (
+               <aside
+                  className={[
+                     "w-[var(--sidebar-width,260px)] flex-shrink-0 sticky top-24",
+                     "h-[calc(100vh-96px)] self-start border-r border-[var(--color-sidebar-border)]",
+                     "bg-[var(--color-sidebar-bg)] z-40 overflow-hidden",
+                     "hidden [&]:block max-[900px]:![display:none]",
+                  ].join(" ")}
+                  style={{ display: "block" }}
+               >
+                  <Sidebar
+                     isOpen={sidebarOpen}
+                     onClose={() => setSidebarOpen(false)}
+                  />
+               </aside>
+            ) : null}
 
             {/* Mobile hamburger */}
-            <button
-               className={menuBtn}
-               aria-label="Toggle Navigation"
-               onClick={() => setSidebarOpen(true)}
-            >
-               <Menu size={16} />
-            </button>
+            {!isComponentsIndex ? (
+               <button
+                  className={menuBtn}
+                  aria-label="Toggle Navigation"
+                  onClick={() => setSidebarOpen(true)}
+               >
+                  <Menu size={16} />
+               </button>
+            ) : null}
 
             {/* Page content */}
-            <main className={mainContent}>
+            <main className={isComponentsIndex ? indexMainContent : mainContent}>
                <Outlet />
             </main>
          </div>
