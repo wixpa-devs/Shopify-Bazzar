@@ -8,6 +8,8 @@ import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import ServicesPage from "./pages/ServicesPage";
 import ShopifyAppsPage from "./pages/ShopifyAppsPage";
+import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
 
 const App = () => (
    <BrowserRouter>
@@ -17,6 +19,9 @@ const App = () => (
          <Route path="/shopify-apps" element={<ShopifyAppsPage />} />
          <Route path="/about" element={<AboutPage />} />
          <Route path="/contact" element={<ContactPage />} />
+         <Route path="/login" element={<LoginPage />} />
+         <Route path="/signup" element={<SignupPage />} />
+         <Route path="/register" element={<SignupPage />} />
 
          <Route path="/components" element={<ComponentsLayout />}>
             <Route index element={<ComponentsPage />} />

@@ -126,7 +126,11 @@ const Header = () => {
                </nav>
 
                <div className={actions}>
-                  <button className={loginBtn} type="button">
+                  <button
+                     className={loginBtn}
+                     type="button"
+                     onClick={() => go("/login")}
+                  >
                      Log in
                   </button>
                   <button
@@ -164,7 +168,11 @@ const Header = () => {
                   ))}
                </nav>
                <div className={mobileActions}>
-                  <button className={mobileLoginBtn} type="button">
+                  <button
+                     className={mobileLoginBtn}
+                     type="button"
+                     onClick={() => go("/login")}
+                  >
                      Log in
                   </button>
                   <button
