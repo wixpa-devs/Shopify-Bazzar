@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import ComponentsLayout from "./components/ComponentsLayout/ComponentsLayout";
 import ComponentsPage from "./pages/ComponentsPage";
@@ -11,8 +12,23 @@ import ShopifyAppsPage from "./pages/ShopifyAppsPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 
+const ScrollToTop = () => {
+   const { pathname } = useLocation();
+
+   useEffect(() => {
+      window.scrollTo({
+         top: 0,
+         left: 0,
+         behavior: "instant",
+      });
+   }, [pathname]);
+
+   return null;
+};
+
 const App = () => (
    <BrowserRouter>
+      <ScrollToTop />
       <Routes>
          <Route path="/" element={<HomePage />} />
          <Route path="/services" element={<ServicesPage />} />
