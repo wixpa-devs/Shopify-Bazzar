@@ -5,15 +5,27 @@ import shopifyLogo from "../../../../temp-assets/shopify-logo.png";
 const linkColumns = [
    {
       title: "Company",
-      links: ["About Us", "Careers", "Affiliate Program", "Contact"],
+      links: [
+         { label: "Components", path: "/components" },
+         { label: "Services", path: "/services" },
+         { label: "Shopify Apps", path: "/shopify-apps" },
+      ],
    },
    {
       title: "Docs",
-      links: ["Getting Started", "Editor Guide", "Code Reference", "Theme Setup"],
+      links: [
+         { label: "Getting Started", path: "/docs" },
+         { label: "Editor Guide", path: "/docs" },
+         { label: "Code Reference", path: "/docs" },
+         { label: "Theme Setup", path: "/docs" },
+      ],
    },
    {
       title: "Support",
-      links: ["Help Center", "Community", "Status", "Contact Support"],
+      links: [
+         { label: "About", path: "/about" },
+         { label: "Contact", path: "/contact" },
+      ],
    },
 ];
 
@@ -113,14 +125,14 @@ const Footer = () => {
                   <nav key={column.title} aria-label={column.title}>
                      <h2 className={columnTitle}>{column.title}</h2>
                      <ul className={linkList}>
-                        {column.links.map((label) => (
-                           <li key={label}>
+                        {column.links.map((link) => (
+                           <li key={link.label}>
                               <button
                                  className={footerLink}
                                  type="button"
-                                 onClick={() => navigate("/docs")}
+                                 onClick={() => navigate(link.path)}
                               >
-                                 {label}
+                                 {link.label}
                               </button>
                            </li>
                         ))}

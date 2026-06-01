@@ -1,27 +1,33 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { FiArrowRight, FiChevronDown, FiMenu, FiX } from "react-icons/fi";
+import { FiArrowRight, FiMenu, FiX } from "react-icons/fi";
 import shopifyLogo from "../../../../temp-assets/shopify-logo.png";
 
 const NAV_LINKS = [
-   { label: "Components", path: "/components", hasMenu: true },
-   { label: "Templates", path: "/templates" },
-   { label: "Docs", path: "/docs" },
-   { label: "Pricing", path: "/pricing" },
-   { label: "Changelog", path: "/changelog" },
+   { label: "Components", path: "/components" },
+   { label: "Services", path: "/services" },
+   { label: "Shopify Apps", path: "/shopify-apps" },
+   { label: "About", path: "/about" },
+   { label: "Contact", path: "/contact" },
 ];
 
 const shell =
    "sticky top-0 z-50 bg-white border-b border-[#edf0ed] shadow-[0_1px_8px_rgba(17,24,39,0.04)]";
 const announcement =
-   "relative h-8 px-4 border-b border-[#d9efdd] bg-[#effbf1] text-[#184321] flex items-center justify-center";
+   "relative flex h-8 items-center justify-center overflow-hidden border-b border-[#d9efdd] bg-[#effbf1] px-4 text-[#184321]";
 const announcementInner =
-   "min-w-0 flex items-center justify-center gap-3 text-[12px] leading-none font-medium whitespace-nowrap";
+   "hidden min-[640px]:flex min-w-0 items-center justify-center gap-3 text-[12px] leading-none font-medium whitespace-nowrap";
+const announcementText =
+   "v2.0 just launched - 120+ new components, performance boosters & UI improvements.";
+const mobileAnnouncement =
+   "flex min-[640px]:hidden w-full overflow-hidden whitespace-nowrap";
+const mobileAnnouncementTrack =
+   "flex min-w-max items-center animate-[announcementMarquee_18s_linear_infinite]";
+const mobileAnnouncementCopy =
+   "mx-8 text-[12px] font-semibold leading-none text-[#26382c]";
 const newPill =
    "inline-flex h-[18px] items-center rounded-full bg-[#31a844] px-3 text-[10px] font-bold text-white shadow-[inset_0_-1px_0_rgba(0,0,0,0.12)]";
-const announceCopy = "hidden min-[520px]:inline text-[#323b35]";
-const announceLink =
-   "hidden sm:inline-flex items-center gap-1 text-[#2d4b35] hover:text-[#1d7f32] transition-colors";
+const announceCopy = "text-[#323b35]";
 
 const navBar = "h-16 px-5 sm:px-7 lg:px-12";
 const navInner =
@@ -49,11 +55,15 @@ const mobileMenuBtn =
    "inline-flex h-10 w-10 items-center justify-center rounded-[10px] border border-[#e1e6e2] text-[#1f2933] md:hidden";
 
 const mobilePanel =
-   "border-t border-[#edf0ed] bg-white px-5 py-4 shadow-[0_12px_24px_rgba(17,24,39,0.08)] md:hidden";
+   "absolute left-0 right-0 top-full z-[60] border-t border-[#edf0ed] bg-white px-5 py-4 shadow-[0_18px_34px_rgba(17,24,39,0.14)] md:hidden";
 const mobileNav = "flex flex-col gap-1";
 const mobileLink =
    "flex items-center justify-between rounded-lg px-2 py-3 text-[14px] font-semibold text-[#1f2933] hover:bg-[#f6faf6]";
 const mobileActions = "mt-4 grid grid-cols-2 gap-3";
+const mobileLoginBtn =
+   "inline-flex h-12 items-center justify-center rounded-[14px] border border-[#d7e7dc] bg-white text-[14px] font-black text-[#1f2933] shadow-[0_8px_22px_rgba(17,37,23,0.05)] transition-colors hover:border-[#b9dfc4] hover:text-[#208a34]";
+const mobileCtaBtn =
+   "inline-flex h-12 items-center justify-center gap-2 rounded-[14px] bg-[#2da53d] px-5 text-[14px] font-black text-white shadow-[0_12px_26px_rgba(45,165,61,0.24)] transition-colors hover:bg-[#238d32]";
 
 const Header = () => {
    const [menuOpen, setMenuOpen] = useState(false);
@@ -74,16 +84,16 @@ const Header = () => {
             <div className={announcementInner}>
                <span className={newPill}>New</span>
                <span className={announceCopy}>
-                  v2.0 just launched - 120+ new components, performance
-                  boosters & UI improvements.
+                  {announcementText}
                </span>
-               <button
-                  className={announceLink}
-                  type="button"
-                  onClick={() => go("/changelog")}
-               >
-                  See what's new <FiArrowRight size={12} />
-               </button>
+            </div>
+
+            <div className={mobileAnnouncement} aria-hidden="true">
+               <div className={mobileAnnouncementTrack}>
+                  <span className={mobileAnnouncementCopy}>{announcementText}</span>
+                  <span className={mobileAnnouncementCopy}>{announcementText}</span>
+                  <span className={mobileAnnouncementCopy}>{announcementText}</span>
+               </div>
             </div>
          </div>
 
@@ -111,7 +121,6 @@ const Header = () => {
                         onClick={() => go(link.path)}
                      >
                         {link.label}
-                        {link.hasMenu ? <FiChevronDown size={13} /> : null}
                      </button>
                   ))}
                </nav>
@@ -151,16 +160,15 @@ const Header = () => {
                         onClick={() => go(link.path)}
                      >
                         {link.label}
-                        {link.hasMenu ? <FiChevronDown size={14} /> : null}
                      </button>
                   ))}
                </nav>
                <div className={mobileActions}>
-                  <button className={loginBtn} type="button">
+                  <button className={mobileLoginBtn} type="button">
                      Log in
                   </button>
                   <button
-                     className={ctaBtn}
+                     className={mobileCtaBtn}
                      type="button"
                      onClick={() => go("/components")}
                   >

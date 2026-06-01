@@ -9,38 +9,38 @@ import storePreviewSix from "../../../../temp-assets/store-preview-06.png";
 
 const templates = [
    {
-      title: "Beauty Store",
-      description: "A refined skincare layout built for polished product storytelling.",
+      title: "Beauty Brand Build",
+      description: "A refined Shopify storefront crafted for premium skincare selling.",
       image: storePreviewOne,
       alt: "Beauty Shopify store template preview",
    },
    {
-      title: "Home Essentials Store",
-      description: "A warm interiors homepage for modern furniture and decor brands.",
+      title: "Home Decor Experience",
+      description: "A warm ecommerce build for modern furniture and decor brands.",
       image: storePreviewTwo,
       alt: "Home essentials Shopify store template preview",
    },
    {
-      title: "Fitness Store",
-      description: "A bold activewear storefront made for performance-focused selling.",
+      title: "Fitness Storefront",
+      description: "A bold Shopify experience made for performance-focused selling.",
       image: storePreviewThree,
       alt: "Fitness Shopify store template preview",
    },
    {
-      title: "Pet Products Store",
-      description: "A bright, friendly layout for pet care and lifestyle products.",
+      title: "Pet Care Commerce",
+      description: "A bright, friendly Shopify build for pet lifestyle products.",
       image: storePreviewFour,
       alt: "Pet products Shopify store template preview",
    },
    {
-      title: "Smart Home Store",
-      description: "A premium tech layout for connected devices and smart setups.",
+      title: "Smart Home Launch",
+      description: "A premium tech storefront for connected devices and smart setups.",
       image: storePreviewFive,
       alt: "Smart home Shopify store template preview",
    },
    {
-      title: "Beverage Store",
-      description: "A colorful conversion-ready design for drinks and wellness brands.",
+      title: "Beverage Brand Store",
+      description: "A colorful conversion-ready Shopify build for wellness drinks.",
       image: storePreviewSix,
       alt: "Beverage Shopify store template preview",
    },
@@ -74,23 +74,23 @@ const StoreTemplatesSection = () => {
    const navigate = useNavigate();
 
    return (
-      <section className={section} aria-label="Launch with complete store templates">
+      <section className={section} aria-label="Shopify services portfolio">
          <div className={shell}>
             <div className={header}>
                <div className={copy}>
-                  <h2 className={title}>Launch With a Complete Store</h2>
+                  <h2 className={title}>Services That Launch Better Stores</h2>
                   <p className={subtitle}>
-                     Explore ready-made Shopify store layouts designed to help
-                     you launch faster with polished, conversion-focused pages.
+                     Explore Shopify design and development work crafted to help
+                     brands launch polished, conversion-focused storefronts faster.
                   </p>
                </div>
 
                <button
                   className={viewAll}
                   type="button"
-                  onClick={() => navigate("/templates")}
+                  onClick={() => navigate("/services")}
                >
-                  View All Templates <ArrowRight size={15} />
+                  View All Services <ArrowRight size={15} />
                </button>
             </div>
 

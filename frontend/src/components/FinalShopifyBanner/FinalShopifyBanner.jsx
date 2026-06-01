@@ -20,7 +20,7 @@ const buttonRow = "grid w-full grid-cols-1 gap-3 min-[500px]:grid-cols-2";
 const primaryBtn =
    "inline-flex h-[58px] min-w-[176px] items-center justify-center gap-3 rounded-[9px] bg-[#20a81f] px-7 text-[16px] font-black text-white shadow-[0_14px_28px_rgba(34,167,31,0.24),inset_0_1px_0_rgba(255,255,255,0.22)] ring-1 ring-[#39c53b] transition-colors hover:bg-[#1b921a]";
 const secondaryBtn =
-   "inline-flex h-[58px] min-w-[210px] items-center justify-center rounded-[9px] border-[1.5px] border-solid border-[rgba(255,255,255,0.36)] bg-[rgba(11,16,14,0.72)] px-7 text-[16px] font-black text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] ring-1 ring-[rgba(255,255,255,0.1)] transition-colors hover:border-[rgba(255,255,255,0.52)] hover:bg-[rgba(255,255,255,0.08)]";
+   "inline-flex h-[58px] min-w-[210px] items-center justify-center gap-3 rounded-[9px] border-[1.5px] border-solid border-[rgba(255,255,255,0.36)] bg-[rgba(11,16,14,0.72)] px-7 text-[16px] font-black text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] ring-1 ring-[rgba(255,255,255,0.1)] transition-colors hover:border-[rgba(255,255,255,0.52)] hover:bg-[rgba(255,255,255,0.08)]";
 const metaRow = "grid w-full grid-cols-1 gap-3 text-[14px] font-bold text-[rgba(255,255,255,0.86)] min-[500px]:grid-cols-2";
 const metaItem = "inline-flex items-center gap-2.5 whitespace-nowrap";
 const metaIcon =
@@ -63,7 +63,7 @@ const FinalShopifyBanner = () => {
                      type="button"
                      onClick={() => navigate("/components")}
                   >
-                     Explore Components
+                     Components <ArrowRight size={18} />
                   </button>
                </div>
 
