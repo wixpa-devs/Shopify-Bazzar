@@ -384,7 +384,7 @@ body {
    .footer-main-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 32px;
+      gap: 30px;
       align-items: start;
    }
 
@@ -395,7 +395,7 @@ body {
    @media (min-width: 640px) {
       .footer-main-grid {
          grid-template-columns: repeat(2, minmax(0, 1fr));
-         gap: 34px 44px;
+         gap: 34px 40px;
       }
 
       .footer-newsletter {
@@ -411,7 +411,7 @@ body {
             minmax(105px, 0.65fr)
             minmax(125px, 0.72fr)
             minmax(300px, 1.35fr);
-         gap: 46px;
+         gap: 42px;
       }
 
       .footer-newsletter {

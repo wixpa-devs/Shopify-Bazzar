@@ -14,17 +14,17 @@ import {
 import { getAllCategories } from "../registry/componentRegistry";
 
 const pageHero =
-   "relative left-1/2 isolate -mt-10 mb-10 w-screen -translate-x-1/2 overflow-hidden border-b border-[#e8f0eb] bg-[#f4fbf5] px-5 py-16 font-[var(--inter-font)] max-[1024px]:-mt-8 sm:py-20 lg:py-[84px] max-[900px]:-mt-24 max-[900px]:pt-[8.5rem] max-[640px]:-mt-[6.5rem] max-[640px]:pt-[7.5rem]";
+   "relative isolate mb-10 overflow-hidden border-b border-[#e8f0eb] bg-[#f4fbf5] px-4 py-14 font-[var(--inter-font)] sm:px-7 sm:py-16 lg:px-10 lg:py-20";
 const pageHeroPattern =
    "absolute inset-0 -z-10 opacity-75 [background-image:radial-gradient(rgba(26,89,47,0.16)_1px,transparent_1px)] [background-size:24px_24px]";
 const pageHeroGlow =
    "absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.92)_0%,rgba(244,251,245,0.76)_46%,rgba(238,249,241,0.92)_100%)]";
 const pageHeroInner =
-   "mx-auto flex min-h-[190px] max-w-[980px] flex-col items-center justify-center text-center";
+   "mx-auto flex min-h-[170px] max-w-[980px] flex-col items-center justify-center text-center";
 const pageTitle =
-   "text-[clamp(3.2rem,6.8vw,5.9rem)] font-black leading-[0.98] tracking-[-0.055em] text-[#090d0b]";
+   "text-[clamp(3rem,6.2vw,5rem)] font-black leading-[0.98] tracking-[-0.055em] text-[#090d0b]";
 const pageDescription =
-   "mt-8 max-w-[770px] text-[clamp(1.04rem,1.35vw,1.5rem)] font-semibold leading-[1.55] tracking-[-0.015em] text-[#59636c] max-[640px]:mt-6";
+   "mt-6 max-w-[770px] text-[clamp(1rem,1.25vw,1.3rem)] font-semibold leading-[1.6] tracking-[-0.015em] text-[#59636c] max-[640px]:mt-5";
 
 const cardsGrid =
    "grid grid-cols-1 gap-5 sm:grid-cols-[repeat(auto-fill,minmax(300px,1fr))]";
@@ -49,15 +49,15 @@ const emptyState =
 const emptyText = "text-[0.88rem] leading-[1.7] mt-4";
 
 const browseSection =
-   "mb-16 animate-[fadeUp_0.55s_ease_both] font-[var(--inter-font)]";
+   "mb-16 animate-[fadeUp_0.55s_ease_both] px-4 font-[var(--inter-font)] sm:px-7 lg:px-10";
 const browseToolbar =
-   "rounded-[14px] border border-[#e6ece7] bg-white p-5 shadow-[0_12px_34px_rgba(17,24,39,0.08)] max-[640px]:p-4";
+   "mx-auto max-w-[1320px] rounded-[18px] border border-[#e6ece7] bg-white p-5 shadow-[0_12px_34px_rgba(17,24,39,0.08)] max-[640px]:p-4";
 const toolbarTop =
    "flex items-center gap-4 max-[820px]:flex-wrap max-[640px]:gap-3";
 const searchWrap =
    "relative min-w-[280px] flex-1 max-[640px]:min-w-0 max-[640px]:basis-full";
 const searchInput =
-   "h-11 w-full rounded-[9px] border border-[#e2e8e3] bg-white pl-11 pr-4 text-[0.84rem] font-semibold text-[#1f2a24] outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-[#879188] focus:border-[#43b45b] focus:shadow-[0_0_0_4px_rgba(67,180,91,0.12)]";
+   "h-11 w-full rounded-[12px] border border-[#e2e8e3] bg-white pl-11 pr-4 text-[0.84rem] font-semibold text-[#1f2a24] outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-[#879188] focus:border-[#43b45b] focus:shadow-[0_0_0_4px_rgba(67,180,91,0.12)]";
 const searchIcon =
    "pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#4f5a53]";
 const sortGroup =
@@ -66,20 +66,20 @@ const sortLabel =
    "text-[0.78rem] font-extrabold text-[#1c241f] whitespace-nowrap";
 const sortSelectWrap = "relative";
 const sortSelect =
-   "h-11 min-w-[148px] appearance-none rounded-[9px] border border-[#e2e8e3] bg-white px-4 pr-10 text-[0.82rem] font-extrabold text-[#1c241f] outline-none transition-[border-color,box-shadow] duration-200 focus:border-[#43b45b] focus:shadow-[0_0_0_4px_rgba(67,180,91,0.12)]";
+   "h-11 min-w-[148px] appearance-none rounded-[12px] border border-[#e2e8e3] bg-white px-4 pr-10 text-[0.82rem] font-extrabold text-[#1c241f] outline-none transition-[border-color,box-shadow] duration-200 focus:border-[#43b45b] focus:shadow-[0_0_0_4px_rgba(67,180,91,0.12)]";
 const selectIcon =
    "pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-[#68736b]";
 const layoutToggle =
    "ml-auto flex h-11 shrink-0 items-center gap-2 max-[820px]:ml-0";
 const layoutButton =
-   "grid h-11 w-11 place-items-center rounded-[9px] border border-[#e4eae5] bg-[#f7faf8] text-[#1f2a24] transition-all duration-200 hover:border-[#b6dfc1] hover:text-[#10963d]";
+   "grid h-11 w-11 place-items-center rounded-[12px] border border-[#e4eae5] bg-[#f7faf8] text-[#1f2a24] transition-colors duration-200 hover:border-[#b6dfc1] hover:text-[#10963d]";
 const layoutButtonActive =
    "border-[#89d39a] bg-[#eaf9ee] text-[#0b8d37] shadow-[inset_0_0_0_1px_rgba(22,163,74,0.18)]";
 const browseContent =
-   "mt-8 grid items-start gap-8 lg:grid-cols-[286px_minmax(0,1fr)] max-[980px]:grid-cols-1";
+   "mx-auto mt-8 grid max-w-[1320px] items-start gap-8 lg:grid-cols-[286px_minmax(0,1fr)] max-[980px]:grid-cols-1";
 const filtersStack = "flex flex-col gap-7";
 const filterPanel =
-   "overflow-hidden rounded-[15px] border border-[#e2e9e4] bg-white shadow-[0_12px_32px_rgba(17,24,39,0.055)]";
+   "overflow-hidden rounded-[18px] border border-[#e2e9e4] bg-white shadow-[0_12px_32px_rgba(17,24,39,0.055)]";
 const filterPanelHeader =
    "flex items-center justify-between border-b border-[#eef2ef] px-6 py-5";
 const filterTitle = "text-[0.92rem] font-black text-[#17201a]";
@@ -90,7 +90,7 @@ const filterSectionHeader =
    "mb-4 flex items-center justify-between text-[0.78rem] font-black text-[#17201a]";
 const filterList = "flex flex-col gap-3";
 const filterButton =
-   "group flex w-full items-center gap-3 rounded-[8px] py-1.5 text-left transition-colors hover:bg-[#f7fbf8]";
+   "group flex w-full items-center gap-3 rounded-[12px] py-1.5 text-left transition-colors hover:bg-[#f7fbf8]";
 const fakeCheckbox =
    "grid h-[17px] w-[17px] shrink-0 place-items-center rounded-[4px] border transition-all duration-200";
 const fakeCheckboxActive = "border-[#1cad4e] bg-[#16a34a]";
@@ -110,14 +110,14 @@ const filterCountInactive = "bg-[#f0f4f2] text-[#68736b]";
 const showMoreButton =
    "mt-5 inline-flex items-center gap-1.5 text-[0.76rem] font-black text-[#159447] transition-colors hover:text-[#0f7637]";
 const requestCard =
-   "rounded-[15px] border border-[#d7ecd9] bg-[#eff9f2] p-6 shadow-[0_14px_34px_rgba(22,101,52,0.075)]";
+   "rounded-[18px] border border-[#d7ecd9] bg-[#eff9f2] p-6 shadow-[0_14px_34px_rgba(22,101,52,0.075)]";
 const requestTop = "flex items-start gap-4";
 const requestIcon =
    "grid h-9 w-9 shrink-0 place-items-center rounded-[10px] bg-white text-[#18a44a] shadow-[0_6px_15px_rgba(22,101,52,0.08)]";
 const requestTitle = "text-[0.84rem] font-black text-[#17201a]";
 const requestText = "mt-2 text-[0.76rem] font-semibold leading-[1.55] text-[#526058]";
 const requestButton =
-   "mt-5 h-10 w-full rounded-[8px] border border-[#dce5df] bg-white px-4 text-[0.76rem] font-black text-[#17201a] shadow-[0_6px_14px_rgba(17,24,39,0.04)] transition-all duration-200 hover:border-[#86d89a] hover:text-[#128d3d]";
+   "mt-5 h-10 w-full rounded-[12px] border border-[#dce5df] bg-white px-4 text-[0.76rem] font-black text-[#17201a] shadow-[0_6px_14px_rgba(17,24,39,0.04)] transition-colors duration-200 hover:border-[#86d89a] hover:text-[#128d3d]";
 const resultsHeader =
    "mb-4 flex min-h-[24px] items-center justify-between gap-4 max-[640px]:flex-col max-[640px]:items-start";
 const resultsCount = "text-[0.8rem] font-bold text-[#26312a]";
@@ -127,9 +127,9 @@ const componentsGrid =
    "grid auto-rows-fr grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-6";
 const componentsList = "flex flex-col gap-5";
 const componentCard =
-   "group relative flex h-[430px] flex-col overflow-hidden rounded-[13px] border border-[#dfe7e1] bg-white shadow-[0_10px_26px_rgba(17,24,39,0.055)] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#bddfc5] hover:shadow-[0_16px_36px_rgba(17,24,39,0.09)]";
+   "group relative flex h-[430px] flex-col overflow-hidden rounded-[18px] border border-[#dfe7e1] bg-white shadow-[0_10px_26px_rgba(17,24,39,0.055)] transition-colors duration-200 hover:border-[#bddfc5]";
 const componentCardList =
-   "group relative grid min-h-[260px] grid-cols-[minmax(240px,0.84fr)_minmax(0,1fr)] overflow-hidden rounded-[13px] border border-[#dfe7e1] bg-white shadow-[0_10px_26px_rgba(17,24,39,0.055)] transition-all duration-200 hover:border-[#bddfc5] hover:shadow-[0_16px_36px_rgba(17,24,39,0.09)] max-[760px]:flex max-[760px]:min-h-[430px] max-[760px]:flex-col";
+   "group relative grid min-h-[260px] grid-cols-[minmax(240px,0.84fr)_minmax(0,1fr)] overflow-hidden rounded-[18px] border border-[#dfe7e1] bg-white shadow-[0_10px_26px_rgba(17,24,39,0.055)] transition-colors duration-200 hover:border-[#bddfc5] max-[760px]:flex max-[760px]:min-h-[430px] max-[760px]:flex-col";
 const browsePreview =
    "relative h-[190px] overflow-hidden border-b border-[#edf2ee] bg-[#fafcfb] pointer-events-none";
 const browsePreviewList =
@@ -153,7 +153,7 @@ const skeletonTextTwo = "component-card-skeleton__block mt-2.5 h-3.5 w-[74%] rou
 const skeletonTags = "mt-5 flex gap-2";
 const skeletonTag = "component-card-skeleton__block h-6 w-20 rounded-full";
 const skeletonButton =
-   "component-card-skeleton__block mt-auto h-11 w-full rounded-[8px]";
+   "component-card-skeleton__block mt-auto h-11 w-full rounded-[12px]";
 const cardBody = "flex flex-1 flex-col p-5";
 const cardMeta = "mb-2 flex items-center justify-between gap-3";
 const cardTitle = "text-[0.96rem] font-black leading-snug text-[#17201a]";
@@ -165,13 +165,13 @@ const tagRow = "mt-4 flex flex-wrap gap-2";
 const tagPill =
    "rounded-full bg-[#f3f6f4] px-3 py-1 text-[0.68rem] font-extrabold text-[#68736b]";
 const openEditorButton =
-   "mt-5 flex h-11 w-full items-center justify-center rounded-[8px] bg-[#079537] px-4 text-[0.78rem] font-black text-white shadow-[0_10px_18px_rgba(7,149,55,0.2)] transition-all duration-200 hover:bg-[#087c31] hover:shadow-[0_14px_24px_rgba(7,149,55,0.26)]";
+   "mt-5 flex h-11 w-full items-center justify-center rounded-[12px] bg-[#079537] px-4 text-[0.78rem] font-black text-white shadow-[0_10px_18px_rgba(7,149,55,0.2)] transition-colors duration-200 hover:bg-[#087c31]";
 const emptyBrowse =
    "rounded-[13px] border border-dashed border-[#cfd9d2] bg-[#fbfdfb] px-6 py-14 text-center";
 const paginationWrap =
-   "mt-9 flex flex-wrap items-center justify-center gap-2 rounded-[13px] border border-[#e2e9e4] bg-white px-4 py-4 shadow-[0_10px_26px_rgba(17,24,39,0.045)]";
+   "mt-9 flex flex-wrap items-center justify-center gap-2 rounded-[18px] border border-[#e2e9e4] bg-white px-4 py-4 shadow-[0_10px_26px_rgba(17,24,39,0.045)]";
 const paginationButton =
-   "inline-flex h-10 min-w-10 items-center justify-center rounded-[8px] border border-[#dfe7e1] bg-white px-3 text-[0.78rem] font-black text-[#526058] transition-colors duration-200 hover:border-[#86d89a] hover:text-[#128d3d] disabled:pointer-events-none disabled:opacity-45";
+   "inline-flex h-10 min-w-10 items-center justify-center rounded-[12px] border border-[#dfe7e1] bg-white px-3 text-[0.78rem] font-black text-[#526058] transition-colors duration-200 hover:border-[#86d89a] hover:text-[#128d3d] disabled:pointer-events-none disabled:opacity-45";
 const paginationButtonActive =
    "!border-[#1cad4e] !bg-[#16a34a] !text-white hover:!border-[#1cad4e] hover:!bg-[#16a34a] hover:!text-white";
 const pageSize = 12;

@@ -29,7 +29,7 @@ const newPill =
    "inline-flex h-[18px] items-center rounded-full bg-[#31a844] px-3 text-[10px] font-bold text-white shadow-[inset_0_-1px_0_rgba(0,0,0,0.12)]";
 const announceCopy = "text-[#323b35]";
 
-const navBar = "h-16 px-5 sm:px-7 lg:px-12";
+const navBar = "h-16 px-4 sm:px-7 lg:px-10";
 const navInner =
    "mx-auto flex h-full max-w-[1320px] items-center justify-between gap-5";
 const brandButton =
@@ -43,14 +43,14 @@ const brandSub = "mt-[5px] text-[12px] font-semibold text-[#28312b]";
 
 const desktopNav = "hidden lg:flex items-center gap-10";
 const navButton =
-   "inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#1f2933] transition-colors hover:text-[#208a34]";
+   "inline-flex items-center gap-1.5 text-[13px] font-bold text-[#1f2933] transition-colors hover:text-[#208a34]";
 const navButtonActive = "text-[#1f8b34]";
 
 const actions = "hidden md:flex items-center gap-6";
 const loginBtn =
    "text-[13px] font-semibold text-[#1f2933] transition-colors hover:text-[#208a34]";
 const ctaBtn =
-   "inline-flex h-10 items-center gap-2 rounded-[12px] bg-[#2da53d] px-5 text-[13px] font-bold text-white shadow-[0_8px_18px_rgba(45,165,61,0.22)] transition-colors hover:bg-[#238d32]";
+   "inline-flex h-11 items-center gap-2 rounded-[12px] bg-[#2da53d] px-5 text-[13px] font-black text-white shadow-[0_8px_18px_rgba(45,165,61,0.22)] transition-colors hover:bg-[#238d32]";
 const mobileMenuBtn =
    "inline-flex h-10 w-10 items-center justify-center rounded-[10px] border border-[#e1e6e2] text-[#1f2933] md:hidden";
 

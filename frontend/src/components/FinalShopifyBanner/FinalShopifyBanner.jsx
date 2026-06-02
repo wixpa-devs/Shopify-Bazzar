@@ -2,9 +2,9 @@ import { ArrowRight, BadgeCheck, CreditCard } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import shopifyLogo from "../../../../temp-assets/shopify-logo.png";
 
-const section = "bg-white px-4 py-4 sm:px-7 sm:py-5 lg:px-10";
+const section = "bg-white px-4 py-8 sm:px-7 sm:py-10 lg:px-10 lg:py-12";
 const banner =
-   "relative mx-auto grid max-w-[1320px] overflow-hidden rounded-[22px] border border-[#293330] bg-[#070d0a] px-6 py-8 shadow-[0_18px_50px_rgba(9,14,11,0.18)] sm:px-9 sm:py-9 lg:grid-cols-[minmax(0,1fr)_210px] lg:items-center lg:gap-x-8 lg:gap-y-6 lg:px-10 lg:py-9 xl:grid-cols-[minmax(470px,1fr)_minmax(360px,0.72fr)_170px] xl:gap-5";
+   "relative mx-auto grid max-w-[1320px] overflow-hidden rounded-[24px] border border-[#293330] bg-[#070d0a] px-6 py-8 shadow-[0_18px_50px_rgba(9,14,11,0.18)] sm:px-9 sm:py-9 lg:grid-cols-[minmax(0,1fr)_210px] lg:items-center lg:gap-x-8 lg:gap-y-6 lg:px-10 lg:py-9 xl:grid-cols-[minmax(470px,1fr)_minmax(360px,0.72fr)_170px] xl:gap-5";
 const grain =
    "pointer-events-none absolute inset-0 opacity-[0.11] [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.55)_1px,transparent_0)] [background-size:18px_18px]";
 const greenField =
@@ -18,9 +18,9 @@ const actionArea =
    "relative z-10 mt-7 flex w-full max-w-[500px] flex-col items-start gap-4 lg:col-start-1 lg:row-start-2 lg:mt-0 lg:justify-self-start xl:col-start-auto xl:row-start-auto";
 const buttonRow = "grid w-full grid-cols-1 gap-3 min-[500px]:grid-cols-2";
 const primaryBtn =
-   "inline-flex h-[58px] min-w-[176px] items-center justify-center gap-3 rounded-[9px] bg-[#20a81f] px-7 text-[16px] font-black text-white shadow-[0_14px_28px_rgba(34,167,31,0.24),inset_0_1px_0_rgba(255,255,255,0.22)] ring-1 ring-[#39c53b] transition-colors hover:bg-[#1b921a]";
+   "inline-flex h-[58px] min-w-[176px] items-center justify-center gap-3 rounded-[12px] bg-[#20a81f] px-7 text-[16px] font-black text-white shadow-[0_14px_28px_rgba(34,167,31,0.24),inset_0_1px_0_rgba(255,255,255,0.22)] ring-1 ring-[#39c53b] transition-colors hover:bg-[#1b921a]";
 const secondaryBtn =
-   "inline-flex h-[58px] min-w-[210px] items-center justify-center gap-3 rounded-[9px] border-[1.5px] border-solid border-[rgba(255,255,255,0.36)] bg-[rgba(11,16,14,0.72)] px-7 text-[16px] font-black text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] ring-1 ring-[rgba(255,255,255,0.1)] transition-colors hover:border-[rgba(255,255,255,0.52)] hover:bg-[rgba(255,255,255,0.08)]";
+   "inline-flex h-[58px] min-w-[210px] items-center justify-center gap-3 rounded-[12px] border-[1.5px] border-solid border-[rgba(255,255,255,0.36)] bg-[rgba(11,16,14,0.72)] px-7 text-[16px] font-black text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] ring-1 ring-[rgba(255,255,255,0.1)] transition-colors hover:border-[rgba(255,255,255,0.52)] hover:bg-[rgba(255,255,255,0.08)]";
 const metaRow = "grid w-full grid-cols-1 gap-3 text-[14px] font-bold text-[rgba(255,255,255,0.86)] min-[500px]:grid-cols-2";
 const metaItem = "inline-flex items-center gap-2.5 whitespace-nowrap";
 const metaIcon =

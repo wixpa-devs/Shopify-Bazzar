@@ -4,21 +4,21 @@ import heroImage from "../../../../temp-assets/hero-img-1.png";
 import shopifyLogo from "../../../../temp-assets/shopify-logo.png";
 
 const heroSection =
-   "relative isolate overflow-hidden bg-white px-5 pb-7 pt-7 sm:px-8 sm:pb-12 sm:pt-10 lg:px-12 lg:pb-16 lg:pt-14";
+   "relative isolate overflow-hidden bg-white px-4 pb-8 pt-8 sm:px-7 sm:pb-12 sm:pt-10 lg:px-10 lg:pb-16 lg:pt-14";
 const heroShell =
-   "mx-auto grid max-w-[1320px] grid-cols-1 items-start gap-7 sm:gap-10 lg:grid-cols-[0.86fr_1.14fr] lg:gap-5";
+   "mx-auto grid max-w-[1320px] grid-cols-1 items-start gap-8 sm:gap-10 lg:grid-cols-[0.86fr_1.14fr] lg:gap-8";
 const heroCopy = "relative z-10 max-w-[540px] lg:pt-2";
 const heroTitle =
-   "max-w-[620px] text-[46px] font-black leading-[1.08] text-[#050807] sm:text-[58px] lg:text-[60px] xl:text-[66px]";
+   "max-w-[620px] text-[44px] font-black leading-[1.06] tracking-[-0.045em] text-[#050807] sm:text-[58px] lg:text-[60px] xl:text-[66px]";
 const titleGreen = "block text-[#24a248]";
 const heroText =
    "mt-5 max-w-[520px] text-[16px] font-semibold leading-[1.72] text-[#5f6862] sm:mt-7 sm:text-[17px]";
 const actionRow =
    "mt-6 flex flex-col gap-4 min-[520px]:flex-row min-[520px]:items-center sm:mt-8 sm:gap-5";
 const primaryBtn =
-   "inline-flex h-[58px] items-center justify-center gap-3 rounded-[9px] bg-[#1f990f] px-9 text-[16px] font-bold text-white shadow-[0_12px_22px_rgba(38,153,28,0.24),inset_0_1px_0_rgba(255,255,255,0.28)] ring-1 ring-[#16850b] transition-colors hover:bg-[#18850d]";
+   "inline-flex h-[58px] items-center justify-center gap-3 rounded-[12px] bg-[#1f990f] px-9 text-[16px] font-black text-white shadow-[0_12px_22px_rgba(38,153,28,0.24),inset_0_1px_0_rgba(255,255,255,0.28)] ring-1 ring-[#16850b] transition-colors hover:bg-[#18850d]";
 const secondaryBtn =
-   "inline-flex h-[58px] items-center justify-center rounded-[9px] border-[2px] border-solid border-[#bfe6c7] bg-white px-9 text-[16px] font-bold text-[#157f2c] shadow-[0_10px_24px_rgba(32,126,47,0.08)] transition-colors hover:border-[#86cf96] hover:bg-[#f4fff6]";
+   "inline-flex h-[58px] items-center justify-center rounded-[12px] border-[2px] border-solid border-[#bfe6c7] bg-white px-9 text-[16px] font-black text-[#157f2c] shadow-[0_10px_24px_rgba(32,126,47,0.08)] transition-colors hover:border-[#86cf96] hover:bg-[#f4fff6]";
 const statsRow =
    "mt-8 grid max-w-[520px] grid-cols-3 gap-4 sm:mt-10 sm:gap-8 lg:mt-12";
 const statItem = "flex items-center gap-3";

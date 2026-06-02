@@ -38,11 +38,11 @@ const socials = [
 ];
 
 const footer = "overflow-hidden border-t border-[#27312d] text-white";
-const shell = "mx-auto max-w-[1320px] px-5 py-7 sm:px-8 lg:px-10";
+const shell = "mx-auto max-w-[1320px] px-4 py-8 sm:px-7 sm:py-9 lg:px-10";
 const brand = "max-w-[300px]";
 const logoButton =
    "flex items-center gap-3 bg-transparent p-0 text-left text-white transition-opacity hover:opacity-85";
-const logo = "h-10 w-10 rounded-[9px] object-contain";
+const logo = "h-10 w-10 rounded-[12px] object-contain";
 const logoText = "text-[19px] font-black leading-none tracking-[-0.03em]";
 const logoSub = "mt-1 block text-[11px] font-semibold text-[rgba(255,255,255,0.62)]";
 const description =
@@ -60,11 +60,11 @@ const newsletterText =
    "mb-4 max-w-[330px] text-[13px] font-semibold leading-[1.55] text-[rgba(255,255,255,0.64)]";
 const form = "flex max-w-[360px] gap-2";
 const input =
-   "min-w-0 flex-1 rounded-[8px] border border-[rgba(255,255,255,0.14)] bg-[#0d1210] px-4 py-3 text-[13px] font-semibold text-white outline-none transition placeholder:text-[rgba(255,255,255,0.36)] focus:border-[#31b955] focus:ring-2 focus:ring-[#31b955]/20";
+   "min-w-0 flex-1 rounded-[12px] border border-[rgba(255,255,255,0.14)] bg-[#0d1210] px-4 py-3 text-[13px] font-semibold text-white outline-none transition placeholder:text-[rgba(255,255,255,0.36)] focus:border-[#31b955] focus:ring-2 focus:ring-[#31b955]/20";
 const submit =
-   "flex h-[46px] w-[50px] flex-shrink-0 items-center justify-center rounded-[10px] bg-[#2aaa39] text-white shadow-[0_10px_22px_rgba(42,170,57,0.24)] transition-colors hover:bg-[#249631]";
+   "flex h-[46px] w-[50px] flex-shrink-0 items-center justify-center rounded-[12px] bg-[#2aaa39] text-white shadow-[0_10px_22px_rgba(42,170,57,0.24)] transition-colors hover:bg-[#249631]";
 const bottom =
-   "border-t border-[rgba(255,255,255,0.05)] px-5 py-3.5 text-center sm:px-8";
+   "border-t border-[rgba(255,255,255,0.05)] px-4 py-4 text-center sm:px-7";
 const copyright =
    "text-[12px] font-semibold leading-snug text-[rgba(255,255,255,0.46)]";
 

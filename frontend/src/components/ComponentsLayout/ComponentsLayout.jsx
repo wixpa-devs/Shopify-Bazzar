@@ -13,9 +13,9 @@ const middleRow = "flex flex-1";
 // Sticky sidebar — hidden on mobile (≤900px)
 // Main content area
 const mainContent =
-   "flex-1 min-w-0 px-12 py-10 bg-[var(--color-bg-white)] max-[1024px]:px-8 max-[1024px]:py-8 max-[900px]:px-6 max-[900px]:pt-24 max-[900px]:pb-8 max-[640px]:px-5 max-[640px]:pt-[6.5rem] max-[640px]:pb-8";
+   "flex-1 min-w-0 bg-[var(--color-bg-white)] px-4 py-12 sm:px-7 sm:py-14 lg:px-10 lg:py-16";
 const indexMainContent =
-   "flex-1 min-w-0 w-full max-w-[1440px] mx-auto px-12 py-10 bg-[var(--color-bg-white)] max-[1024px]:px-8 max-[1024px]:py-8 max-[900px]:px-6 max-[900px]:pt-24 max-[900px]:pb-8 max-[640px]:px-5 max-[640px]:pt-[6.5rem] max-[640px]:pb-8";
+   "flex-1 min-w-0 w-full bg-[var(--color-bg-white)]";
 
 // Mobile hamburger — fixed, only visible ≤900px
 const menuBtn =

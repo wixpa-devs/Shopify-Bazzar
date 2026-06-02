@@ -90,25 +90,25 @@ const featurePoints = [
 ];
 
 const section =
-   "overflow-hidden bg-[#f5f6f4] px-4 py-10 sm:px-7 sm:py-12 lg:px-4 lg:py-16";
-const shell = "mx-auto max-w-[1400px]";
+   "overflow-hidden bg-[#f5f6f4] px-4 py-12 sm:px-7 sm:py-14 lg:px-10 lg:py-16";
+const shell = "mx-auto max-w-[1320px]";
 const topRow =
-   "mb-5 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-center sm:justify-between";
+   "mb-6 flex flex-col gap-3 sm:mb-8 sm:flex-row sm:items-center sm:justify-between";
 const heading =
-   "text-[26px] font-black tracking-[-0.02em] text-[#141a16] sm:text-[30px]";
+   "text-[28px] font-black tracking-[-0.03em] text-[#141a16] sm:text-[34px]";
 const viewAll =
    "inline-flex w-fit items-center gap-2 text-[13px] font-bold text-[#2f3a34] transition-colors hover:text-[#1f9c45]";
 const slider =
    "component-slider -mx-4 overflow-x-auto px-4 pb-2 sm:-mx-7 sm:px-7 lg:mx-0 lg:px-0";
 const sliderTrack = "flex min-w-full gap-4";
 const componentCard =
-   "group flex min-h-[168px] flex-none cursor-pointer flex-col rounded-[14px] border border-[#dfe7e1] bg-white p-5 text-left no-underline shadow-[0_12px_30px_rgba(25,31,28,0.07)] transition-colors duration-200 hover:border-[#bcdcc5] hover:bg-[#fbfdfb] hover:shadow-[0_18px_36px_rgba(25,31,28,0.1)] min-[420px]:w-[190px] sm:w-[205px] lg:w-[calc((100%_-_80px)/6)]";
+   "group flex min-h-[178px] flex-none cursor-pointer flex-col rounded-[16px] border border-[#dfe7e1] bg-white p-5 text-left no-underline shadow-[0_14px_34px_rgba(25,31,28,0.07)] transition-colors duration-200 hover:border-[#bcdcc5] hover:bg-[#fbfdfb] hover:shadow-[0_20px_42px_rgba(25,31,28,0.1)] min-[420px]:w-[196px] sm:w-[212px] lg:w-[calc((100%_-_80px)/6)]";
 const cardIcon =
-   "grid h-11 w-11 place-items-center rounded-[11px] bg-[#eaf9ee] text-[#10a33d] shadow-[inset_0_0_0_1px_rgba(22,163,74,0.08)]";
+   "grid h-11 w-11 place-items-center rounded-[12px] bg-[#eaf9ee] text-[#10a33d] shadow-[inset_0_0_0_1px_rgba(22,163,74,0.08)]";
 const cardTitle =
-   "mt-5 text-[14.5px] font-black tracking-[-0.02em] text-[#151c18]";
+   "mt-5 text-[15px] font-black tracking-[-0.02em] text-[#151c18]";
 const cardDescription =
-   "mt-2 min-h-[40px] text-[12px] font-semibold leading-[1.55] text-[#596779]";
+   "mt-2 min-h-[42px] text-[12.5px] font-semibold leading-[1.55] text-[#596779]";
 const cardFooter = "mt-auto flex items-center justify-between gap-3 pt-4";
 const cardCountWrap =
    "inline-flex items-center gap-2 text-[11.5px] font-bold text-[#526058]";
@@ -116,7 +116,7 @@ const cardCountDot = "h-1.5 w-1.5 rounded-full bg-[#10a33d]";
 const cardArrow =
    "grid h-8 w-8 place-items-center rounded-[9px] bg-[#eaf9ee] text-[#10a33d] transition-colors duration-200 group-hover:bg-[#10a33d] group-hover:text-white";
 const liveBlock =
-   "mt-9 grid items-center gap-7 rounded-[18px] border border-[#dfe7e1] bg-white/42 p-4 sm:mt-11 sm:p-6 lg:grid-cols-[0.42fr_0.58fr] lg:gap-7 lg:bg-transparent lg:p-0 lg:border-0";
+   "mt-10 grid items-center gap-7 rounded-[20px] border border-[#dfe7e1] bg-white/42 p-4 sm:mt-12 sm:p-6 lg:grid-cols-[0.42fr_0.58fr] lg:gap-8 lg:border-0 lg:bg-transparent lg:p-0";
 const liveCopy = "max-w-[390px] lg:pl-1";
 const pill =
    "inline-flex rounded-full border border-[#d5ded8] bg-white px-3 py-1 text-[11px] font-black uppercase tracking-[0.04em] text-[#1f9c45]";
@@ -128,9 +128,9 @@ const point =
 const checkWrap =
    "flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[#e5f6ea] text-[#1c9a43]";
 const ctaButton =
-   "mt-7 inline-flex h-[50px] items-center justify-center gap-2 rounded-[10px] bg-[#1f990f] px-6 text-[14px] font-black text-white shadow-[0_12px_22px_rgba(38,153,28,0.22)] ring-1 ring-[#16850b] transition-colors hover:bg-[#18850d]";
+   "mt-7 inline-flex h-[50px] items-center justify-center gap-2 rounded-[12px] bg-[#1f990f] px-6 text-[14px] font-black text-white shadow-[0_12px_22px_rgba(38,153,28,0.22)] ring-1 ring-[#16850b] transition-colors hover:bg-[#18850d]";
 const imageWrap =
-   "relative overflow-hidden rounded-[18px] border border-[#dfe7e1] bg-white shadow-[0_18px_44px_rgba(22,32,26,0.08)]";
+   "relative overflow-hidden rounded-[20px] border border-[#dfe7e1] bg-white shadow-[0_18px_44px_rgba(22,32,26,0.08)]";
 const liveImage =
    "block h-auto w-full select-none object-contain";
 

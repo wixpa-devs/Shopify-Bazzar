@@ -17,29 +17,29 @@ const libraryPoints = [
    "Reusable components for every project",
 ];
 
-const section = "bg-white px-4 pb-14 pt-4 sm:px-7 sm:pb-16 lg:px-10 lg:pb-20";
+const section = "bg-white px-4 py-12 sm:px-7 sm:py-14 lg:px-10 lg:py-16";
 const shell =
-   "mx-auto grid max-w-[1320px] gap-8 lg:grid-cols-[0.36fr_0.64fr] lg:items-stretch";
+   "mx-auto grid max-w-[1320px] gap-8 lg:grid-cols-[0.36fr_0.64fr] lg:items-stretch lg:gap-10";
 const visualCol = "flex min-w-0 flex-col";
 const title =
-   "max-w-[430px] text-[28px] font-black leading-[1.08] tracking-[-0.03em] text-[#111815] sm:text-[36px] lg:text-[38px]";
+   "max-w-[430px] text-[30px] font-black leading-[1.08] tracking-[-0.035em] text-[#111815] sm:text-[38px] lg:text-[40px]";
 const visualWrap =
-   "mt-6 flex flex-1 items-end justify-center overflow-hidden rounded-[18px] bg-white";
+   "mt-7 flex flex-1 items-end justify-center overflow-hidden rounded-[20px] bg-white";
 const visualImage = "block h-auto w-full select-none object-contain";
 const compare =
-   "grid items-stretch gap-4 sm:grid-cols-[1fr_auto_1fr] sm:gap-5 lg:min-h-full";
+   "grid items-stretch gap-5 sm:grid-cols-[1fr_auto_1fr] sm:gap-6 lg:min-h-full";
 const column =
-   "flex min-w-0 flex-col rounded-[18px] border border-[#f4d6d6] bg-[#fff5f5] p-4 shadow-[0_16px_42px_rgba(60,20,20,0.055)] sm:p-5";
+   "flex min-w-0 flex-col rounded-[20px] border border-[#f4d6d6] bg-[#fff5f5] p-4 shadow-[0_16px_42px_rgba(60,20,20,0.055)] sm:p-5";
 const greenColumn =
-   "flex min-w-0 flex-col rounded-[18px] border border-[#cfe9d6] bg-[#f2fbf4] p-4 shadow-[0_16px_42px_rgba(20,31,24,0.06)] sm:p-5";
+   "flex min-w-0 flex-col rounded-[20px] border border-[#cfe9d6] bg-[#f2fbf4] p-4 shadow-[0_16px_42px_rgba(20,31,24,0.06)] sm:p-5";
 const columnTitle =
    "mb-4 text-center text-[17px] font-black tracking-[-0.01em] text-[#ef5353] sm:text-[20px]";
 const columnTitleGreen =
    "mb-4 text-center text-[17px] font-black tracking-[-0.01em] text-[#15923b] sm:text-[20px]";
 const box =
-   "flex flex-1 items-center rounded-[14px] bg-white p-4 shadow-[0_10px_26px_rgba(20,31,24,0.045)] sm:p-5";
+   "flex flex-1 items-center rounded-[16px] bg-white p-4 shadow-[0_10px_26px_rgba(20,31,24,0.045)] sm:p-5";
 const greenBox =
-   "flex flex-1 items-center rounded-[14px] bg-white p-4 shadow-[0_10px_26px_rgba(20,31,24,0.045)] sm:p-5";
+   "flex flex-1 items-center rounded-[16px] bg-white p-4 shadow-[0_10px_26px_rgba(20,31,24,0.045)] sm:p-5";
 const list = "w-full space-y-4";
 const item =
    "flex items-start gap-3 text-[13px] font-bold leading-snug text-[#4f5a54] sm:text-[14px] lg:text-[15px]";

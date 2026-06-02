@@ -35,12 +35,12 @@ const STEPS = [
 ];
 
 const section =
-   "bg-white px-4 pb-12 pt-8 sm:px-8 sm:pb-16 lg:px-12 lg:pb-24 lg:pt-6";
-const shell = "mx-auto max-w-[1210px]";
+   "bg-white px-4 py-12 sm:px-7 sm:py-14 lg:px-10 lg:py-16";
+const shell = "mx-auto max-w-[1320px]";
 const title =
-   "text-center text-[25px] font-black tracking-[-0.02em] text-[#171b18] sm:text-[28px]";
+   "text-center text-[28px] font-black tracking-[-0.03em] text-[#171b18] sm:text-[34px]";
 const flow =
-   "relative mt-7 grid grid-cols-2 gap-x-4 gap-y-9 sm:gap-x-7 lg:mt-9 lg:grid-cols-5 lg:gap-0";
+   "relative mt-8 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-7 lg:mt-11 lg:grid-cols-5 lg:gap-0";
 const step = "relative flex flex-col items-center text-center";
 const iconWrap =
    "relative z-20 flex h-[72px] w-[72px] items-center justify-center rounded-full border border-[#e1e9e3] bg-[#f7f7f7] text-[#636b65] shadow-[inset_0_1px_0_rgba(255,255,255,0.85),0_10px_28px_rgba(17,24,39,0.04)] sm:h-[82px] sm:w-[82px]";

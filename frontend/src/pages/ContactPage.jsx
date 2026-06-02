@@ -19,24 +19,24 @@ import shopifyLogo from "../../../temp-assets/shopify-logo.png";
 
 const pageShell = "min-h-screen bg-white";
 const hero =
-   "relative isolate overflow-hidden border-b border-[#e8f0eb] bg-[#f4fbf5] px-5 py-16 sm:py-20 lg:py-[84px] font-[var(--inter-font)]";
+   "relative isolate overflow-hidden border-b border-[#e8f0eb] bg-[#f4fbf5] px-4 py-14 font-[var(--inter-font)] sm:px-7 sm:py-16 lg:px-10 lg:py-20";
 const heroPattern =
    "absolute inset-0 -z-10 opacity-75 [background-image:radial-gradient(rgba(26,89,47,0.16)_1px,transparent_1px)] [background-size:24px_24px]";
 const heroGlow =
    "absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.92)_0%,rgba(244,251,245,0.76)_46%,rgba(238,249,241,0.92)_100%)]";
 const heroInner =
-   "mx-auto flex min-h-[190px] max-w-[980px] flex-col items-center justify-center text-center";
+   "mx-auto flex min-h-[170px] max-w-[980px] flex-col items-center justify-center text-center";
 const heroTitle =
-   "text-[clamp(3.5rem,7vw,6rem)] font-black leading-[0.98] tracking-[-0.055em] text-[#090d0b]";
+   "text-[clamp(3rem,6.2vw,5rem)] font-black leading-[0.98] tracking-[-0.055em] text-[#090d0b]";
 const heroDescription =
-   "mt-8 max-w-[800px] text-[clamp(1.08rem,1.45vw,1.62rem)] font-semibold leading-[1.55] tracking-[-0.015em] text-[#59636c] max-[640px]:mt-6";
+   "mt-6 max-w-[800px] text-[clamp(1rem,1.25vw,1.3rem)] font-semibold leading-[1.6] tracking-[-0.015em] text-[#59636c] max-[640px]:mt-5";
 const contactSection =
-   "border-b border-[#e8f0eb] bg-white px-5 py-20 sm:py-24 lg:py-[96px] font-[var(--inter-font)]";
+   "border-b border-[#e8f0eb] bg-white px-4 py-12 font-[var(--inter-font)] sm:px-7 sm:py-14 lg:px-10 lg:py-16";
 const contactInner =
-   "mx-auto grid max-w-[1320px] gap-12 lg:grid-cols-[minmax(360px,0.78fr)_minmax(520px,1fr)] lg:gap-14";
+   "mx-auto grid max-w-[1320px] gap-8 lg:grid-cols-[minmax(360px,0.78fr)_minmax(520px,1fr)] lg:gap-12";
 const contactCards = "grid gap-6";
 const contactCard =
-   "group grid min-h-[142px] grid-cols-[92px_minmax(0,1fr)_24px] items-center gap-6 rounded-[16px] border border-[#e1e9e4] bg-white px-8 py-6 shadow-[0_16px_44px_rgba(17,37,23,0.055)] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#bde0c7] max-[640px]:grid-cols-[68px_minmax(0,1fr)_20px] max-[640px]:gap-4 max-[640px]:px-5";
+   "group grid min-h-[142px] grid-cols-[92px_minmax(0,1fr)_24px] items-center gap-6 rounded-[18px] border border-[#e1e9e4] bg-white px-8 py-6 shadow-[0_16px_44px_rgba(17,37,23,0.055)] transition-colors duration-200 hover:border-[#bde0c7] max-[640px]:grid-cols-[68px_minmax(0,1fr)_20px] max-[640px]:gap-4 max-[640px]:px-5";
 const contactIcon =
    "grid h-[76px] w-[76px] place-items-center rounded-[18px] bg-[#edf9f0] text-[#169b43] max-[640px]:h-[58px] max-[640px]:w-[58px] max-[640px]:rounded-[15px]";
 const contactCardTitle =
@@ -47,7 +47,7 @@ const contactCardStrong =
    "mt-3 block text-[1.02rem] font-black leading-[1.55] text-[#18a247] max-[640px]:text-[0.9rem]";
 const contactArrow = "text-[#18a247] transition-transform duration-200 group-hover:translate-x-1";
 const formCard =
-   "rounded-[18px] border border-[#e1e9e4] bg-white p-10 shadow-[0_18px_48px_rgba(17,37,23,0.06)] max-[640px]:p-6";
+   "rounded-[20px] border border-[#e1e9e4] bg-white p-8 shadow-[0_18px_48px_rgba(17,37,23,0.06)] sm:p-10 max-[640px]:p-6";
 const formTitle =
    "text-[clamp(1.9rem,2.6vw,3rem)] font-black leading-tight tracking-[-0.045em] text-[#070b09]";
 const formSubtitle =
@@ -58,18 +58,18 @@ const formRow = "grid gap-7 sm:grid-cols-2";
 const fieldWrap = "grid gap-3";
 const label = "text-[0.95rem] font-black text-[#17201a]";
 const input =
-   "h-[58px] w-full rounded-[9px] border border-[#e0e7e3] bg-white px-5 text-[0.98rem] font-semibold text-[#17201a] outline-none transition placeholder:text-[#8a9490] focus:border-[#75cc8d] focus:ring-4 focus:ring-[#32b95b]/10";
+   "h-[58px] w-full rounded-[12px] border border-[#e0e7e3] bg-white px-5 text-[0.98rem] font-semibold text-[#17201a] outline-none transition placeholder:text-[#8a9490] focus:border-[#75cc8d] focus:ring-4 focus:ring-[#32b95b]/10";
 const textarea =
-   "min-h-[164px] w-full resize-y rounded-[9px] border border-[#e0e7e3] bg-white px-5 py-4 text-[0.98rem] font-semibold text-[#17201a] outline-none transition placeholder:text-[#8a9490] focus:border-[#75cc8d] focus:ring-4 focus:ring-[#32b95b]/10";
+   "min-h-[164px] w-full resize-y rounded-[12px] border border-[#e0e7e3] bg-white px-5 py-4 text-[0.98rem] font-semibold text-[#17201a] outline-none transition placeholder:text-[#8a9490] focus:border-[#75cc8d] focus:ring-4 focus:ring-[#32b95b]/10";
 const submit =
-   "inline-flex h-[60px] w-full items-center justify-center gap-4 rounded-[8px] bg-[#079b24] px-7 text-[1.08rem] font-black text-white shadow-[0_14px_28px_rgba(7,155,36,0.22)] transition-colors hover:bg-[#07891f]";
+   "inline-flex h-[60px] w-full items-center justify-center gap-4 rounded-[12px] bg-[#079b24] px-7 text-[1.08rem] font-black text-white shadow-[0_14px_28px_rgba(7,155,36,0.22)] transition-colors hover:bg-[#07891f]";
 const safeNote =
    "mt-5 flex items-center justify-center gap-2 text-center text-[0.92rem] font-bold text-[#58655e]";
 const companySection =
-   "border-b border-[#e8f0eb] bg-white px-5 py-12 sm:py-14 lg:py-16 font-[var(--inter-font)]";
+   "border-b border-[#e8f0eb] bg-white px-4 py-12 font-[var(--inter-font)] sm:px-7 sm:py-14 lg:px-10 lg:py-16";
 const companyInner = "mx-auto max-w-[1320px]";
 const companyCard =
-   "grid items-center gap-8 rounded-[16px] border border-[#e1e9e4] bg-white px-9 py-8 shadow-[0_16px_44px_rgba(17,37,23,0.055)] lg:grid-cols-[260px_minmax(0,1fr)] lg:px-11 max-[640px]:px-6";
+   "grid items-center gap-8 rounded-[20px] border border-[#e1e9e4] bg-white px-8 py-8 shadow-[0_16px_44px_rgba(17,37,23,0.055)] lg:grid-cols-[260px_minmax(0,1fr)] lg:px-10 max-[640px]:px-6";
 const companyLogoWrap =
    "flex items-center justify-center border-[#e2e9e4] lg:border-r lg:pr-10 max-[1024px]:justify-start";
 const companyLogo =
@@ -79,7 +79,7 @@ const companyCopy =
 const companyStrong =
    "font-black text-[#202823]";
 const contactCta =
-   "relative mt-9 grid min-h-[236px] overflow-hidden rounded-[24px] border border-[#293330] bg-[#070d0a] px-8 py-10 shadow-[0_22px_54px_rgba(9,14,11,0.18)] sm:px-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(430px,0.82fr)_190px] lg:items-center lg:gap-8 lg:px-14";
+   "relative mt-10 grid min-h-[236px] overflow-hidden rounded-[24px] border border-[#293330] bg-[#070d0a] px-6 py-8 shadow-[0_22px_54px_rgba(9,14,11,0.18)] sm:px-9 sm:py-9 lg:grid-cols-[minmax(0,0.9fr)_minmax(430px,0.82fr)_190px] lg:items-center lg:gap-8 lg:px-10";
 const contactCtaGrain =
    "pointer-events-none absolute inset-0 opacity-[0.12] [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.56)_1px,transparent_0)] [background-size:18px_18px]";
 const contactCtaGreen =
@@ -93,9 +93,9 @@ const contactCtaActions =
    "relative z-10 mt-8 flex flex-col gap-5 max-[760px]:max-w-[520px] lg:mt-0";
 const contactCtaButtons = "grid gap-4 min-[520px]:grid-cols-2";
 const contactPrimary =
-   "inline-flex h-[58px] items-center justify-center gap-3 rounded-[9px] bg-[#20a81f] px-7 text-[1.02rem] font-black text-white shadow-[0_14px_28px_rgba(34,167,31,0.24),inset_0_1px_0_rgba(255,255,255,0.22)] ring-1 ring-[#39c53b] transition-colors hover:bg-[#1b921a]";
+   "inline-flex h-[58px] items-center justify-center gap-3 rounded-[12px] bg-[#20a81f] px-7 text-[1.02rem] font-black text-white shadow-[0_14px_28px_rgba(34,167,31,0.24),inset_0_1px_0_rgba(255,255,255,0.22)] ring-1 ring-[#39c53b] transition-colors hover:bg-[#1b921a]";
 const contactSecondary =
-   "inline-flex h-[58px] items-center justify-center gap-3 rounded-[9px] border-[1.5px] border-solid border-[rgba(255,255,255,0.36)] bg-[rgba(11,16,14,0.72)] px-7 text-[1.02rem] font-black text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] ring-1 ring-[rgba(255,255,255,0.1)] transition-colors hover:border-[rgba(255,255,255,0.52)] hover:bg-[rgba(255,255,255,0.08)]";
+   "inline-flex h-[58px] items-center justify-center gap-3 rounded-[12px] border-[1.5px] border-solid border-[rgba(255,255,255,0.36)] bg-[rgba(11,16,14,0.72)] px-7 text-[1.02rem] font-black text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] ring-1 ring-[rgba(255,255,255,0.1)] transition-colors hover:border-[rgba(255,255,255,0.52)] hover:bg-[rgba(255,255,255,0.08)]";
 const contactMetaRow =
    "grid gap-4 text-[0.98rem] font-bold text-[rgba(255,255,255,0.86)] min-[520px]:grid-cols-2";
 const contactMetaItem = "inline-flex items-center gap-3";

@@ -13,12 +13,12 @@ const visuals = [
 ];
 
 const section =
-   "bg-[#f5f6f4] px-4 py-6 sm:px-7 sm:py-10 lg:px-10 lg:py-12";
+   "bg-[#f5f6f4] px-4 py-8 sm:px-7 sm:py-12 lg:px-10 lg:py-14";
 const shell = "mx-auto max-w-[1320px]";
 const grid =
    "grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-5 lg:gap-4";
 const card =
-   "min-w-0 overflow-hidden rounded-[14px] shadow-[0_12px_28px_rgba(25,31,28,0.06)]";
+   "min-w-0 overflow-hidden rounded-[16px] shadow-[0_12px_28px_rgba(25,31,28,0.06)] ring-1 ring-[#e2e9e4]";
 const image =
    "block h-auto w-full select-none object-contain";
 

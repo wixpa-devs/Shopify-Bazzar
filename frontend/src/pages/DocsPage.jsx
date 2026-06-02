@@ -41,7 +41,7 @@ const comparisonRows = [
 
 const pageShell = "min-h-screen bg-white font-[var(--inter-font)]";
 const hero =
-   "relative isolate overflow-hidden border-b border-[#e8f0eb] bg-[#f4fbf5] px-5 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-[86px]";
+   "relative isolate overflow-hidden border-b border-[#e8f0eb] bg-[#f4fbf5] px-4 py-14 sm:px-7 sm:py-16 lg:px-10 lg:py-20";
 const heroPattern =
    "absolute inset-0 -z-10 opacity-75 [background-image:radial-gradient(rgba(26,89,47,0.16)_1px,transparent_1px)] [background-size:24px_24px]";
 const heroGlow =
@@ -50,33 +50,33 @@ const heroInner = "mx-auto max-w-[1050px] text-center";
 const heroPill =
    "mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-[#bee5c7] bg-white px-4 py-2 text-[0.78rem] font-black uppercase tracking-[0.1em] text-[#159447] shadow-[0_10px_24px_rgba(17,24,39,0.045)]";
 const heroTitle =
-   "text-[clamp(3.25rem,6.4vw,6rem)] font-black leading-[0.98] tracking-[-0.058em] text-[#090d0b]";
+   "text-[clamp(3rem,6.2vw,5rem)] font-black leading-[0.98] tracking-[-0.058em] text-[#090d0b]";
 const heroText =
-   "mx-auto mt-7 max-w-[820px] text-[clamp(1.02rem,1.45vw,1.5rem)] font-semibold leading-[1.62] tracking-[-0.015em] text-[#59636c]";
+   "mx-auto mt-6 max-w-[820px] text-[clamp(1rem,1.25vw,1.3rem)] font-semibold leading-[1.62] tracking-[-0.015em] text-[#59636c]";
 const heroCards =
    "mx-auto mt-9 grid max-w-[880px] gap-4 sm:grid-cols-3";
 const heroCard =
-   "rounded-[14px] border border-[#dfece3] bg-white px-5 py-4 text-left shadow-[0_14px_32px_rgba(17,24,39,0.055)]";
+   "rounded-[18px] border border-[#dfece3] bg-white px-5 py-4 text-left shadow-[0_14px_32px_rgba(17,24,39,0.055)]";
 const heroCardIcon = "mb-3 text-[#159447]";
 const heroCardTitle = "text-[0.9rem] font-black text-[#132018]";
 const heroCardText = "mt-1 text-[0.76rem] font-semibold leading-[1.45] text-[#68736b]";
-const docsWrap = "px-5 py-14 sm:px-8 sm:py-16 lg:px-12 lg:py-[76px]";
+const docsWrap = "px-4 py-12 sm:px-7 sm:py-14 lg:px-10 lg:py-16";
 const docsGrid =
    "mx-auto grid max-w-[1320px] items-start gap-9 lg:grid-cols-[minmax(0,1fr)_310px]";
 const docsContent =
-   "min-w-0 rounded-[18px] border border-[#e1e9e4] bg-white p-6 shadow-[0_18px_44px_rgba(17,24,39,0.055)] sm:p-8 lg:p-10";
+   "min-w-0 rounded-[20px] border border-[#e1e9e4] bg-white p-6 shadow-[0_18px_44px_rgba(17,24,39,0.055)] sm:p-8 lg:p-10";
 const tocPanel =
-   "sticky top-[112px] rounded-[16px] border border-[#e1e9e4] bg-white p-5 shadow-[0_16px_34px_rgba(17,24,39,0.065)] max-[1023px]:static";
+   "sticky top-[112px] rounded-[18px] border border-[#e1e9e4] bg-white p-5 shadow-[0_16px_34px_rgba(17,24,39,0.065)] max-[1023px]:static";
 const tocTitle = "mb-4 flex items-center gap-2 text-[0.9rem] font-black text-[#132018]";
 const tocList = "space-y-1.5";
 const tocLink =
-   "block rounded-[9px] px-3 py-2 text-[0.8rem] font-extrabold text-[#5d6861] transition-colors hover:bg-[#eefaf1] hover:text-[#138b3b]";
+   "block rounded-[12px] px-3 py-2 text-[0.8rem] font-extrabold text-[#5d6861] transition-colors hover:bg-[#eefaf1] hover:text-[#138b3b]";
 const docSection =
    "scroll-mt-[130px] border-b border-[#edf2ef] pb-10 pt-10 first:pt-0 last:border-b-0 last:pb-0";
 const eyebrow =
    "mb-3 inline-flex items-center gap-2 text-[0.72rem] font-black uppercase tracking-[0.12em] text-[#159447]";
 const h2 =
-   "text-[clamp(1.9rem,3vw,3.1rem)] font-black leading-[1.08] tracking-[-0.048em] text-[#07100a]";
+   "text-[clamp(1.85rem,2.8vw,3rem)] font-black leading-[1.08] tracking-[-0.048em] text-[#07100a]";
 const h3 =
    "mt-8 text-[1.08rem] font-black tracking-[-0.02em] text-[#17201a]";
 const paragraph =
@@ -90,18 +90,18 @@ const bulletItem = "flex gap-3 text-[0.96rem] font-semibold leading-[1.65] text-
 const bulletIcon = "mt-[5px] shrink-0 text-[#159447]";
 const numberedList = "mt-5 grid gap-4";
 const numberedItem =
-   "grid gap-4 rounded-[13px] border border-[#e2ebe5] bg-[#fbfdfb] p-5 sm:grid-cols-[44px_minmax(0,1fr)]";
+   "grid gap-4 rounded-[16px] border border-[#e2ebe5] bg-[#fbfdfb] p-5 sm:grid-cols-[44px_minmax(0,1fr)]";
 const numberBadge =
    "grid h-11 w-11 place-items-center rounded-[12px] bg-[#16a34a] text-[0.9rem] font-black text-white shadow-[0_12px_24px_rgba(22,163,74,0.18)]";
 const tableWrap =
-   "mt-6 overflow-hidden rounded-[14px] border border-[#e1e9e4] bg-white";
+   "mt-6 overflow-hidden rounded-[16px] border border-[#e1e9e4] bg-white";
 const table =
    "w-full border-collapse text-left text-[0.88rem] font-semibold text-[#59636c]";
 const th =
    "border-b border-[#e1e9e4] bg-[#f4fbf5] px-5 py-4 text-[0.78rem] font-black uppercase tracking-[0.08em] text-[#17201a]";
 const td = "border-b border-[#edf2ef] px-5 py-4 align-top last:border-b-0";
 const callout =
-   "mt-7 rounded-[16px] border border-[#bfe8c8] bg-[#effaf2] p-6 shadow-[0_14px_32px_rgba(22,101,52,0.06)]";
+   "mt-7 rounded-[18px] border border-[#bfe8c8] bg-[#effaf2] p-6 shadow-[0_14px_32px_rgba(22,101,52,0.06)]";
 const calloutTitle = "flex items-center gap-2 text-[1rem] font-black text-[#0f6f2f]";
 const calloutText = "mt-3 text-[0.94rem] font-semibold leading-[1.7] text-[#59636c]";
 

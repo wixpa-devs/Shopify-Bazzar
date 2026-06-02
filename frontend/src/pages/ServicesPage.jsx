@@ -26,30 +26,30 @@ const freelanceProfileUrl = "https://www.upwork.com/freelancers/malikzeeshanhaid
 
 const pageShell = "min-h-screen bg-white";
 const hero =
-   "relative isolate overflow-hidden border-b border-[#e8f0eb] bg-[#f4fbf5] px-5 py-16 font-[var(--inter-font)] sm:px-8 sm:py-20 lg:px-12 lg:py-[84px]";
+   "relative isolate overflow-hidden border-b border-[#e8f0eb] bg-[#f4fbf5] px-4 py-14 font-[var(--inter-font)] sm:px-7 sm:py-16 lg:px-10 lg:py-20";
 const heroPattern =
    "absolute inset-0 -z-10 opacity-75 [background-image:radial-gradient(rgba(26,89,47,0.16)_1px,transparent_1px)] [background-size:24px_24px]";
 const heroGlow =
    "absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.92)_0%,rgba(244,251,245,0.76)_46%,rgba(238,249,241,0.92)_100%)]";
 const heroInner =
-   "mx-auto flex min-h-[190px] max-w-[980px] flex-col items-center justify-center text-center";
+   "mx-auto flex min-h-[170px] max-w-[980px] flex-col items-center justify-center text-center";
 const title =
-   "text-[clamp(3.5rem,7vw,6rem)] font-black leading-[0.98] tracking-[-0.055em] text-[#090d0b]";
+   "text-[clamp(3rem,6.2vw,5rem)] font-black leading-[0.98] tracking-[-0.055em] text-[#090d0b]";
 const description =
-   "mt-8 max-w-[800px] text-[clamp(1.08rem,1.45vw,1.62rem)] font-semibold leading-[1.55] tracking-[-0.015em] text-[#59636c] max-[640px]:mt-6";
+   "mt-6 max-w-[800px] text-[clamp(1rem,1.25vw,1.3rem)] font-semibold leading-[1.6] tracking-[-0.015em] text-[#59636c] max-[640px]:mt-5";
 const servicesSection =
-   "bg-white px-5 py-14 font-[var(--inter-font)] sm:px-8 sm:py-[72px] lg:px-12 lg:py-[78px]";
+   "bg-white px-4 py-12 font-[var(--inter-font)] sm:px-7 sm:py-14 lg:px-10 lg:py-16";
 const servicesInner = "mx-auto max-w-[1320px]";
 const servicesHeader = "mx-auto mb-10 max-w-[760px] text-center sm:mb-12";
 const servicesEyebrow =
    "mb-3 block text-[0.76rem] font-black uppercase tracking-[0.13em] text-[#159447]";
 const servicesTitle =
-   "text-[clamp(2.15rem,3.25vw,3.45rem)] font-black leading-[1.04] tracking-[-0.052em] text-[#07100a]";
+   "text-[clamp(2.05rem,3vw,3.25rem)] font-black leading-[1.04] tracking-[-0.052em] text-[#07100a]";
 const servicesCopy =
    "mt-3 text-[0.98rem] font-semibold leading-[1.65] text-[#5f6875]";
 const servicesGrid = "grid gap-6 md:grid-cols-2 xl:grid-cols-3";
 const serviceCard =
-   "group flex min-h-[252px] flex-col items-start rounded-[16px] border border-[#e1e9e4] bg-white p-8 shadow-[0_14px_34px_rgba(17,24,39,0.052)] transition-colors duration-200 hover:border-[#b8dfc4] max-[640px]:min-h-0 max-[640px]:p-6";
+   "group flex min-h-[252px] flex-col items-start rounded-[18px] border border-[#e1e9e4] bg-white p-7 shadow-[0_14px_34px_rgba(17,24,39,0.052)] transition-colors duration-200 hover:border-[#b8dfc4] max-[640px]:min-h-0 max-[640px]:p-6";
 const serviceIcon =
    "grid h-[58px] w-[58px] place-items-center rounded-[10px] bg-[#eaf9ee] text-[#159447] shadow-[inset_0_0_0_1px_rgba(29,168,75,0.1)]";
 const serviceTitle =
@@ -59,9 +59,9 @@ const serviceText =
 const serviceLink =
    "mt-auto inline-flex items-center gap-2 pt-6 text-[0.86rem] font-black text-[#159447] transition-colors hover:text-[#087c31]";
 const featuredSection =
-   "bg-white px-5 pb-14 font-[var(--inter-font)] sm:px-8 sm:pb-[72px] lg:px-12 lg:pb-[86px]";
+   "bg-white px-4 py-12 font-[var(--inter-font)] sm:px-7 sm:py-14 lg:px-10 lg:py-16";
 const featuredShell =
-   "relative isolate mx-auto grid max-w-[1320px] overflow-hidden rounded-[24px] border border-[#dbece1] bg-[#eefaf2] px-7 py-10 shadow-[0_24px_60px_rgba(17,24,39,0.075)] sm:px-10 sm:py-12 lg:min-h-[455px] lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:gap-10 lg:px-14 lg:py-14";
+   "relative isolate mx-auto grid max-w-[1320px] overflow-hidden rounded-[24px] border border-[#dbece1] bg-[#eefaf2] px-6 py-9 shadow-[0_24px_60px_rgba(17,24,39,0.075)] sm:px-9 sm:py-10 lg:min-h-[455px] lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:gap-10 lg:px-10 lg:py-12";
 const featuredPattern =
    "absolute inset-0 -z-10 opacity-65 [background-image:radial-gradient(rgba(24,149,68,0.13)_1px,transparent_1px)] [background-size:24px_24px]";
 const featuredGlow =
@@ -82,7 +82,7 @@ const featuredImageWrap =
 const featuredImage =
    "block w-full max-w-[760px] select-none object-contain drop-shadow-[0_26px_38px_rgba(17,24,39,0.12)]";
 const hireSection =
-   "relative isolate overflow-hidden bg-white px-5 pb-16 pt-1 font-[var(--inter-font)] sm:px-8 sm:pb-20 lg:px-12 lg:pb-[96px]";
+   "relative isolate overflow-hidden bg-white px-4 py-12 font-[var(--inter-font)] sm:px-7 sm:py-14 lg:px-10 lg:py-16";
 const hireCurveOne =
    "absolute -bottom-[360px] -left-[260px] -z-10 h-[760px] w-[760px] rounded-full border border-[#d8ecd6] opacity-80";
 const hireCurveTwo =
@@ -97,14 +97,14 @@ const hireSubtitle =
    "mt-5 text-[clamp(1rem,1.35vw,1.36rem)] font-semibold leading-[1.6] tracking-[-0.012em] text-[#687180]";
 const platformGrid = "mt-14 grid gap-7 lg:grid-cols-2 lg:gap-10";
 const platformCard =
-   "flex min-h-[438px] flex-col rounded-[18px] border border-[#dfe8e2] bg-white p-6 shadow-[0_22px_50px_rgba(17,24,39,0.08)] sm:p-8 lg:p-10 max-[640px]:min-h-0";
+   "flex min-h-[438px] flex-col rounded-[20px] border border-[#dfe8e2] bg-white p-6 shadow-[0_22px_50px_rgba(17,24,39,0.08)] sm:p-8 lg:p-10 max-[640px]:min-h-0";
 const platformTop =
    "grid items-start gap-5 sm:min-h-[176px] sm:grid-cols-[118px_minmax(0,1fr)] sm:items-center sm:gap-8 lg:grid-cols-[126px_minmax(0,1fr)] max-[640px]:text-left";
 const platformLogo =
    "grid h-[118px] w-[118px] place-items-center rounded-full border border-[#e3e9e6] bg-white p-4 shadow-[0_18px_38px_rgba(17,24,39,0.075)] sm:h-[118px] sm:w-[118px] lg:h-[126px] lg:w-[126px] max-[640px]:mx-auto";
 const platformLogoImage = "block max-h-[48px] w-full object-contain lg:max-h-[52px]";
 const platformBadge =
-   "mb-3 inline-flex w-fit items-center gap-2 rounded-[8px] bg-[#eaf8ee] px-3 py-1.5 text-[0.76rem] font-black text-[#159447] max-[640px]:mt-1";
+   "mb-3 inline-flex w-fit items-center gap-2 rounded-[12px] bg-[#eaf8ee] px-3 py-1.5 text-[0.76rem] font-black text-[#159447] max-[640px]:mt-1";
 const platformName =
    "text-[clamp(1.46rem,1.85vw,2rem)] font-black leading-[1.12] tracking-[-0.045em] text-[#171b24]";
 const platformText =
@@ -119,13 +119,13 @@ const platformStatValue =
 const platformStatLabel =
    "mt-1 text-[0.68rem] font-bold leading-[1.18] text-[#687180]";
 const platformButtonBase =
-   "mt-7 inline-flex min-h-[58px] w-full items-center justify-center gap-3 rounded-[8px] px-6 text-[0.98rem] font-black transition-colors duration-200 max-[640px]:mt-6 max-[420px]:min-h-[54px]";
+   "mt-7 inline-flex min-h-[58px] w-full items-center justify-center gap-3 rounded-[12px] px-6 text-[0.98rem] font-black transition-colors duration-200 max-[640px]:mt-6 max-[420px]:min-h-[54px]";
 const platformButtonPrimary =
    "bg-[#009e2c] text-white shadow-[0_16px_30px_rgba(0,158,44,0.16)] hover:bg-[#008926]";
 const platformButtonOutline =
    "border border-[#8fd3a0] bg-white text-[#00933a] hover:border-[#159447] hover:bg-[#f2fbf4]";
 const finalBannerWrap =
-   "bg-white px-0 pb-8 pt-0 font-[var(--inter-font)] sm:pb-10 lg:pb-12";
+   "bg-white px-0 py-0 font-[var(--inter-font)]";
 
 const services = [
    {

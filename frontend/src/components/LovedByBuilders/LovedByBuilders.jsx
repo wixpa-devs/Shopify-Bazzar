@@ -31,18 +31,18 @@ const stats = [
    { value: "1,000+", label: "Stores Launched", Icon: Rocket },
 ];
 
-const section = "bg-white px-4 pb-9 pt-2 sm:px-7 sm:pb-12 lg:px-10 lg:pb-14";
+const section = "bg-white px-4 py-12 sm:px-7 sm:py-14 lg:px-10 lg:py-16";
 const shell = "mx-auto max-w-[1320px]";
 const header =
-   "mb-5 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-center sm:justify-between";
+   "mb-7 flex flex-col gap-3 sm:mb-8 sm:flex-row sm:items-center sm:justify-between";
 const title =
-   "text-[28px] font-black tracking-[-0.03em] text-[#111815] sm:text-[34px]";
+   "text-[28px] font-black tracking-[-0.035em] text-[#111815] sm:text-[36px]";
 const link =
    "inline-flex w-fit items-center gap-2 text-[13px] font-bold text-[#247b3e] transition-colors hover:text-[#1f9c45]";
-const layout = "grid items-stretch gap-4 lg:grid-cols-[minmax(0,1fr)_190px]";
-const reviewsGrid = "grid gap-4 md:grid-cols-3";
+const layout = "grid items-stretch gap-5 lg:grid-cols-[minmax(0,1fr)_220px]";
+const reviewsGrid = "grid gap-5 md:grid-cols-3";
 const reviewCard =
-   "flex h-full min-h-[214px] flex-col rounded-[16px] border border-[#e3eae5] bg-white p-6 shadow-[0_12px_32px_rgba(20,31,24,0.06)]";
+   "flex h-full min-h-[230px] flex-col rounded-[18px] border border-[#e3eae5] bg-white p-6 shadow-[0_14px_34px_rgba(20,31,24,0.06)]";
 const stars = "flex gap-1.5 text-[#22a84d]";
 const quote =
    "mt-4 flex-1 text-[15px] font-semibold leading-[1.62] text-[#4f5a54]";
@@ -52,7 +52,7 @@ const avatar =
 const name = "text-[14px] font-black text-[#161d19]";
 const role = "mt-1 text-[12.5px] font-semibold text-[#66716b]";
 const statRail =
-   "grid h-full grid-cols-1 gap-3 rounded-[16px] border border-[#e3eae5] bg-white p-3 shadow-[0_12px_32px_rgba(20,31,24,0.06)] min-[520px]:grid-cols-3 lg:grid-cols-1";
+   "grid h-full grid-cols-1 gap-3 rounded-[18px] border border-[#e3eae5] bg-white p-3.5 shadow-[0_14px_34px_rgba(20,31,24,0.06)] min-[520px]:grid-cols-3 lg:grid-cols-1";
 const statItem = "flex items-center gap-3 rounded-[12px] p-2.5";
 const statIcon =
    "flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[#eef9f1] text-[#24a64c]";
