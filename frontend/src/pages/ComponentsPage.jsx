@@ -127,16 +127,33 @@ const componentsGrid =
    "grid auto-rows-fr grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-6";
 const componentsList = "flex flex-col gap-5";
 const componentCard =
-   "group flex h-[430px] flex-col overflow-hidden rounded-[13px] border border-[#dfe7e1] bg-white shadow-[0_10px_26px_rgba(17,24,39,0.055)] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#bddfc5] hover:shadow-[0_16px_36px_rgba(17,24,39,0.09)]";
+   "group relative flex h-[430px] flex-col overflow-hidden rounded-[13px] border border-[#dfe7e1] bg-white shadow-[0_10px_26px_rgba(17,24,39,0.055)] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#bddfc5] hover:shadow-[0_16px_36px_rgba(17,24,39,0.09)]";
 const componentCardList =
-   "group grid min-h-[260px] grid-cols-[minmax(240px,0.84fr)_minmax(0,1fr)] overflow-hidden rounded-[13px] border border-[#dfe7e1] bg-white shadow-[0_10px_26px_rgba(17,24,39,0.055)] transition-all duration-200 hover:border-[#bddfc5] hover:shadow-[0_16px_36px_rgba(17,24,39,0.09)] max-[760px]:flex max-[760px]:min-h-[430px] max-[760px]:flex-col";
+   "group relative grid min-h-[260px] grid-cols-[minmax(240px,0.84fr)_minmax(0,1fr)] overflow-hidden rounded-[13px] border border-[#dfe7e1] bg-white shadow-[0_10px_26px_rgba(17,24,39,0.055)] transition-all duration-200 hover:border-[#bddfc5] hover:shadow-[0_16px_36px_rgba(17,24,39,0.09)] max-[760px]:flex max-[760px]:min-h-[430px] max-[760px]:flex-col";
 const browsePreview =
    "relative h-[190px] overflow-hidden border-b border-[#edf2ee] bg-[#fafcfb] pointer-events-none";
 const browsePreviewList =
    "relative min-h-full overflow-hidden border-r border-[#edf2ee] bg-[#fafcfb] pointer-events-none max-[760px]:h-[190px] max-[760px]:border-b max-[760px]:border-r-0";
-const previewLoader =
-   "component-preview-loader absolute inset-0 z-[2] grid place-items-center bg-[#f8fbf9] transition-opacity duration-300";
-const previewLoaderHidden = "pointer-events-none opacity-0";
+const skeletonOverlay =
+   "absolute inset-0 z-20 bg-white transition-opacity duration-300";
+const skeletonOverlayHidden = "pointer-events-none opacity-0";
+const skeletonGridShell = "flex h-full w-full flex-col";
+const skeletonListShell =
+   "grid h-full w-full grid-cols-[minmax(240px,0.84fr)_minmax(0,1fr)] max-[760px]:flex max-[760px]:flex-col";
+const skeletonPreview =
+   "component-card-skeleton__block h-[190px] border-b border-[#edf2ee]";
+const skeletonPreviewList =
+   "component-card-skeleton__block min-h-full border-r border-[#edf2ee] max-[760px]:h-[190px] max-[760px]:min-h-0 max-[760px]:border-b max-[760px]:border-r-0";
+const skeletonBody = "flex flex-1 flex-col p-5";
+const skeletonMeta = "mb-3 flex items-center justify-between gap-4";
+const skeletonTitle = "component-card-skeleton__block h-5 w-[68%] rounded-full";
+const skeletonBadge = "component-card-skeleton__block h-5 w-16 rounded-full";
+const skeletonTextOne = "component-card-skeleton__block mt-4 h-3.5 w-full rounded-full";
+const skeletonTextTwo = "component-card-skeleton__block mt-2.5 h-3.5 w-[74%] rounded-full";
+const skeletonTags = "mt-5 flex gap-2";
+const skeletonTag = "component-card-skeleton__block h-6 w-20 rounded-full";
+const skeletonButton =
+   "component-card-skeleton__block mt-auto h-11 w-full rounded-[8px]";
 const cardBody = "flex flex-1 flex-col p-5";
 const cardMeta = "mb-2 flex items-center justify-between gap-3";
 const cardTitle = "text-[0.96rem] font-black leading-snug text-[#17201a]";
@@ -151,6 +168,13 @@ const openEditorButton =
    "mt-5 flex h-11 w-full items-center justify-center rounded-[8px] bg-[#079537] px-4 text-[0.78rem] font-black text-white shadow-[0_10px_18px_rgba(7,149,55,0.2)] transition-all duration-200 hover:bg-[#087c31] hover:shadow-[0_14px_24px_rgba(7,149,55,0.26)]";
 const emptyBrowse =
    "rounded-[13px] border border-dashed border-[#cfd9d2] bg-[#fbfdfb] px-6 py-14 text-center";
+const paginationWrap =
+   "mt-9 flex flex-wrap items-center justify-center gap-2 rounded-[13px] border border-[#e2e9e4] bg-white px-4 py-4 shadow-[0_10px_26px_rgba(17,24,39,0.045)]";
+const paginationButton =
+   "inline-flex h-10 min-w-10 items-center justify-center rounded-[8px] border border-[#dfe7e1] bg-white px-3 text-[0.78rem] font-black text-[#526058] transition-colors duration-200 hover:border-[#86d89a] hover:text-[#128d3d] disabled:pointer-events-none disabled:opacity-45";
+const paginationButtonActive =
+   "border-[#1cad4e] bg-[#16a34a] text-white hover:border-[#1cad4e] hover:text-white";
+const pageSize = 12;
 
 const labelOverrides = {
    announcementbar: "Announcement Bars",
@@ -219,15 +243,26 @@ const buildPreviewSrcdoc = (htmlString) => `<!DOCTYPE html>
 <body>${htmlString}</body>
 </html>`;
 
-const PreviewLoader = ({ isLoaded }) => (
+const ComponentCardSkeleton = ({ isLoaded, isList }) => (
    <div
-      className={`${previewLoader} ${isLoaded ? previewLoaderHidden : ""}`}
+      className={`${skeletonOverlay} ${isLoaded ? skeletonOverlayHidden : ""}`}
       aria-hidden="true"
    >
-      <div className="dot-spinner">
-         {Array.from({ length: 8 }, (_, index) => (
-            <div className="dot-spinner__dot" key={index} />
-         ))}
+      <div className={isList ? skeletonListShell : skeletonGridShell}>
+         <div className={isList ? skeletonPreviewList : skeletonPreview} />
+         <div className={skeletonBody}>
+            <div className={skeletonMeta}>
+               <div className={skeletonTitle} />
+               <div className={skeletonBadge} />
+            </div>
+            <div className={skeletonTextOne} />
+            <div className={skeletonTextTwo} />
+            <div className={skeletonTags}>
+               <div className={skeletonTag} />
+               <div className={skeletonTag} />
+            </div>
+            <div className={skeletonButton} />
+         </div>
       </div>
    </div>
 );
@@ -251,7 +286,12 @@ const CardPreviewIframe = ({ variant }) => {
 
    return (
       <div className={cardPreview}>
-         <PreviewLoader isLoaded={isLoaded} />
+         <div
+            className={`component-card-skeleton__block absolute inset-0 z-[2] transition-opacity duration-300 ${
+               isLoaded ? "pointer-events-none opacity-0" : ""
+            }`}
+            aria-hidden="true"
+         />
          <iframe
             srcDoc={srcdoc}
             title={variant.name}
@@ -341,9 +381,7 @@ export const VariantsGrid = ({ category }) => {
    );
 };
 
-const BrowsePreviewIframe = ({ variant, isList }) => {
-   const [isLoaded, setIsLoaded] = useState(false);
-
+const BrowsePreviewIframe = ({ variant, isList, isLoaded, onLoad }) => {
    if (typeof variant.getCode !== "function") {
       return (
          <div className={isList ? browsePreviewList : browsePreview}>
@@ -360,11 +398,10 @@ const BrowsePreviewIframe = ({ variant, isList }) => {
 
    return (
       <div className={isList ? browsePreviewList : browsePreview}>
-         <PreviewLoader isLoaded={isLoaded} />
          <iframe
             srcDoc={srcdoc}
             title={`${variant.name} preview`}
-            onLoad={() => setIsLoaded(true)}
+            onLoad={onLoad}
             style={{
                position: "absolute",
                top: 0,
@@ -385,6 +422,55 @@ const BrowsePreviewIframe = ({ variant, isList }) => {
    );
 };
 
+const ComponentBrowseCard = ({ component, index, isGrid, navigate }) => {
+   const hasPreview = typeof component.getCode === "function";
+   const [isLoaded, setIsLoaded] = useState(!hasPreview);
+   const tags = [component.categoryLabel, ...(component.tags || [])].slice(0, 3);
+
+   return (
+      <article className={isGrid ? componentCard : componentCardList}>
+         <ComponentCardSkeleton isLoaded={isLoaded} isList={!isGrid} />
+         <BrowsePreviewIframe
+            variant={component}
+            isList={!isGrid}
+            isLoaded={isLoaded}
+            onLoad={() => setIsLoaded(true)}
+         />
+
+         <div className={cardBody}>
+            <div className={cardMeta}>
+               <h3 className={cardTitle}>{getDisplayName(component)}</h3>
+               {index % 3 !== 2 ? (
+                  <span className={popularBadge}>Popular</span>
+               ) : null}
+            </div>
+
+            <p className={cardDesc}>
+               {truncateDescription(component.description)}
+            </p>
+
+            <div className={tagRow}>
+               {tags.map((tag) => (
+                  <span className={tagPill} key={tag}>
+                     {tag}
+                  </span>
+               ))}
+            </div>
+
+            <button
+               className={openEditorButton}
+               type="button"
+               onClick={() =>
+                  navigate(`/components/${component.section}/${component.id}`)
+               }
+            >
+               Open In Editor
+            </button>
+         </div>
+      </article>
+   );
+};
+
 const ComponentsBrowseSection = ({ categories }) => {
    const navigate = useNavigate();
    const [query, setQuery] = useState("");
@@ -392,6 +478,7 @@ const ComponentsBrowseSection = ({ categories }) => {
    const [sortBy, setSortBy] = useState("popular");
    const [layout, setLayout] = useState("grid");
    const [showAllFilters, setShowAllFilters] = useState(false);
+   const [currentPage, setCurrentPage] = useState(1);
 
    const allComponents = useMemo(
       () =>
@@ -480,11 +567,29 @@ const ComponentsBrowseSection = ({ categories }) => {
    const activeCategory =
       categoryOptions.find((category) => category.slug === selectedCategory) ||
       categoryOptions[0];
+   const totalPages = Math.max(1, Math.ceil(filteredComponents.length / pageSize));
+   const activePage = Math.min(currentPage, totalPages);
+   const pageStart = (activePage - 1) * pageSize;
+   const pageEnd = Math.min(pageStart + pageSize, filteredComponents.length);
+   const paginatedComponents = filteredComponents.slice(pageStart, pageEnd);
+   const paginationPages = useMemo(() => {
+      const pages = [];
+      const start = Math.max(1, activePage - 2);
+      const end = Math.min(totalPages, start + 4);
+      const normalizedStart = Math.max(1, end - 4);
+
+      for (let page = normalizedStart; page <= end; page += 1) {
+         pages.push(page);
+      }
+
+      return pages;
+   }, [activePage, totalPages]);
 
    const clearFilters = () => {
       setQuery("");
       setSelectedCategory("all");
       setSortBy("popular");
+      setCurrentPage(1);
    };
 
    return (
@@ -497,7 +602,10 @@ const ComponentsBrowseSection = ({ categories }) => {
                      className={searchInput}
                      type="search"
                      value={query}
-                     onChange={(event) => setQuery(event.target.value)}
+                     onChange={(event) => {
+                        setQuery(event.target.value);
+                        setCurrentPage(1);
+                     }}
                      placeholder="Search components..."
                      aria-label="Search components"
                   />
@@ -509,7 +617,10 @@ const ComponentsBrowseSection = ({ categories }) => {
                      <select
                         className={sortSelect}
                         value={sortBy}
-                        onChange={(event) => setSortBy(event.target.value)}
+                        onChange={(event) => {
+                           setSortBy(event.target.value);
+                           setCurrentPage(1);
+                        }}
                         aria-label="Sort components"
                      >
                         <option value="popular">Most popular</option>
@@ -524,7 +635,10 @@ const ComponentsBrowseSection = ({ categories }) => {
                   <button
                      className={`${layoutButton} ${isGrid ? layoutButtonActive : ""}`}
                      type="button"
-                     onClick={() => setLayout("grid")}
+                     onClick={() => {
+                        setLayout("grid");
+                        setCurrentPage(1);
+                     }}
                      aria-label="Show grid layout"
                      aria-pressed={isGrid}
                   >
@@ -533,7 +647,10 @@ const ComponentsBrowseSection = ({ categories }) => {
                   <button
                      className={`${layoutButton} ${!isGrid ? layoutButtonActive : ""}`}
                      type="button"
-                     onClick={() => setLayout("list")}
+                     onClick={() => {
+                        setLayout("list");
+                        setCurrentPage(1);
+                     }}
                      aria-label="Show list layout"
                      aria-pressed={!isGrid}
                   >
@@ -568,7 +685,10 @@ const ComponentsBrowseSection = ({ categories }) => {
                                  key={category.slug}
                                  className={filterButton}
                                  type="button"
-                                 onClick={() => setSelectedCategory(category.slug)}
+                                 onClick={() => {
+                                    setSelectedCategory(category.slug);
+                                    setCurrentPage(1);
+                                 }}
                                  aria-pressed={isActive}
                                  aria-label={`Filter by ${category.label}`}
                               >
@@ -655,65 +775,68 @@ const ComponentsBrowseSection = ({ categories }) => {
             <div>
                <div className={resultsHeader}>
                   <p className={resultsCount}>
-                     Showing {filteredComponents.length ? `1-${filteredComponents.length}` : "0"} of{" "}
-                     {allComponents.length} components
+                     Showing {filteredComponents.length ? `${pageStart + 1}-${pageEnd}` : "0"} of{" "}
+                     {filteredComponents.length} components
                   </p>
                   <span className={activeFilterPill}>{activeCategory.label}</span>
                </div>
 
                {filteredComponents.length ? (
-                  <div className={isGrid ? componentsGrid : componentsList}>
-                     {filteredComponents.map((component, index) => {
-                        const tags = [
-                           component.categoryLabel,
-                           ...(component.tags || []),
-                        ].slice(0, 3);
-
-                        return (
-                           <article
-                              className={isGrid ? componentCard : componentCardList}
+                  <>
+                     <div className={isGrid ? componentsGrid : componentsList}>
+                        {paginatedComponents.map((component, index) => (
+                           <ComponentBrowseCard
+                              component={component}
+                              index={pageStart + index}
+                              isGrid={isGrid}
                               key={`${component.section}-${component.id}`}
+                              navigate={navigate}
+                           />
+                        ))}
+                     </div>
+
+                     {totalPages > 1 ? (
+                        <nav className={paginationWrap} aria-label="Components pages">
+                           <button
+                              className={paginationButton}
+                              type="button"
+                              onClick={() =>
+                                 setCurrentPage((page) => Math.max(1, page - 1))
+                              }
+                              disabled={activePage === 1}
                            >
-                              <BrowsePreviewIframe variant={component} isList={!isGrid} />
+                              Previous
+                           </button>
 
-                              <div className={cardBody}>
-                                 <div className={cardMeta}>
-                                    <h3 className={cardTitle}>
-                                       {getDisplayName(component)}
-                                    </h3>
-                                    {index % 3 !== 2 ? (
-                                       <span className={popularBadge}>Popular</span>
-                                    ) : null}
-                                 </div>
+                           {paginationPages.map((page) => (
+                              <button
+                                 className={`${paginationButton} ${
+                                    activePage === page ? paginationButtonActive : ""
+                                 }`}
+                                 type="button"
+                                 onClick={() => setCurrentPage(page)}
+                                 aria-current={activePage === page ? "page" : undefined}
+                                 key={page}
+                              >
+                                 {page}
+                              </button>
+                           ))}
 
-                                 <p className={cardDesc}>
-                                    {truncateDescription(component.description)}
-                                 </p>
-
-                                 <div className={tagRow}>
-                                    {tags.map((tag) => (
-                                       <span className={tagPill} key={tag}>
-                                          {tag}
-                                       </span>
-                                    ))}
-                                 </div>
-
-                                 <button
-                                    className={openEditorButton}
-                                    type="button"
-                                    onClick={() =>
-                                       navigate(
-                                          `/components/${component.section}/${component.id}`,
-                                       )
-                                    }
-                                 >
-                                    Open In Editor
-                                 </button>
-                              </div>
-                           </article>
-                        );
-                     })}
-                  </div>
+                           <button
+                              className={paginationButton}
+                              type="button"
+                              onClick={() =>
+                                 setCurrentPage((page) =>
+                                    Math.min(totalPages, page + 1),
+                                 )
+                              }
+                              disabled={activePage === totalPages}
+                           >
+                              Next
+                           </button>
+                        </nav>
+                     ) : null}
+                  </>
                ) : (
                   <div className={emptyBrowse}>
                      <h3 className="text-[1rem] font-black text-[#17201a]">
