@@ -1,42 +1,87 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Check, ArrowRight } from "lucide-react";
-import headersPreview from "../../assets/component-previews/headers.svg";
-import heroPreview from "../../assets/component-previews/hero-sections.svg";
-import productCardsPreview from "../../assets/component-previews/product-cards.svg";
-import productSectionsPreview from "../../assets/component-previews/product-sections.svg";
-import testimonialsPreview from "../../assets/component-previews/testimonials.svg";
-import bannersPreview from "../../assets/component-previews/banners.svg";
-import footersPreview from "../../assets/component-previews/footers.svg";
-import collectionPreview from "../../assets/component-previews/collection-sections.svg";
-import faqPreview from "../../assets/component-previews/faq-sections.svg";
-import trustBadgesPreview from "../../assets/component-previews/trust-badges.svg";
-import pricingPreview from "../../assets/component-previews/pricing-sections.svg";
-import ctaPreview from "../../assets/component-previews/cta-sections.svg";
+import {
+   ArrowRight,
+   BadgeCheck,
+   Check,
+   CreditCard,
+   FileQuestion,
+   Grid2X2,
+   Images,
+   Layers3,
+   LayoutDashboard,
+   LayoutList,
+   Megaphone,
+   MessageSquareQuote,
+   Package,
+   PanelsTopLeft,
+   ShoppingBag,
+   SlidersHorizontal,
+   Sparkles,
+   Tag,
+} from "lucide-react";
+import { getAllCategories } from "../../registry/componentRegistry";
 import liveEditorImage from "../../../../temp-assets/live-editor-main-img.png";
 
-const componentCategories = [
-   { title: "Headers", count: "12 components", image: headersPreview },
-   { title: "Hero Sections", count: "18 components", image: heroPreview },
-   { title: "Product Cards", count: "24 components", image: productCardsPreview },
-   {
-      title: "Product Sections",
-      count: "16 components",
-      image: productSectionsPreview,
-   },
-   { title: "Testimonials", count: "10 components", image: testimonialsPreview },
-   { title: "Banners", count: "14 components", image: bannersPreview },
-   { title: "Footers", count: "8 components", image: footersPreview },
-   {
-      title: "Collection Sections",
-      count: "12 components",
-      image: collectionPreview,
-   },
-   { title: "FAQ Sections", count: "9 components", image: faqPreview },
-   { title: "Trust Badges", count: "11 components", image: trustBadgesPreview },
-   { title: "Pricing Sections", count: "7 components", image: pricingPreview },
-   { title: "CTA Sections", count: "13 components", image: ctaPreview },
-];
+const labelOverrides = {
+   announcementbar: "Announcement Bars",
+   headers: "Headers",
+   hero: "Hero Sections",
+   "product-card-slider": "Product Cards",
+   "product-main-sec": "Product Sections",
+   testimonials: "Testimonials",
+   faqs: "FAQ Sections",
+   footer: "Footers",
+   marquee: "Banners",
+   "collection-slider": "Collections",
+   pricing: "Pricing Sections",
+   "trust-badges": "Trust Badges",
+   cta: "CTA Sections",
+   sliders: "Sliders",
+   "carousel-slider": "Carousel Sliders",
+   "featured-containers": "Featured Containers",
+   "process-card": "Process Cards",
+};
+
+const descriptionOverrides = {
+   headers: "Top navigation bars and page headers.",
+   hero: "Impactful hero layouts for every purpose.",
+   "product-card-slider": "Beautiful product cards that convert.",
+   "product-main-sec": "Layouts to showcase products effectively.",
+   testimonials: "Build trust with customer stories and reviews.",
+   marquee: "Promotional banners that drive action.",
+   footer: "Footer layouts for trust, links, and conversion.",
+   "collection-slider": "Collection grids and sliders for stores.",
+   faqs: "Answer customer questions clearly.",
+   announcementbar: "Promo bars for shipping, sales, and alerts.",
+   pricing: "Pricing blocks for offers and plans.",
+   "trust-badges": "Trust, payment, and security proof points.",
+   cta: "Conversion-focused call-to-action sections.",
+   sliders: "Image sliders for featured stories and products.",
+   "carousel-slider": "Scrollable carousel layouts for rich content.",
+   "featured-containers": "Premium feature blocks and content cards.",
+   "process-card": "Step-by-step process cards for clear flows.",
+};
+
+const iconMap = {
+   headers: LayoutList,
+   hero: PanelsTopLeft,
+   "product-card-slider": ShoppingBag,
+   "product-main-sec": Package,
+   testimonials: MessageSquareQuote,
+   marquee: Megaphone,
+   footer: LayoutDashboard,
+   "collection-slider": Grid2X2,
+   faqs: FileQuestion,
+   announcementbar: Tag,
+   pricing: CreditCard,
+   "trust-badges": BadgeCheck,
+   cta: Sparkles,
+   sliders: SlidersHorizontal,
+   "carousel-slider": Images,
+   "featured-containers": Layers3,
+   "process-card": BadgeCheck,
+};
 
 const featurePoints = [
    "Customize sections without touching code",
@@ -55,14 +100,21 @@ const viewAll =
    "inline-flex w-fit items-center gap-2 text-[13px] font-bold text-[#2f3a34] transition-colors hover:text-[#1f9c45]";
 const slider =
    "component-slider -mx-4 overflow-x-auto px-4 pb-2 sm:-mx-7 sm:px-7 lg:mx-0 lg:px-0";
-const sliderTrack = "flex min-w-full gap-3";
+const sliderTrack = "flex min-w-full gap-4";
 const componentCard =
-   "group flex-none w-[164px] rounded-[13px] border border-[#dfe7e1] bg-white p-3 shadow-[0_10px_24px_rgba(25,31,28,0.055)] transition duration-200 hover:-translate-y-0.5 hover:border-[#bcdcc5] hover:shadow-[0_18px_36px_rgba(25,31,28,0.09)] min-[420px]:w-[184px] sm:w-[204px] lg:w-[calc((100%_-_60px)/6)]";
-const cardImage =
-   "block aspect-[3/2] w-full rounded-[10px] border border-[#eef2ef] bg-[#f8faf8] object-cover";
+   "group flex min-h-[168px] flex-none cursor-pointer flex-col rounded-[14px] border border-[#dfe7e1] bg-white p-5 text-left shadow-[0_12px_30px_rgba(25,31,28,0.07)] transition-colors duration-200 hover:border-[#bcdcc5] hover:bg-[#fbfdfb] hover:shadow-[0_18px_36px_rgba(25,31,28,0.1)] min-[420px]:w-[190px] sm:w-[205px] lg:w-[calc((100%_-_80px)/6)]";
+const cardIcon =
+   "grid h-11 w-11 place-items-center rounded-[11px] bg-[#eaf9ee] text-[#10a33d] shadow-[inset_0_0_0_1px_rgba(22,163,74,0.08)]";
 const cardTitle =
-   "mt-3.5 text-[13.5px] font-black tracking-[-0.01em] text-[#151c18]";
-const cardCount = "mt-1 text-[11.5px] font-semibold text-[#6d7771]";
+   "mt-5 text-[14.5px] font-black tracking-[-0.02em] text-[#151c18]";
+const cardDescription =
+   "mt-2 min-h-[40px] text-[12px] font-semibold leading-[1.55] text-[#596779]";
+const cardFooter = "mt-auto flex items-center justify-between gap-3 pt-4";
+const cardCountWrap =
+   "inline-flex items-center gap-2 text-[11.5px] font-bold text-[#526058]";
+const cardCountDot = "h-1.5 w-1.5 rounded-full bg-[#10a33d]";
+const cardArrow =
+   "grid h-8 w-8 place-items-center rounded-[9px] bg-[#eaf9ee] text-[#10a33d] transition-colors duration-200 group-hover:bg-[#10a33d] group-hover:text-white";
 const liveBlock =
    "mt-9 grid items-center gap-7 rounded-[18px] border border-[#dfe7e1] bg-white/42 p-4 sm:mt-11 sm:p-6 lg:grid-cols-[0.42fr_0.58fr] lg:gap-7 lg:bg-transparent lg:p-0 lg:border-0";
 const liveCopy = "max-w-[390px] lg:pl-1";
@@ -85,7 +137,32 @@ const liveImage =
 const LibraryEditorSection = () => {
    const sliderRef = useRef(null);
    const pausedRef = useRef(false);
+   const dragStateRef = useRef({
+      isDragging: false,
+      startX: 0,
+      startScrollLeft: 0,
+      moved: false,
+   });
    const navigate = useNavigate();
+   const componentCategories = useMemo(
+      () =>
+         getAllCategories()
+            .filter((category) => category.variants?.length)
+            .map((category) => {
+               const Icon = iconMap[category.slug] || Images;
+
+               return {
+                  slug: category.slug,
+                  title: labelOverrides[category.slug] || category.title,
+                  description:
+                     descriptionOverrides[category.slug] ||
+                     "Premium sections built for Shopify stores.",
+                  count: `${category.variants.length} components`,
+                  Icon,
+               };
+            }),
+      [],
+   );
 
    useEffect(() => {
       const sliderElement = sliderRef.current;
@@ -123,6 +200,51 @@ const LibraryEditorSection = () => {
 
    const sliderItems = [...componentCategories, ...componentCategories];
 
+   const goToCategory = (slug) => {
+      if (dragStateRef.current.moved) return;
+      navigate(`/components?category=${encodeURIComponent(slug)}`);
+   };
+
+   const startDrag = (event) => {
+      const sliderElement = sliderRef.current;
+      if (!sliderElement) return;
+
+      pausedRef.current = true;
+      dragStateRef.current = {
+         isDragging: true,
+         startX: event.clientX,
+         startScrollLeft: sliderElement.scrollLeft,
+         moved: false,
+      };
+      sliderElement.setPointerCapture?.(event.pointerId);
+   };
+
+   const moveDrag = (event) => {
+      const sliderElement = sliderRef.current;
+      const dragState = dragStateRef.current;
+      if (!sliderElement || !dragState.isDragging) return;
+
+      const delta = event.clientX - dragState.startX;
+      if (Math.abs(delta) > 6) {
+         dragState.moved = true;
+      }
+
+      sliderElement.scrollLeft = dragState.startScrollLeft - delta;
+   };
+
+   const endDrag = (event) => {
+      const sliderElement = sliderRef.current;
+      if (sliderElement) {
+         sliderElement.releasePointerCapture?.(event.pointerId);
+      }
+
+      dragStateRef.current.isDragging = false;
+      window.setTimeout(() => {
+         dragStateRef.current.moved = false;
+         pausedRef.current = false;
+      }, 120);
+   };
+
    return (
       <section className={section}>
          <div className={shell}>
@@ -152,24 +274,34 @@ const LibraryEditorSection = () => {
                onTouchEnd={() => {
                   pausedRef.current = false;
                }}
+               onPointerDown={startDrag}
+               onPointerMove={moveDrag}
+               onPointerUp={endDrag}
+               onPointerCancel={endDrag}
             >
                <div className={sliderTrack}>
                   {sliderItems.map((item, index) => (
-                     <article
+                     <button
                         className={componentCard}
+                        type="button"
                         key={`${item.title}-${index}`}
-                        aria-hidden={index >= componentCategories.length}
+                        onClick={() => goToCategory(item.slug)}
                      >
-                        <img
-                           className={cardImage}
-                           src={item.image}
-                           alt=""
-                           loading="lazy"
-                           draggable="false"
-                        />
+                        <span className={cardIcon} aria-hidden="true">
+                           <item.Icon size={23} strokeWidth={2.4} />
+                        </span>
                         <h3 className={cardTitle}>{item.title}</h3>
-                        <p className={cardCount}>{item.count}</p>
-                     </article>
+                        <p className={cardDescription}>{item.description}</p>
+                        <span className={cardFooter}>
+                           <span className={cardCountWrap}>
+                              <span className={cardCountDot} />
+                              {item.count}
+                           </span>
+                           <span className={cardArrow} aria-hidden="true">
+                              <ArrowRight size={17} strokeWidth={2.5} />
+                           </span>
+                        </span>
+                     </button>
                   ))}
                </div>
             </div>

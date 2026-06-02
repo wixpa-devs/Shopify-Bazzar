@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
    Box,
    ChevronDown,
@@ -173,7 +173,7 @@ const paginationWrap =
 const paginationButton =
    "inline-flex h-10 min-w-10 items-center justify-center rounded-[8px] border border-[#dfe7e1] bg-white px-3 text-[0.78rem] font-black text-[#526058] transition-colors duration-200 hover:border-[#86d89a] hover:text-[#128d3d] disabled:pointer-events-none disabled:opacity-45";
 const paginationButtonActive =
-   "border-[#1cad4e] bg-[#16a34a] text-white hover:border-[#1cad4e] hover:text-white";
+   "!border-[#1cad4e] !bg-[#16a34a] !text-white hover:!border-[#1cad4e] hover:!bg-[#16a34a] hover:!text-white";
 const pageSize = 12;
 
 const labelOverrides = {
@@ -473,8 +473,10 @@ const ComponentBrowseCard = ({ component, index, isGrid, navigate }) => {
 
 const ComponentsBrowseSection = ({ categories }) => {
    const navigate = useNavigate();
+   const [searchParams] = useSearchParams();
+   const initialCategory = searchParams.get("category") || "all";
    const [query, setQuery] = useState("");
-   const [selectedCategory, setSelectedCategory] = useState("all");
+   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
    const [sortBy, setSortBy] = useState("popular");
    const [layout, setLayout] = useState("grid");
    const [showAllFilters, setShowAllFilters] = useState(false);

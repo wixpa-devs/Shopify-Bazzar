@@ -342,6 +342,13 @@ body {
       scrollbar-width: none;
       -ms-overflow-style: none;
       scroll-behavior: smooth;
+      cursor: grab;
+      user-select: none;
+      touch-action: pan-y;
+   }
+
+   .component-slider:active {
+      cursor: grabbing;
    }
 
    .component-slider::-webkit-scrollbar {

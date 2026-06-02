@@ -14,10 +14,10 @@ const linkColumns = [
    {
       title: "Docs",
       links: [
-         { label: "Getting Started", path: "/docs" },
-         { label: "Editor Guide", path: "/docs" },
-         { label: "Code Reference", path: "/docs" },
-         { label: "Theme Setup", path: "/docs" },
+         { label: "Introduction", path: "/docs#introduction" },
+         { label: "Why This Library", path: "/docs#why-this-library" },
+         { label: "How To Use", path: "/docs#how-to-use" },
+         { label: "Theme Setup", path: "/docs#shopify-setup" },
       ],
    },
    {
