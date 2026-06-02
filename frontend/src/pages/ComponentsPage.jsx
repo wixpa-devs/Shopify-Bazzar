@@ -527,9 +527,24 @@ const ComponentsBrowseSection = ({ categories }) => {
       return [...preferred, ...remaining];
    }, [categoryOptions]);
 
-   const visibleFilterOptions = showAllFilters
-      ? orderedCategoryOptions
-      : orderedCategoryOptions.slice(0, 10);
+   const visibleFilterOptions = useMemo(() => {
+      if (showAllFilters) return orderedCategoryOptions;
+
+      const visibleOptions = orderedCategoryOptions.slice(0, 10);
+      const hasSelectedOption = visibleOptions.some(
+         (category) => category.slug === selectedCategory,
+      );
+
+      if (hasSelectedOption) return visibleOptions;
+
+      const selectedOption = orderedCategoryOptions.find(
+         (category) => category.slug === selectedCategory,
+      );
+
+      if (!selectedOption) return visibleOptions;
+
+      return [...visibleOptions.slice(0, 9), selectedOption];
+   }, [orderedCategoryOptions, selectedCategory, showAllFilters]);
 
    const filteredComponents = useMemo(() => {
       const searchValue = normalizeText(query.trim());

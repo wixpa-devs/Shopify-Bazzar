@@ -341,10 +341,10 @@ body {
    .component-slider {
       scrollbar-width: none;
       -ms-overflow-style: none;
-      scroll-behavior: smooth;
+      scroll-behavior: auto;
       cursor: grab;
       user-select: none;
-      touch-action: pan-y;
+      touch-action: pan-x pan-y;
    }
 
    .component-slider:active {

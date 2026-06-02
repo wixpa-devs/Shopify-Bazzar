@@ -137,6 +137,7 @@ const liveImage =
 const LibraryEditorSection = () => {
    const sliderRef = useRef(null);
    const pausedRef = useRef(false);
+   const suppressClickRef = useRef(false);
    const dragStateRef = useRef({
       isDragging: false,
       startX: 0,
@@ -201,15 +202,33 @@ const LibraryEditorSection = () => {
    const sliderItems = [...componentCategories, ...componentCategories];
 
    const goToCategory = (slug) => {
-      if (dragStateRef.current.moved) return;
+      if (suppressClickRef.current) return;
       navigate(`/components?category=${encodeURIComponent(slug)}`);
+   };
+
+   const normalizeDragPosition = (sliderElement) => {
+      const halfWidth = sliderElement.scrollWidth / 2;
+      if (!halfWidth) return;
+
+      if (sliderElement.scrollLeft <= 1) {
+         sliderElement.scrollLeft += halfWidth;
+         dragStateRef.current.startScrollLeft += halfWidth;
+      }
+
+      if (sliderElement.scrollLeft >= halfWidth) {
+         sliderElement.scrollLeft -= halfWidth;
+         dragStateRef.current.startScrollLeft -= halfWidth;
+      }
    };
 
    const startDrag = (event) => {
       const sliderElement = sliderRef.current;
       if (!sliderElement) return;
+      if (event.pointerType === "mouse" && event.button !== 0) return;
 
       pausedRef.current = true;
+      suppressClickRef.current = false;
+      normalizeDragPosition(sliderElement);
       dragStateRef.current = {
          isDragging: true,
          startX: event.clientX,
@@ -227,21 +246,28 @@ const LibraryEditorSection = () => {
       const delta = event.clientX - dragState.startX;
       if (Math.abs(delta) > 6) {
          dragState.moved = true;
+         event.preventDefault();
       }
 
       sliderElement.scrollLeft = dragState.startScrollLeft - delta;
+      normalizeDragPosition(sliderElement);
    };
 
    const endDrag = (event) => {
       const sliderElement = sliderRef.current;
+      const didDrag = dragStateRef.current.moved;
       if (sliderElement) {
          sliderElement.releasePointerCapture?.(event.pointerId);
       }
 
       dragStateRef.current.isDragging = false;
+      suppressClickRef.current = didDrag;
       window.setTimeout(() => {
          dragStateRef.current.moved = false;
-         pausedRef.current = false;
+         suppressClickRef.current = false;
+         if (!sliderRef.current?.matches(":hover")) {
+            pausedRef.current = false;
+         }
       }, 120);
    };
 
@@ -268,16 +294,16 @@ const LibraryEditorSection = () => {
                onMouseLeave={() => {
                   pausedRef.current = false;
                }}
-               onTouchStart={() => {
-                  pausedRef.current = true;
-               }}
-               onTouchEnd={() => {
-                  pausedRef.current = false;
-               }}
                onPointerDown={startDrag}
                onPointerMove={moveDrag}
                onPointerUp={endDrag}
                onPointerCancel={endDrag}
+               onClickCapture={(event) => {
+                  if (suppressClickRef.current) {
+                     event.preventDefault();
+                     event.stopPropagation();
+                  }
+               }}
             >
                <div className={sliderTrack}>
                   {sliderItems.map((item, index) => (
