@@ -1,9 +1,14 @@
 import { useEffect } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import {
+   BrowserRouter,
+   Routes,
+   Route,
+   useLocation,
+   Navigate,
+} from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import ComponentsLayout from "./components/ComponentsLayout/ComponentsLayout";
 import ComponentsPage from "./pages/ComponentsPage";
-import ComponentCategoryPage from "./pages/ComponentCategoryPage";
 import VariantEditorPage from "./pages/VariantEditorPage";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
@@ -43,7 +48,7 @@ const App = () => (
 
          <Route path="/components" element={<ComponentsLayout />}>
             <Route index element={<ComponentsPage />} />
-            <Route path=":section" element={<ComponentCategoryPage />} />
+            <Route path=":section" element={<Navigate to="/components" replace />} />
          </Route>
 
          {/* Editor — full screen, no sidebar */}

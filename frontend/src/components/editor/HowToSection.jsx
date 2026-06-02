@@ -2,7 +2,7 @@ import { Play } from "lucide-react";
 
 // ── Tailwind Classes ───────────────────────────────────────────
 
-const wrap = "p-4 border-b border-[#f3f4f6]";
+const wrap = "px-5 py-4 border-b border-[#edf3ef] bg-white";
 
 const title = [
    "text-[0.9rem] font-bold text-[#111827] leading-[1.35]",
@@ -12,9 +12,9 @@ const title = [
 const watchBtn = [
    "flex items-center justify-center gap-2 w-full",
    "bg-[#111827] text-white",
-   "px-[14px] py-[9px] rounded-lg",
-   "text-[0.78rem] font-semibold font-[var(--inter-font)]",
-   "no-underline text-center cursor-pointer mb-[18px] box-border",
+   "px-[14px] py-[10px] rounded-[10px]",
+   "text-[0.8rem] font-black font-[var(--inter-font)]",
+   "no-underline text-center cursor-pointer mb-5 box-border",
    "transition-colors duration-150",
    "hover:bg-[#1f2937]",
    "focus-visible:outline-2 focus-visible:outline-[#3b82f6] focus-visible:outline-offset-2",
@@ -25,17 +25,17 @@ const stepsList = "list-none m-0 p-0 flex flex-col gap-3";
 const stepItem = "flex items-start gap-[10px]";
 
 const numBadge = [
-   "w-[22px] min-w-[22px] h-[22px] rounded-full",
-   "bg-[#f1f5f9] text-[#374151]",
+   "w-[24px] min-w-[24px] h-[24px] rounded-full",
+   "bg-[#eaf9ee] text-[#128d3d]",
    "text-[0.7rem] font-bold font-[var(--inter-font)]",
    "flex items-center justify-center",
    "mt-[1px] flex-shrink-0",
 ].join(" ");
 
 const stepTitle =
-   "text-[0.8rem] font-semibold text-[#111827] font-[var(--inter-font)] mb-[2px]";
+   "text-[0.82rem] font-black text-[#111827] font-[var(--inter-font)] mb-[2px]";
 const stepDesc =
-   "text-[0.73rem] text-[#6b7280] font-[var(--inter-font)] leading-[1.45]";
+   "text-[0.74rem] text-[#596779] font-semibold font-[var(--inter-font)] leading-[1.45]";
 
 // ── Data ───────────────────────────────────────────────────────
 

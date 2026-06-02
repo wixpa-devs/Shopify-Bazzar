@@ -8,10 +8,10 @@ import HowToSection from "./HowToSection";
 // ── Tailwind Classes ───────────────────────────────────────────
 
 const panel = [
-   "w-full md:w-[292px] md:min-w-[292px] min-w-0 h-[45vh] md:h-full",
-   "bg-white border-t md:border-l border-[#e5e7eb]",
+   "w-full md:w-[360px] md:min-w-[360px] min-w-0 h-[45vh] md:h-full",
+   "bg-white border-t md:border-l border-[#dfe7e1]",
    "flex flex-col overflow-hidden",
-   "shadow-none md:shadow-[-2px_0_8px_rgba(0,0,0,0.04)]",
+   "shadow-none md:shadow-[-14px_0_34px_rgba(22,32,26,0.06)]",
    "flex-shrink-0",
 ].join(" ");
 
@@ -21,16 +21,16 @@ const scroll = [
 ].join(" ");
 
 const sectionLabel = [
-   "px-4 pt-[14px] pb-[6px]",
-   "text-[0.67rem] font-bold text-[#9ca3af]",
+   "px-5 pt-4 pb-2",
+   "text-[0.68rem] font-black text-[#8d9a92]",
    "uppercase tracking-[0.09em] font-[var(--inter-font)]",
 ].join(" ");
 
 const supportBox = [
-   "mx-4 mt-[14px] mb-6",
-   "px-[13px] py-[11px]",
-   "bg-[#eff6ff] border border-[#bfdbfe] rounded-lg",
-   "text-[0.77rem] text-[#1d4ed8] font-[var(--inter-font)] leading-[1.5]",
+   "mx-5 mt-4 mb-6",
+   "px-4 py-3",
+   "bg-[#eefaf1] border border-[#bfe8c8] rounded-[12px]",
+   "text-[0.78rem] text-[#176c35] font-semibold font-[var(--inter-font)] leading-[1.55]",
    "flex gap-2 items-start",
 ].join(" ");
 
@@ -38,8 +38,8 @@ const supportBox = [
 const SCROLL_STYLES = `
   .rp-scroll::-webkit-scrollbar       { width: 4px; }
   .rp-scroll::-webkit-scrollbar-track { background: transparent; }
-  .rp-scroll::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
-  .rp-scroll::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
+  .rp-scroll::-webkit-scrollbar-thumb { background: #cddbd1; border-radius: 10px; }
+  .rp-scroll::-webkit-scrollbar-thumb:hover { background: #a8c8b0; }
 `;
 
 const COLOR_KEY_RE = /(color|bg|background|border|shadow|fill|stroke|overlay|accent|text)/i;
@@ -180,10 +180,10 @@ const EditorRightPanel = ({
          <HowToSection />
 
          <div className={supportBox}>
-            <Info size={14} className="text-[#3b82f6] flex-shrink-0 mt-[2px]" />
+            <Info size={14} className="text-[#16a34a] flex-shrink-0 mt-[2px]" />
             <span>
                Need help? Our support team is{" "}
-               <a href="#" className="text-[#1d4ed8] font-semibold underline">
+               <a href="#" className="text-[#128d3d] font-black underline">
                   available 24/7
                </a>{" "}
                to assist with implementation.

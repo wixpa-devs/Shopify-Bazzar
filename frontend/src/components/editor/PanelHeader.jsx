@@ -1,27 +1,27 @@
 // ── Tailwind Classes ───────────────────────────────────────────
 
 const wrap = [
-   "px-4 pt-4 pb-[14px]",
-   "border-b border-[#f3f4f6] flex-shrink-0",
+   "px-5 pt-5 pb-4",
+   "border-b border-[#edf3ef] bg-white flex-shrink-0",
 ].join(" ");
 
 const titleRow = ["flex items-start justify-between gap-2 mb-[6px]"].join(" ");
 
 const titleCls = [
-   "text-[1rem] font-bold text-[#111827]",
-   "font-[var(--inter-font)] tracking-[-0.01em] leading-[1.3] m-0",
+   "text-[1.05rem] font-black text-[#101813]",
+   "font-[var(--inter-font)] tracking-[-0.025em] leading-[1.25] m-0",
 ].join(" ");
 
 const badge = [
    "text-[0.65rem] font-bold",
-   "bg-[#eff6ff] text-[#2563eb]",
+   "bg-[#eaf9ee] text-[#128d3d]",
    "px-[9px] py-[3px] rounded-full",
    "font-[var(--inter-font)] whitespace-nowrap flex-shrink-0",
-   "mt-[2px] border border-[#bfdbfe]",
+   "mt-[2px] border border-[#bde8c7]",
 ].join(" ");
 
 const desc = [
-   "text-[0.78rem] text-[#6b7280] leading-[1.5]",
+   "text-[0.8rem] text-[#596779] leading-[1.55]",
    "font-[var(--inter-font)] m-0",
 ].join(" ");
 

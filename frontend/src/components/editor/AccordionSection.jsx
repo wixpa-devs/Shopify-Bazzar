@@ -1,30 +1,30 @@
-import { memo } from "react";
+import { createElement, memo } from "react";
 import { ChevronDown } from "lucide-react";
 import { resolveIcon } from "../../registry/icons";
 
 // ── Tailwind Classes ───────────────────────────────────────────
 
-const wrapper = "border-b border-[#f3f4f6]";
+const wrapper = "border-b border-[#edf3ef] bg-white";
 
 const trigger =
-   "w-full flex items-center gap-[10px] px-4 py-[10px] bg-transparent border-none cursor-pointer text-left transition-colors duration-150 hover:bg-[#fafafa]";
+   "w-full flex items-center gap-3 px-5 py-3 bg-transparent border-none cursor-pointer text-left transition-colors duration-150 hover:bg-[#f7fbf8]";
 
 const iconBoxBase =
-   "w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 shadow-[0_1px_2px_rgba(0,0,0,0.05)]";
+   "w-10 h-10 rounded-[11px] flex items-center justify-center flex-shrink-0 shadow-[0_6px_16px_rgba(22,32,26,0.06)]";
 
 const textBlock = "flex-1 min-w-0";
 const titleCls =
-   "text-[0.84rem] font-semibold text-[#111827] font-[var(--inter-font)] mb-[1px] whitespace-nowrap overflow-hidden text-ellipsis";
+   "text-[0.86rem] font-black text-[#111827] font-[var(--inter-font)] mb-[1px] whitespace-nowrap overflow-hidden text-ellipsis";
 const subtitleCls =
-   "text-[0.71rem] text-[#9ca3af] font-[var(--inter-font)] whitespace-nowrap overflow-hidden text-ellipsis";
+   "text-[0.72rem] text-[#8a968f] font-semibold font-[var(--inter-font)] whitespace-nowrap overflow-hidden text-ellipsis";
 
 const bodyOpen =
-   "pl-[58px] pr-4 pb-4 pt-1 max-h-auto overflow-hidden transition-[max-height,padding] duration-[280ms] ease-[ease]";
+   "pl-[68px] pr-5 pb-5 pt-1 max-h-auto overflow-hidden transition-[max-height,padding] duration-[280ms] ease-[ease]";
 const bodyClosed =
-   "pl-[58px] pr-4 pb-0 pt-0 max-h-0 overflow-hidden transition-[max-height,padding] duration-[280ms] ease-[ease]";
+   "pl-[68px] pr-5 pb-0 pt-0 max-h-0 overflow-hidden transition-[max-height,padding] duration-[280ms] ease-[ease]";
 
 const getChevronCls = (isOpen) =>
-   `w-5 h-5 flex items-center justify-center rounded-[4px] flex-shrink-0 transition-all duration-150 ${isOpen ? "bg-[#eff6ff] text-[#3b82f6]" : "bg-transparent text-[#9ca3af]"
+   `w-5 h-5 flex items-center justify-center rounded-[6px] flex-shrink-0 transition-all duration-150 ${isOpen ? "bg-[#eaf9ee] text-[#128d3d]" : "bg-transparent text-[#9ca3af]"
    }`;
 
 // Control atoms
@@ -32,26 +32,26 @@ const ctrlWrap = "mt-[10px]";
 const ctrlLabel =
    "block text-[0.67rem] font-bold text-[#6b7280] mb-[5px] font-[var(--inter-font)] uppercase tracking-[0.06em]";
 const textInput = [
-   "w-full px-[10px] py-[7px] border border-[#e5e7eb] rounded-[7px]",
+   "w-full px-[10px] py-[8px] border border-[#dfe7e1] rounded-[8px]",
    "text-[0.82rem] font-[var(--inter-font)] text-[#111827] bg-white outline-none box-border",
    "transition-[border-color,box-shadow] duration-150",
-   "hover:border-[#d1d5db]",
-   "focus:border-[#3b82f6] focus:shadow-[0_0_0_3px_rgba(59,130,246,0.1)]",
+   "hover:border-[#b7d9bf]",
+   "focus:border-[#16a34a] focus:shadow-[0_0_0_3px_rgba(22,163,74,0.1)]",
 ].join(" ");
 const selectInput = [
-   "w-full px-[10px] py-[7px] border border-[#e5e7eb] rounded-[7px]",
+   "w-full px-[10px] py-[8px] border border-[#dfe7e1] rounded-[8px]",
    "text-[0.82rem] font-[var(--inter-font)] text-[#111827] bg-white outline-none cursor-pointer box-border",
    "transition-[border-color,box-shadow] duration-150",
-   "focus:border-[#3b82f6] focus:shadow-[0_0_0_3px_rgba(59,130,246,0.1)]",
+   "focus:border-[#16a34a] focus:shadow-[0_0_0_3px_rgba(22,163,74,0.1)]",
 ].join(" ");
 const colorRow = "flex items-center gap-[7px]";
 const colorPicker =
-   "w-[34px] h-[34px] border border-[#e5e7eb] rounded-[7px] p-[2px] cursor-pointer bg-none flex-shrink-0 transition-colors duration-150 hover:border-[#d1d5db]";
+   "w-[36px] h-[36px] border border-[#dfe7e1] rounded-[8px] p-[2px] cursor-pointer bg-none flex-shrink-0 transition-colors duration-150 hover:border-[#b7d9bf]";
 const colorHex = [
-   "flex-1 px-[10px] py-[7px] border border-[#e5e7eb] rounded-[7px]",
+   "flex-1 px-[10px] py-[8px] border border-[#dfe7e1] rounded-[8px]",
    "text-[0.78rem] font-['Courier_New',monospace] text-[#374151] bg-[#f9fafb] outline-none box-border",
    "transition-[border-color,box-shadow,background] duration-150",
-   "focus:border-[#3b82f6] focus:shadow-[0_0_0_3px_rgba(59,130,246,0.1)] focus:bg-white",
+   "focus:border-[#16a34a] focus:shadow-[0_0_0_3px_rgba(22,163,74,0.1)] focus:bg-white",
 ].join(" ");
 const helperText = "mt-1 text-[0.68rem] text-[#6b7280] font-[var(--inter-font)]";
 
@@ -226,7 +226,7 @@ Control.displayName = "Control";
 
 const AccordionSection = memo(({ acc, isOpen, onToggle, config, onUpdate }) => {
    // Resolve FA string → Lucide component at render time
-   const IconComponent = resolveIcon(acc.icon);
+   const iconElement = createElement(resolveIcon(acc.icon), { size: 16 });
 
    return (
       <div className={wrapper}>
@@ -240,7 +240,7 @@ const AccordionSection = memo(({ acc, isOpen, onToggle, config, onUpdate }) => {
                   color: acc.iconColor || "#6b7280",
                }}
             >
-               <IconComponent size={15} />
+               {iconElement}
             </div>
 
             {/* Text */}

@@ -16,8 +16,9 @@ import {
 // ── Tailwind Classes ───────────────────────────────────────────
 
 const root =
-   "flex flex-col h-screen w-full overflow-hidden bg-[#f8fafc] font-[var(--inter-font)]";
-const body = "flex flex-1 overflow-hidden flex-col md:flex-row";
+   "flex flex-col h-screen w-full overflow-hidden bg-[#f4fbf5] font-[var(--inter-font)] text-[#17201a]";
+const body =
+   "flex flex-1 overflow-hidden flex-col md:flex-row border-t border-[#edf3ef]";
 
 // Not found
 const notFound =
@@ -25,7 +26,7 @@ const notFound =
 const notFoundTitle = "text-[1.5rem] font-bold text-[#111827]";
 const notFoundDesc = "text-[#6b7280] text-[0.95rem]";
 const goBackBtn =
-   "inline-flex items-center gap-2 px-6 py-[0.62rem] bg-[#2563eb] text-white border-none rounded-lg text-[0.9rem] font-semibold font-[var(--inter-font)] cursor-pointer transition-colors duration-150 hover:bg-[#1d4ed8]";
+   "inline-flex items-center gap-2 px-6 py-[0.72rem] bg-[#16a34a] text-white border-none rounded-[10px] text-[0.9rem] font-black font-[var(--inter-font)] cursor-pointer transition-colors duration-150 hover:bg-[#138a3f] shadow-[0_12px_22px_rgba(22,163,74,0.2)]";
 
 // ── Component ──────────────────────────────────────────────────
 
@@ -186,8 +187,9 @@ const VariantEditorPage = () => {
             variantName={variantData.name}
             viewport={viewport}
             onViewportChange={setViewport}
-            onBack={() => navigate(`/components/${section}`)}
-            onNavigateToSection={() => navigate(`/components/${section}`)}
+            onBack={() =>
+               navigate(`/components?category=${encodeURIComponent(section)}`)
+            }
             onNavigateToAll={() => navigate("/components")}
             onCopy={handleCopy}
             onReset={handleReset}
