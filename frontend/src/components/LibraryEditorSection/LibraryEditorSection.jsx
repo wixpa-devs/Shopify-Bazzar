@@ -102,7 +102,7 @@ const slider =
    "component-slider -mx-4 overflow-x-auto px-4 pb-2 sm:-mx-7 sm:px-7 lg:mx-0 lg:px-0";
 const sliderTrack = "flex min-w-full gap-4";
 const componentCard =
-   "group flex min-h-[168px] flex-none cursor-pointer flex-col rounded-[14px] border border-[#dfe7e1] bg-white p-5 text-left shadow-[0_12px_30px_rgba(25,31,28,0.07)] transition-colors duration-200 hover:border-[#bcdcc5] hover:bg-[#fbfdfb] hover:shadow-[0_18px_36px_rgba(25,31,28,0.1)] min-[420px]:w-[190px] sm:w-[205px] lg:w-[calc((100%_-_80px)/6)]";
+   "group flex min-h-[168px] flex-none cursor-pointer flex-col rounded-[14px] border border-[#dfe7e1] bg-white p-5 text-left no-underline shadow-[0_12px_30px_rgba(25,31,28,0.07)] transition-colors duration-200 hover:border-[#bcdcc5] hover:bg-[#fbfdfb] hover:shadow-[0_18px_36px_rgba(25,31,28,0.1)] min-[420px]:w-[190px] sm:w-[205px] lg:w-[calc((100%_-_80px)/6)]";
 const cardIcon =
    "grid h-11 w-11 place-items-center rounded-[11px] bg-[#eaf9ee] text-[#10a33d] shadow-[inset_0_0_0_1px_rgba(22,163,74,0.08)]";
 const cardTitle =
@@ -140,6 +140,7 @@ const LibraryEditorSection = () => {
    const suppressClickRef = useRef(false);
    const dragStateRef = useRef({
       isDragging: false,
+      isCaptured: false,
       startX: 0,
       startScrollLeft: 0,
       moved: false,
@@ -201,9 +202,17 @@ const LibraryEditorSection = () => {
 
    const sliderItems = [...componentCategories, ...componentCategories];
 
-   const goToCategory = (slug) => {
-      if (suppressClickRef.current) return;
-      navigate(`/components?category=${encodeURIComponent(slug)}`);
+   const getCategoryHref = (slug) =>
+      `/components?category=${encodeURIComponent(slug)}`;
+
+   const handleCategoryClick = (event, slug) => {
+      if (suppressClickRef.current) {
+         event.preventDefault();
+         return;
+      }
+
+      event.preventDefault();
+      navigate(getCategoryHref(slug));
    };
 
    const normalizeDragPosition = (sliderElement) => {
@@ -231,11 +240,11 @@ const LibraryEditorSection = () => {
       normalizeDragPosition(sliderElement);
       dragStateRef.current = {
          isDragging: true,
+         isCaptured: false,
          startX: event.clientX,
          startScrollLeft: sliderElement.scrollLeft,
          moved: false,
       };
-      sliderElement.setPointerCapture?.(event.pointerId);
    };
 
    const moveDrag = (event) => {
@@ -246,6 +255,10 @@ const LibraryEditorSection = () => {
       const delta = event.clientX - dragState.startX;
       if (Math.abs(delta) > 6) {
          dragState.moved = true;
+         if (!dragState.isCaptured) {
+            sliderElement.setPointerCapture?.(event.pointerId);
+            dragState.isCaptured = true;
+         }
          event.preventDefault();
       }
 
@@ -256,11 +269,12 @@ const LibraryEditorSection = () => {
    const endDrag = (event) => {
       const sliderElement = sliderRef.current;
       const didDrag = dragStateRef.current.moved;
-      if (sliderElement) {
+      if (sliderElement && dragStateRef.current.isCaptured) {
          sliderElement.releasePointerCapture?.(event.pointerId);
       }
 
       dragStateRef.current.isDragging = false;
+      dragStateRef.current.isCaptured = false;
       suppressClickRef.current = didDrag;
       window.setTimeout(() => {
          dragStateRef.current.moved = false;
@@ -298,20 +312,16 @@ const LibraryEditorSection = () => {
                onPointerMove={moveDrag}
                onPointerUp={endDrag}
                onPointerCancel={endDrag}
-               onClickCapture={(event) => {
-                  if (suppressClickRef.current) {
-                     event.preventDefault();
-                     event.stopPropagation();
-                  }
-               }}
             >
                <div className={sliderTrack}>
                   {sliderItems.map((item, index) => (
-                     <button
+                     <a
                         className={componentCard}
-                        type="button"
+                        href={getCategoryHref(item.slug)}
                         key={`${item.title}-${index}`}
-                        onClick={() => goToCategory(item.slug)}
+                        onClick={(event) => handleCategoryClick(event, item.slug)}
+                        draggable="false"
+                        aria-label={`Browse ${item.title}`}
                      >
                         <span className={cardIcon} aria-hidden="true">
                            <item.Icon size={23} strokeWidth={2.4} />
@@ -327,7 +337,7 @@ const LibraryEditorSection = () => {
                               <ArrowRight size={17} strokeWidth={2.5} />
                            </span>
                         </span>
-                     </button>
+                     </a>
                   ))}
                </div>
             </div>
