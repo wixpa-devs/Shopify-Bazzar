@@ -95,31 +95,31 @@ const hireTitle =
    "text-[clamp(2.55rem,4.3vw,4.55rem)] font-black leading-[1.03] tracking-[-0.058em] text-[#171b24]";
 const hireSubtitle =
    "mt-5 text-[clamp(1rem,1.35vw,1.36rem)] font-semibold leading-[1.6] tracking-[-0.012em] text-[#687180]";
-const platformGrid = "mt-14 grid gap-8 lg:grid-cols-2 lg:gap-10";
+const platformGrid = "mt-14 grid gap-7 lg:grid-cols-2 lg:gap-10";
 const platformCard =
-   "flex min-h-[430px] flex-col rounded-[18px] border border-[#dfe8e2] bg-white p-7 shadow-[0_22px_50px_rgba(17,24,39,0.08)] sm:p-9 lg:p-10";
+   "flex min-h-[438px] flex-col rounded-[18px] border border-[#dfe8e2] bg-white p-6 shadow-[0_22px_50px_rgba(17,24,39,0.08)] sm:p-8 lg:p-10 max-[640px]:min-h-0";
 const platformTop =
-   "grid items-center gap-7 sm:grid-cols-[126px_minmax(0,1fr)] sm:gap-9";
+   "grid items-start gap-5 sm:min-h-[176px] sm:grid-cols-[118px_minmax(0,1fr)] sm:items-center sm:gap-8 lg:grid-cols-[126px_minmax(0,1fr)] max-[640px]:text-left";
 const platformLogo =
-   "grid h-[126px] w-[126px] place-items-center rounded-full border border-[#e3e9e6] bg-white p-4 shadow-[0_18px_38px_rgba(17,24,39,0.075)]";
-const platformLogoImage = "block max-h-[52px] w-full object-contain";
+   "grid h-[118px] w-[118px] place-items-center rounded-full border border-[#e3e9e6] bg-white p-4 shadow-[0_18px_38px_rgba(17,24,39,0.075)] sm:h-[118px] sm:w-[118px] lg:h-[126px] lg:w-[126px] max-[640px]:mx-auto";
+const platformLogoImage = "block max-h-[48px] w-full object-contain lg:max-h-[52px]";
 const platformBadge =
-   "mb-4 inline-flex w-fit items-center gap-2 rounded-[8px] bg-[#eaf8ee] px-3.5 py-1.5 text-[0.78rem] font-black text-[#159447]";
+   "mb-3 inline-flex w-fit items-center gap-2 rounded-[8px] bg-[#eaf8ee] px-3 py-1.5 text-[0.76rem] font-black text-[#159447] max-[640px]:mt-1";
 const platformName =
-   "text-[clamp(1.55rem,2vw,2.15rem)] font-black leading-[1.12] tracking-[-0.045em] text-[#171b24]";
+   "text-[clamp(1.46rem,1.85vw,2rem)] font-black leading-[1.12] tracking-[-0.045em] text-[#171b24]";
 const platformText =
-   "mt-4 max-w-[430px] text-[0.93rem] font-semibold leading-[1.7] text-[#687180]";
-const platformDivider = "my-8 h-px w-full bg-[#e4e9e6]";
-const platformStats = "grid grid-cols-3 gap-3";
+   "mt-3 max-w-[430px] text-[0.9rem] font-semibold leading-[1.68] text-[#687180]";
+const platformDivider = "my-7 h-px w-full bg-[#e4e9e6]";
+const platformStats = "grid min-h-[74px] grid-cols-3 gap-0";
 const platformStat =
-   "flex min-w-0 items-center justify-center gap-2.5 border-r border-[#e4e9e6] text-center last:border-r-0 max-[520px]:flex-col max-[520px]:gap-2";
+   "flex min-w-0 items-center justify-center gap-2 border-r border-[#e4e9e6] px-2 text-center last:border-r-0 max-[520px]:flex-col max-[520px]:gap-2 max-[420px]:px-1";
 const platformStatIcon = "shrink-0 text-[#159447]";
 const platformStatValue =
-   "text-[clamp(1.04rem,1.35vw,1.38rem)] font-black leading-[1.02] tracking-[-0.035em] text-[#111a15]";
+   "text-[clamp(0.98rem,1.22vw,1.25rem)] font-black leading-[1.04] tracking-[-0.035em] text-[#111a15]";
 const platformStatLabel =
-   "mt-1 text-[0.72rem] font-bold leading-[1.22] text-[#687180]";
+   "mt-1 text-[0.68rem] font-bold leading-[1.18] text-[#687180]";
 const platformButtonBase =
-   "mt-auto inline-flex min-h-[58px] w-full items-center justify-center gap-3 rounded-[8px] px-6 text-[1rem] font-black transition-colors duration-200";
+   "mt-7 inline-flex min-h-[58px] w-full items-center justify-center gap-3 rounded-[8px] px-6 text-[0.98rem] font-black transition-colors duration-200 max-[640px]:mt-6 max-[420px]:min-h-[54px]";
 const platformButtonPrimary =
    "bg-[#009e2c] text-white shadow-[0_16px_30px_rgba(0,158,44,0.16)] hover:bg-[#008926]";
 const platformButtonOutline =
@@ -361,7 +361,7 @@ const ServicesPage = () => {
                                           viewBox="0 0 24 24"
                                           strokeWidth="1.8"
                                           stroke="currentColor"
-                                          className="h-5 w-5"
+                                          className="h-[18px] w-[18px]"
                                           aria-hidden="true"
                                        >
                                           <path
@@ -383,7 +383,7 @@ const ServicesPage = () => {
                                  {stats.map(({ value, label, icon: Icon }) => (
                                     <div className={platformStat} key={`${value}-${label}`}>
                                        {createElement(Icon, {
-                                          size: 28,
+                                          size: 25,
                                           strokeWidth: 1.9,
                                           className: platformStatIcon,
                                           "aria-hidden": true,
