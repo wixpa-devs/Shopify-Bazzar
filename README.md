@@ -1,4 +1,4 @@
-# Shopify Bazzar — Component Conversion Prompt
+# Shopify Component Library
 
 Use this prompt every time you want to convert a vanilla HTML/CSS/JS component
 into a fully working Shopify Bazzar library variant.
