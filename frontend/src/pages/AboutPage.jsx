@@ -12,9 +12,9 @@ import { Link } from "react-router-dom";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
-import wixpaLogo from "../../../temp-assets/wixpa-logo.png";
-import ceoImage from "../../../temp-assets/zeeshan-haider-ceo.png";
-import shopifyLogo from "../../../temp-assets/shopify-logo.png";
+import wixpaLogo from "../assets/wixpa-logo.png";
+import ceoImage from "../assets/zeeshan-haider-ceo.png";
+import shopifyLogo from "../assets/shopify-logo.png";
 
 const pageShell = "min-h-screen bg-white";
 const hero =

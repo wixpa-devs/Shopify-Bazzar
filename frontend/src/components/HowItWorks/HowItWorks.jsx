@@ -1,5 +1,5 @@
 import { Code2, Grid2X2, Pencil, SlidersHorizontal } from "lucide-react";
-import shopifyLogo from "../../../../temp-assets/shopify-logo.png";
+import shopifyLogo from "../../assets/shopify-logo.png";
 
 const STEPS = [
    {

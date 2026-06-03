@@ -1,6 +1,13 @@
 import { ArrowRight, Github, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import shopifyLogo from "../../../../temp-assets/shopify-logo.png";
+import shopifyLogo from "../../assets/shopify-logo.png";
+import {
+   getAuthSession,
+   getSubscriberSession,
+   saveSubscriberSession,
+   subscribeToNewsletter,
+} from "../../lib/formApi.js";
 
 const linkColumns = [
    {
@@ -61,8 +68,14 @@ const newsletterText =
 const form = "flex max-w-[360px] gap-2";
 const input =
    "min-w-0 flex-1 rounded-[12px] border border-[rgba(255,255,255,0.14)] bg-[#0d1210] px-4 py-3 text-[13px] font-semibold text-white outline-none transition placeholder:text-[rgba(255,255,255,0.36)] focus:border-[#31b955] focus:ring-2 focus:ring-[#31b955]/20";
+const subscribedField =
+   "flex min-h-[46px] max-w-[360px] items-center rounded-[12px] border border-[#55d977] bg-[#eafbf0] px-4 text-[13px] font-black text-[#087f36]";
 const submit =
    "flex h-[46px] w-[50px] flex-shrink-0 items-center justify-center rounded-[12px] bg-[#2aaa39] text-white shadow-[0_10px_22px_rgba(42,170,57,0.24)] transition-colors hover:bg-[#249631]";
+const newsletterStatus =
+   "mt-3 text-[12px] font-bold leading-snug";
+const newsletterSuccess = `${newsletterStatus} text-[#61d97d]`;
+const newsletterError = `${newsletterStatus} text-[#ff9f8f]`;
 const bottom =
    "border-t border-[rgba(255,255,255,0.05)] px-4 py-4 text-center sm:px-7";
 const copyright =
@@ -70,9 +83,49 @@ const copyright =
 
 const Footer = () => {
    const navigate = useNavigate();
+   const [authSession, setAuthSession] = useState(() => getAuthSession());
+   const [subscriberSession, setSubscriberSession] = useState(() =>
+      getSubscriberSession(),
+   );
+   const [email, setEmail] = useState(subscriberSession?.email || "");
+   const [status, setStatus] = useState({ type: "", message: "" });
+   const [isSubmitting, setIsSubmitting] = useState(false);
+   const isSubscribed = Boolean(subscriberSession?.subscribed);
+   const isLoggedIn = Boolean(authSession?.token);
 
-   const handleSubmit = (event) => {
+   useEffect(() => {
+      const syncAuth = () => setAuthSession(getAuthSession());
+      const syncSubscriber = () => setSubscriberSession(getSubscriberSession());
+
+      window.addEventListener("storage", syncAuth);
+      window.addEventListener("clbl:auth-change", syncAuth);
+      window.addEventListener("clbl:subscriber-change", syncSubscriber);
+
+      return () => {
+         window.removeEventListener("storage", syncAuth);
+         window.removeEventListener("clbl:auth-change", syncAuth);
+         window.removeEventListener("clbl:subscriber-change", syncSubscriber);
+      };
+   }, []);
+
+   const handleSubmit = async (event) => {
       event.preventDefault();
+      setStatus({ type: "", message: "" });
+      setIsSubmitting(true);
+
+      try {
+         const result = await subscribeToNewsletter({ email });
+         const nextSubscriberSession = saveSubscriberSession(result);
+         setSubscriberSession(nextSubscriberSession);
+         setStatus({ type: "success", message: "Thanks for subscribing!" });
+      } catch (error) {
+         setStatus({
+            type: "error",
+            message: error.message || "Subscription failed. Please try again.",
+         });
+      } finally {
+         setIsSubmitting(false);
+      }
    };
 
    return (
@@ -146,18 +199,53 @@ const Footer = () => {
                      Get updates on new components, features, and store launches.
                   </p>
 
-                  <form className={form} onSubmit={handleSubmit}>
-                     <input
-                        className={input}
-                        type="email"
-                        placeholder="Enter your email"
-                        aria-label="Email address"
-                        required
-                     />
-                     <button className={submit} type="submit" aria-label="Subscribe">
-                        <ArrowRight size={20} strokeWidth={2.8} />
-                     </button>
-                  </form>
+                  {isLoggedIn ? (
+                     <>
+                        <div className={subscribedField}>
+                           Unlimited copy access is active.
+                        </div>
+                        <p className={newsletterSuccess}>
+                           All components are free to copy now.
+                        </p>
+                     </>
+                  ) : isSubscribed ? (
+                     <>
+                        <div className={subscribedField}>Thanks for subscribing!</div>
+                        <p className={newsletterSuccess}>
+                           {typeof subscriberSession?.remainingCopies === "number"
+                              ? `${subscriberSession.remainingCopies} of ${subscriberSession.maxFreeCopies || 3} free copies remaining.`
+                              : "Your free copy access is active."}
+                        </p>
+                     </>
+                  ) : (
+                     <>
+                        <form className={form} onSubmit={handleSubmit}>
+                           <input
+                              className={input}
+                              name="email"
+                              type="email"
+                              placeholder="Enter your email"
+                              aria-label="Email address"
+                              value={email}
+                              onChange={(event) => setEmail(event.target.value)}
+                              required
+                           />
+                           <button
+                              className={submit}
+                              type="submit"
+                              aria-label="Subscribe"
+                              disabled={isSubmitting}
+                           >
+                              <ArrowRight size={20} strokeWidth={2.8} />
+                           </button>
+                        </form>
+                        {status.message ? (
+                           <p className={status.type === "success" ? newsletterSuccess : newsletterError}>
+                              {status.message}
+                           </p>
+                        ) : null}
+                     </>
+                  )}
                </div>
             </div>
          </div>

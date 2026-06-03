@@ -12,12 +12,12 @@ import {
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import FinalShopifyBanner from "../components/FinalShopifyBanner/FinalShopifyBanner";
-import shopifyAppsImage from "../../../temp-assets/shopify-apps-main-img.png";
-import nexusLogo from "../../../temp-assets/nexus-function-shopify-app.jpeg";
-import optimaLogo from "../../../temp-assets/optima-tiktok-shop-connector-shopify-app.png";
-import wixpaAdsLogo from "../../../temp-assets/wixpa-google-ads-shopify-app.webp";
-import wixpaAnalyticsLogo from "../../../temp-assets/wixpa-google-analytics-4-shopify-app.png";
-import wixpaShoppingLogo from "../../../temp-assets/wixpa-google-shopping-feed-shopify-app.png";
+import shopifyAppsImage from "../assets/shopify-apps-main-img.png";
+import nexusLogo from "../assets/nexus-function-shopify-app.jpeg";
+import optimaLogo from "../assets/optima-tiktok-shop-connector-shopify-app.png";
+import wixpaAdsLogo from "../assets/wixpa-google-ads-shopify-app.webp";
+import wixpaAnalyticsLogo from "../assets/wixpa-google-analytics-4-shopify-app.png";
+import wixpaShoppingLogo from "../assets/wixpa-google-shopping-feed-shopify-app.png";
 
 const partnerProfileUrl = "https://apps.shopify.com/partners/easyfeed";
 

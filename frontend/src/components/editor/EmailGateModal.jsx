@@ -13,13 +13,14 @@ export default function EmailGateModal({
   onSubmit,
   loading,
   error,
+  copyState,
 }) {
   const title = useMemo(() => "Enter your email to unlock copy", []);
 
   useEffect(() => {
-    if (!open) return;
-    const onKeyDown = (e) => {
-      if (e.key === "Escape") onCancel?.();
+    if (!open) return undefined;
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") onCancel?.();
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
@@ -33,24 +34,28 @@ export default function EmailGateModal({
       role="dialog"
       aria-modal="true"
       aria-label={title}
-      onMouseDown={(e) => {
-        // close only when clicking the backdrop itself
-        if (e.target === e.currentTarget) onCancel?.();
+      onMouseDown={(event) => {
+        if (event.target === event.currentTarget) onCancel?.();
       }}
     >
-      <div className={modal} onMouseDown={(e) => e.stopPropagation()}>
+      <div className={modal} onMouseDown={(event) => event.stopPropagation()}>
         <div className="px-5 py-4 border-b border-[#f3f4f6]">
           <div className="text-[1rem] font-bold text-[#111827]">{title}</div>
           <div className="text-[0.9rem] text-[#6b7280] mt-1">
-            We’ll store it to your account so you can copy other components
-            without repeating this step.
+            Subscribe once to unlock 3 free component copies before creating an
+            account.
           </div>
+          {typeof copyState?.remainingCopies === "number" ? (
+            <div className="mt-3 rounded-lg border border-[#bde8c5] bg-[#effaf2] px-3 py-2 text-[0.84rem] font-bold text-[#087f36]">
+              You have {copyState.remainingCopies} free component copies remaining.
+            </div>
+          ) : null}
         </div>
 
         <form
           className="px-5 py-4 flex flex-col gap-3"
-          onSubmit={(e) => {
-            e.preventDefault();
+          onSubmit={(event) => {
+            event.preventDefault();
             onSubmit?.();
           }}
         >
@@ -58,13 +63,13 @@ export default function EmailGateModal({
             Email
           </label>
           <input
-            className="w-full h-[42px] px-[12px] rounded-lg border border-[#e5e7eb] bg-white text-[#111827] focus:outline-none focus:ring-2 focus:ring-[#3b82f6]/60"
+            className="w-full h-[42px] px-[12px] rounded-lg border border-[#e5e7eb] bg-white text-[#111827] focus:outline-none focus:ring-2 focus:ring-[#16a34a]/40"
             type="email"
             inputMode="email"
             autoComplete="email"
             placeholder="you@store.com"
             value={email}
-            onChange={(e) => setEmail?.(e.target.value)}
+            onChange={(event) => setEmail?.(event.target.value)}
             required
           />
           {error ? (
@@ -95,4 +100,3 @@ export default function EmailGateModal({
     </div>
   );
 }
-

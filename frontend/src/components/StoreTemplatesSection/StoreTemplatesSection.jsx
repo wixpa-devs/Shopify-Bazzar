@@ -1,11 +1,11 @@
 import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import storePreviewOne from "../../../../temp-assets/store-preview-01.png";
-import storePreviewTwo from "../../../../temp-assets/store-preview-02.png";
-import storePreviewThree from "../../../../temp-assets/store-preview-03.png";
-import storePreviewFour from "../../../../temp-assets/store-preview-04.png";
-import storePreviewFive from "../../../../temp-assets/store-preview-05.png";
-import storePreviewSix from "../../../../temp-assets/store-preview-06.png";
+import storePreviewOne from "../../assets/store-preview-01.png";
+import storePreviewTwo from "../../assets/store-preview-02.png";
+import storePreviewThree from "../../assets/store-preview-03.png";
+import storePreviewFour from "../../assets/store-preview-04.png";
+import storePreviewFive from "../../assets/store-preview-05.png";
+import storePreviewSix from "../../assets/store-preview-06.png";
 
 const templates = [
    {

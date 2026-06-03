@@ -1,5 +1,5 @@
 import { Check, X } from "lucide-react";
-import timeSavingImage from "../../../../temp-assets/time-saving.png";
+import timeSavingImage from "../../assets/time-saving.png";
 
 const manualPoints = [
    "Takes weeks to design and code",

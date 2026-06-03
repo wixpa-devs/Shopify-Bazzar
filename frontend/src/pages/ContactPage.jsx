@@ -1,4 +1,4 @@
-import { createElement } from "react";
+import { createElement, useState } from "react";
 import {
    ArrowRight,
    ChevronRight,
@@ -14,8 +14,9 @@ import {
 import { Link } from "react-router-dom";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
-import wixpaLogo from "../../../temp-assets/wixpa-logo.png";
-import shopifyLogo from "../../../temp-assets/shopify-logo.png";
+import wixpaLogo from "../assets/wixpa-logo.png";
+import shopifyLogo from "../assets/shopify-logo.png";
+import { submitContactMessage } from "../lib/formApi.js";
 
 const pageShell = "min-h-screen bg-white";
 const hero =
@@ -63,6 +64,10 @@ const textarea =
    "min-h-[164px] w-full resize-y rounded-[12px] border border-[#e0e7e3] bg-white px-5 py-4 text-[0.98rem] font-semibold text-[#17201a] outline-none transition placeholder:text-[#8a9490] focus:border-[#75cc8d] focus:ring-4 focus:ring-[#32b95b]/10";
 const submit =
    "inline-flex h-[60px] w-full items-center justify-center gap-4 rounded-[12px] bg-[#079b24] px-7 text-[1.08rem] font-black text-white shadow-[0_14px_28px_rgba(7,155,36,0.22)] transition-colors hover:bg-[#07891f]";
+const formStatus =
+   "text-center text-[0.92rem] font-bold leading-[1.5]";
+const formSuccess = `${formStatus} text-[#087f36]`;
+const formError = `${formStatus} text-[#c24135]`;
 const safeNote =
    "mt-5 flex items-center justify-center gap-2 text-center text-[0.92rem] font-bold text-[#58655e]";
 const companySection =
@@ -136,6 +141,40 @@ const contactMethods = [
 ];
 
 const ContactPage = () => {
+   const [status, setStatus] = useState({ type: "", message: "" });
+   const [isSubmitting, setIsSubmitting] = useState(false);
+
+   const handleSubmit = async (event) => {
+      event.preventDefault();
+      setStatus({ type: "", message: "" });
+      setIsSubmitting(true);
+
+      const form = event.currentTarget;
+      const formData = new FormData(form);
+
+      try {
+         const result = await submitContactMessage({
+            name: formData.get("name"),
+            email: formData.get("email"),
+            company: formData.get("company"),
+            subject: formData.get("subject"),
+            message: formData.get("message"),
+         });
+         setStatus({
+            type: "success",
+            message: result.message || "Message sent successfully.",
+         });
+         form.reset();
+      } catch (error) {
+         setStatus({
+            type: "error",
+            message: error.message || "Message failed. Please try again.",
+         });
+      } finally {
+         setIsSubmitting(false);
+      }
+   };
+
    return (
       <div className={pageShell}>
          <Header />
@@ -189,22 +228,28 @@ const ContactPage = () => {
                            Fill out the form and we'll get back to you.
                         </p>
 
-                        <form className={form} onSubmit={(event) => event.preventDefault()}>
+                        <form className={form} onSubmit={handleSubmit}>
                            <div className={formRow}>
                               <label className={fieldWrap}>
                                  <span className={label}>Full Name</span>
                                  <input
                                     className={input}
+                                    name="name"
                                     type="text"
                                     placeholder="Your full name"
+                                    autoComplete="name"
+                                    required
                                  />
                               </label>
                               <label className={fieldWrap}>
                                  <span className={label}>Work Email</span>
                                  <input
                                     className={input}
+                                    name="email"
                                     type="email"
                                     placeholder="you@company.com"
+                                    autoComplete="email"
+                                    required
                                  />
                               </label>
                            </div>
@@ -213,8 +258,10 @@ const ContactPage = () => {
                               <span className={label}>Company</span>
                               <input
                                  className={input}
+                                 name="company"
                                  type="text"
                                  placeholder="Your company name"
+                                 autoComplete="organization"
                               />
                            </label>
 
@@ -222,6 +269,7 @@ const ContactPage = () => {
                               <span className={label}>Subject</span>
                               <input
                                  className={input}
+                                 name="subject"
                                  type="text"
                                  placeholder="How can we help you?"
                               />
@@ -231,14 +279,22 @@ const ContactPage = () => {
                               <span className={label}>Message</span>
                               <textarea
                                  className={textarea}
+                                 name="message"
                                  placeholder="Tell us more about your inquiry..."
+                                 required
                               />
                            </label>
 
-                           <button className={submit} type="submit">
+                           <button className={submit} type="submit" disabled={isSubmitting}>
                               <Send size={21} />
-                              Send Message
+                              {isSubmitting ? "Sending..." : "Send Message"}
                            </button>
+
+                           {status.message ? (
+                              <p className={status.type === "success" ? formSuccess : formError}>
+                                 {status.message}
+                              </p>
+                           ) : null}
                         </form>
                      </div>
 

@@ -21,7 +21,7 @@ import {
    Tag,
 } from "lucide-react";
 import { getAllCategories } from "../../registry/componentRegistry";
-import liveEditorImage from "../../../../temp-assets/live-editor-main-img.png";
+import liveEditorImage from "../../assets/live-editor-main-img.png";
 
 const labelOverrides = {
    announcementbar: "Announcement Bars",

@@ -1,7 +1,9 @@
-import { Eye } from "lucide-react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
+import { loginUser, saveAuthSession } from "../lib/formApi.js";
 
 const pageShell = "min-h-screen bg-white";
 const main =
@@ -36,8 +38,50 @@ const helper =
    "mt-8 text-center text-[0.95rem] font-semibold text-[#4d5662]";
 const helperLink =
    "font-black text-[#079b43] transition-colors hover:text-[#067f38]";
+const statusText =
+   "text-center text-[0.88rem] font-bold leading-[1.5]";
+const errorText = `${statusText} text-[#c24135]`;
+const successText = `${statusText} text-[#087f36]`;
 
 const LoginPage = () => {
+   const location = useLocation();
+   const navigate = useNavigate();
+   const [showPassword, setShowPassword] = useState(false);
+   const [status, setStatus] = useState({
+      type: location.state?.message ? "success" : "",
+      message: location.state?.message || "",
+   });
+   const [isSubmitting, setIsSubmitting] = useState(false);
+   const prefill = location.state?.prefill || {};
+
+   const handleSubmit = async (event) => {
+      event.preventDefault();
+      setStatus({ type: "", message: "" });
+      setIsSubmitting(true);
+
+      const formData = new FormData(event.currentTarget);
+
+      try {
+         const result = await loginUser({
+            email: formData.get("email"),
+            password: formData.get("password"),
+         });
+         saveAuthSession(result.data);
+         setStatus({
+            type: "success",
+            message: result.message || "Logged in successfully.",
+         });
+         navigate("/components");
+      } catch (error) {
+         setStatus({
+            type: "error",
+            message: error.message || "Login failed. Please try again.",
+         });
+      } finally {
+         setIsSubmitting(false);
+      }
+   };
+
    return (
       <div className={pageShell}>
          <Header />
@@ -53,14 +97,17 @@ const LoginPage = () => {
                   Log in to continue to your account
                </p>
 
-               <form className={form} onSubmit={(event) => event.preventDefault()}>
+               <form className={form} onSubmit={handleSubmit}>
                   <label className={field}>
                      <span className={label}>Email</span>
                      <input
                         className={input}
+                        name="email"
                         type="email"
                         placeholder="name@company.com"
                         autoComplete="email"
+                        defaultValue={prefill.email || ""}
+                        required
                      />
                   </label>
 
@@ -69,16 +116,25 @@ const LoginPage = () => {
                      <span className={passwordWrap}>
                         <input
                            className={passwordInput}
-                           type="password"
+                           name="password"
+                           type={showPassword ? "text" : "password"}
                            placeholder="Enter your password"
                            autoComplete="current-password"
+                           defaultValue={prefill.password || ""}
+                           required
                         />
                         <button
                            className={eyeButton}
                            type="button"
-                           aria-label="Show password"
+                           aria-label={showPassword ? "Hide password" : "Show password"}
+                           aria-pressed={showPassword}
+                           onClick={() => setShowPassword((value) => !value)}
                         >
-                           <Eye size={20} strokeWidth={2.1} />
+                           {showPassword ? (
+                              <EyeOff size={20} strokeWidth={2.1} />
+                           ) : (
+                              <Eye size={20} strokeWidth={2.1} />
+                           )}
                         </button>
                      </span>
                   </label>
@@ -90,9 +146,15 @@ const LoginPage = () => {
                      </label>
                   </div>
 
-                  <button className={submit} type="submit">
-                     Log in
+                  <button className={submit} type="submit" disabled={isSubmitting}>
+                     {isSubmitting ? "Logging in..." : "Log in"}
                   </button>
+
+                  {status.message ? (
+                     <p className={status.type === "success" ? successText : errorText}>
+                        {status.message}
+                     </p>
+                  ) : null}
                </form>
 
                <p className={helper}>

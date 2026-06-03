@@ -1,8 +1,8 @@
-import visualOne from "../../../../temp-assets/visual-img-1.png";
-import visualTwo from "../../../../temp-assets/visual-img-2.png";
-import visualThree from "../../../../temp-assets/visual-img-3.png";
-import visualFour from "../../../../temp-assets/visual-img-4.png";
-import visualFive from "../../../../temp-assets/visual-img-5.png";
+import visualOne from "../../assets/visual-img-1.png";
+import visualTwo from "../../assets/visual-img-2.png";
+import visualThree from "../../assets/visual-img-3.png";
+import visualFour from "../../assets/visual-img-4.png";
+import visualFive from "../../assets/visual-img-5.png";
 
 const visuals = [
    { src: visualOne, alt: "Visual editor controls card" },

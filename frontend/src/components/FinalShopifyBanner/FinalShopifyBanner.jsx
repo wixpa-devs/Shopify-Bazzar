@@ -1,6 +1,6 @@
 import { ArrowRight, BadgeCheck, CreditCard } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import shopifyLogo from "../../../../temp-assets/shopify-logo.png";
+import shopifyLogo from "../../assets/shopify-logo.png";
 
 const section = "bg-white px-4 py-8 sm:px-7 sm:py-10 lg:px-10 lg:py-12";
 const banner =

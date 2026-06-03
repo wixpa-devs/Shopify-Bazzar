@@ -18,9 +18,9 @@ import { Link } from "react-router-dom";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import FinalShopifyBanner from "../components/FinalShopifyBanner/FinalShopifyBanner";
-import featuredShopifyWorkImage from "../../../temp-assets/featured-shopify-work-img.png";
-import fiverrLogo from "../../../temp-assets/fiverr-logo.png";
-import upworkLogo from "../../../temp-assets/upwork-logo.png";
+import featuredShopifyWorkImage from "../assets/featured-shopify-work-img.png";
+import fiverrLogo from "../assets/fiverr-logo.png";
+import upworkLogo from "../assets/upwork-logo.png";
 
 const freelanceProfileUrl = "https://www.upwork.com/freelancers/malikzeeshanhaider";
 

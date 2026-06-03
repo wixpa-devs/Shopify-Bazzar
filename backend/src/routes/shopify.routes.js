@@ -1,4 +1,5 @@
 import express from "express";
+import { SHOPIFY_STOREFRONT_TOKEN } from "../constants.js";
 
 const router = express.Router();
 
@@ -77,7 +78,7 @@ router.post("/collection-products", async (req, res) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Shopify-Storefront-Access-Token": process.env.SHOPIFY_STOREFRONT_TOKEN || "",
+          "X-Shopify-Storefront-Access-Token": SHOPIFY_STOREFRONT_TOKEN,
         },
         body: JSON.stringify({ query: graphqlQuery }),
       }

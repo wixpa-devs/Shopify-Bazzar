@@ -1,7 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FiArrowRight, FiMenu, FiX } from "react-icons/fi";
-import shopifyLogo from "../../../../temp-assets/shopify-logo.png";
+import shopifyLogo from "../../assets/shopify-logo.png";
+import {
+   clearAuthSession,
+   isAuthenticated,
+   logoutUser,
+} from "../../lib/formApi.js";
 
 const NAV_LINKS = [
    { label: "Components", path: "/components" },
@@ -49,6 +54,8 @@ const navButtonActive = "text-[#1f8b34]";
 const actions = "hidden md:flex items-center gap-6";
 const loginBtn =
    "text-[13px] font-semibold text-[#1f2933] transition-colors hover:text-[#208a34]";
+const logoutBtn =
+   "text-[13px] font-semibold text-[#1f2933] transition-colors hover:text-[#c24135]";
 const ctaBtn =
    "inline-flex h-11 items-center gap-2 rounded-[12px] bg-[#2da53d] px-5 text-[13px] font-black text-white shadow-[0_8px_18px_rgba(45,165,61,0.22)] transition-colors hover:bg-[#238d32]";
 const mobileMenuBtn =
@@ -67,12 +74,36 @@ const mobileCtaBtn =
 
 const Header = () => {
    const [menuOpen, setMenuOpen] = useState(false);
+   const [authenticated, setAuthenticated] = useState(() => isAuthenticated());
    const navigate = useNavigate();
    const location = useLocation();
+
+   useEffect(() => {
+      const syncAuth = () => setAuthenticated(isAuthenticated());
+      window.addEventListener("storage", syncAuth);
+      window.addEventListener("clbl:auth-change", syncAuth);
+      return () => {
+         window.removeEventListener("storage", syncAuth);
+         window.removeEventListener("clbl:auth-change", syncAuth);
+      };
+   }, []);
 
    const go = (path) => {
       navigate(path);
       setMenuOpen(false);
+   };
+
+   const handleLogout = async () => {
+      try {
+         await logoutUser();
+      } catch (error) {
+         void error;
+      } finally {
+         clearAuthSession();
+         setAuthenticated(false);
+         setMenuOpen(false);
+         navigate("/");
+      }
    };
 
    const isActive = (path) =>
@@ -126,13 +157,23 @@ const Header = () => {
                </nav>
 
                <div className={actions}>
-                  <button
-                     className={loginBtn}
-                     type="button"
-                     onClick={() => go("/login")}
-                  >
-                     Log in
-                  </button>
+                  {authenticated ? (
+                     <button
+                        className={logoutBtn}
+                        type="button"
+                        onClick={handleLogout}
+                     >
+                        Logout
+                     </button>
+                  ) : (
+                     <button
+                        className={loginBtn}
+                        type="button"
+                        onClick={() => go("/login")}
+                     >
+                        Log in
+                     </button>
+                  )}
                   <button
                      className={ctaBtn}
                      type="button"
@@ -168,13 +209,23 @@ const Header = () => {
                   ))}
                </nav>
                <div className={mobileActions}>
-                  <button
-                     className={mobileLoginBtn}
-                     type="button"
-                     onClick={() => go("/login")}
-                  >
-                     Log in
-                  </button>
+                  {authenticated ? (
+                     <button
+                        className={mobileLoginBtn}
+                        type="button"
+                        onClick={handleLogout}
+                     >
+                        Logout
+                     </button>
+                  ) : (
+                     <button
+                        className={mobileLoginBtn}
+                        type="button"
+                        onClick={() => go("/login")}
+                     >
+                        Log in
+                     </button>
+                  )}
                   <button
                      className={mobileCtaBtn}
                      type="button"

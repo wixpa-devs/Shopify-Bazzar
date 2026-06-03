@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import {
    BrowserRouter,
    Routes,
@@ -17,20 +17,48 @@ import ShopifyAppsPage from "./pages/ShopifyAppsPage";
 import DocsPage from "./pages/DocsPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
+import { isAuthenticated } from "./lib/formApi.js";
 
 const ScrollToTop = () => {
-   const { pathname } = useLocation();
+   const { pathname, search, hash, key } = useLocation();
+   const previousLocationRef = useRef({ pathname, search });
 
    useEffect(() => {
-      window.scrollTo({
-         top: 0,
-         left: 0,
-         behavior: "instant",
+      if (!("scrollRestoration" in window.history)) return undefined;
+
+      const previousScrollRestoration = window.history.scrollRestoration;
+      window.history.scrollRestoration = "manual";
+
+      return () => {
+         window.history.scrollRestoration = previousScrollRestoration;
+      };
+   }, []);
+
+   useLayoutEffect(() => {
+      const previousLocation = previousLocationRef.current;
+      const isSamePageHashNavigation =
+         hash &&
+         previousLocation.pathname === pathname &&
+         previousLocation.search === search;
+
+      previousLocationRef.current = { pathname, search };
+
+      if (isSamePageHashNavigation) return;
+
+      window.requestAnimationFrame(() => {
+         window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "auto",
+         });
       });
-   }, [pathname]);
+   }, [pathname, search, hash, key]);
 
    return null;
 };
+
+const GuestOnlyRoute = ({ children }) =>
+   isAuthenticated() ? <Navigate to="/components" replace /> : children;
 
 const App = () => (
    <BrowserRouter>
@@ -42,9 +70,30 @@ const App = () => (
          <Route path="/docs" element={<DocsPage />} />
          <Route path="/about" element={<AboutPage />} />
          <Route path="/contact" element={<ContactPage />} />
-         <Route path="/login" element={<LoginPage />} />
-         <Route path="/signup" element={<SignupPage />} />
-         <Route path="/register" element={<SignupPage />} />
+         <Route
+            path="/login"
+            element={(
+               <GuestOnlyRoute>
+                  <LoginPage />
+               </GuestOnlyRoute>
+            )}
+         />
+         <Route
+            path="/signup"
+            element={(
+               <GuestOnlyRoute>
+                  <SignupPage />
+               </GuestOnlyRoute>
+            )}
+         />
+         <Route
+            path="/register"
+            element={(
+               <GuestOnlyRoute>
+                  <SignupPage />
+               </GuestOnlyRoute>
+            )}
+         />
 
          <Route path="/components" element={<ComponentsLayout />}>
             <Route index element={<ComponentsPage />} />

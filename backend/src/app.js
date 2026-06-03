@@ -5,8 +5,12 @@ import rateLimit from "express-rate-limit";
 import cookieParser from "cookie-parser";
 import { accessRouter } from "./routes/access.routes.js";
 import { shopifyRouter } from "./routes/shopify.routes.js";
-import { isOriginAllowed } from "./config.js";
+import { authRouter } from "./routes/auth.routes.js";
+import { subscriberRouter } from "./routes/subscriber.routes.js";
+import { contactRouter } from "./routes/contact.routes.js";
+import { isOriginAllowed } from "./constants.js";
 import { logCorsDecision } from "./envDebug.js";
+import { errorHandler, notFoundHandler } from "./middlewares/error.middleware.js";
 
 export function createApp() {
   const app = express();
@@ -52,21 +56,14 @@ export function createApp() {
     res.json({ ok: true });
   });
 
-  app.use("/api/access", accessRouter(express));
+  app.use("/api/access", accessRouter());
   app.use("/api/shopify", shopifyRouter);
+  app.use("/api/auth", authRouter);
+  app.use("/api/subscribers", subscriberRouter);
+  app.use("/api/contact", contactRouter);
 
-  // 404 handler
-  app.use((req, res) => {
-    res.status(404).json({ error: "Not found" });
-  });
-
-  // Error handler
-  // eslint-disable-next-line no-unused-vars
-  app.use((err, req, res, next) => {
-    // Avoid leaking stack traces.
-    res.status(500).json({ error: "Server error" });
-  });
+  app.use(notFoundHandler);
+  app.use(errorHandler);
 
   return app;
 }
-

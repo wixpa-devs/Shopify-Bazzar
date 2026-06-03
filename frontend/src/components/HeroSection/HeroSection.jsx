@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { FiArrowRight, FiAward, FiLink, FiStar } from "react-icons/fi";
-import heroImage from "../../../../temp-assets/hero-img-1.png";
-import shopifyLogo from "../../../../temp-assets/shopify-logo.png";
+import heroImage from "../../assets/hero-img-1.png";
+import shopifyLogo from "../../assets/shopify-logo.png";
 
 const heroSection =
    "relative isolate overflow-hidden bg-white px-4 pb-8 pt-8 sm:px-7 sm:pb-12 sm:pt-10 lg:px-10 lg:pb-16 lg:pt-14";

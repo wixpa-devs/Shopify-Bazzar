@@ -16,7 +16,7 @@ export async function checkCopyAccessStatus() {
 
   if (!res.ok) return false;
   const data = await res.json();
-  return Boolean(data?.allowed);
+  return data;
 }
 
 export async function submitEmailForCopyAccess(email) {
@@ -40,5 +40,23 @@ export async function submitEmailForCopyAccess(email) {
 
   const data = await res.json();
   if (!data?.allowed) throw new Error("Email submission failed.");
+  return data;
 }
 
+export async function registerCopyAttempt() {
+  const res = await fetch(apiUrl("/api/access/copy"), {
+    method: "POST",
+    credentials: "include",
+    headers: { "Accept": "application/json" },
+  });
+
+  const data = await res.json().catch(() => null);
+
+  if (!res.ok) {
+    const error = new Error(jsonErrorToMessage(data));
+    error.data = data;
+    throw error;
+  }
+
+  return data;
+}

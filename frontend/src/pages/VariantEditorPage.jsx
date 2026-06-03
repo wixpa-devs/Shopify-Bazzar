@@ -10,8 +10,10 @@ import EmailGateModal from "../components/editor/EmailGateModal";
 import { copyTextToClipboard } from "../lib/clipboard";
 import {
    checkCopyAccessStatus,
+   registerCopyAttempt,
    submitEmailForCopyAccess,
 } from "../lib/gateApi";
+import { getAuthSession, saveSubscriberSession } from "../lib/formApi.js";
 
 // ── Tailwind Classes ───────────────────────────────────────────
 
@@ -49,6 +51,7 @@ const VariantEditorPage = () => {
    // ── Copy gating (email once) ──────────────────────────────
    // null = not checked yet
    const [accessAllowed, setAccessAllowed] = useState(null);
+   const [copyAccessState, setCopyAccessState] = useState(null);
    const [gateOpen, setGateOpen] = useState(false);
    const [gateEmail, setGateEmail] = useState("");
    const [gateError, setGateError] = useState("");
@@ -68,11 +71,24 @@ const VariantEditorPage = () => {
    const handleCopy = useCallback(async () => {
       const code = generateComponentCode(variantId, config);
 
+      if (getAuthSession()?.token) {
+         try {
+            await copyTextToClipboard(code);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 3000);
+         } catch (err) {
+            console.error("Clipboard copy failed:", err);
+         }
+         return;
+      }
+
       let allowed = accessAllowed;
       if (allowed === null) {
          try {
-            allowed = await checkCopyAccessStatus();
-            setAccessAllowed(Boolean(allowed));
+            const status = await checkCopyAccessStatus();
+            setCopyAccessState(status);
+            allowed = Boolean(status?.allowed);
+            setAccessAllowed(allowed);
          } catch (err) {
             void err;
             allowed = false;
@@ -82,10 +98,21 @@ const VariantEditorPage = () => {
 
       if (allowed) {
          try {
+            const copyState = await registerCopyAttempt();
+            saveSubscriberSession(copyState);
+            setCopyAccessState(copyState);
             await copyTextToClipboard(code);
             setCopied(true);
             setTimeout(() => setCopied(false), 3000);
          } catch (err) {
+            if (err?.data?.redirectTo) {
+               navigate(err.data.redirectTo, {
+                  state: {
+                     message: "Create a free account for unlimited component copies.",
+                  },
+               });
+               return;
+            }
             // If clipboard fails, we don't want to permanently break the flow.
             console.error("Clipboard copy failed:", err);
          }
@@ -96,7 +123,7 @@ const VariantEditorPage = () => {
       setGateOpen(true);
       setGateError("");
       setGateEmail("");
-   }, [variantId, config, accessAllowed]);
+   }, [variantId, config, accessAllowed, navigate]);
 
    const handleGateCancel = useCallback(() => {
       setGateOpen(false);
@@ -110,6 +137,9 @@ const VariantEditorPage = () => {
       setGateError("");
       try {
          await submitEmailForCopyAccess(gateEmail);
+         const copyState = await registerCopyAttempt();
+         saveSubscriberSession(copyState);
+         setCopyAccessState(copyState);
          setAccessAllowed(true);
          setGateOpen(false);
          await copyTextToClipboard(pendingCode);
@@ -127,8 +157,12 @@ const VariantEditorPage = () => {
       let cancelled = false;
       async function run() {
          try {
-            const allowed = await checkCopyAccessStatus();
-            if (!cancelled) setAccessAllowed(Boolean(allowed));
+            const status = await checkCopyAccessStatus();
+            if (!cancelled) {
+               setCopyAccessState(status);
+               setAccessAllowed(Boolean(status?.allowed));
+               if (status?.subscribed) saveSubscriberSession(status);
+            }
          } catch (err) {
             // If the API is down, we keep gating disabled until the user submits an email.
             // (Clipboard can still be blocked; backend is responsible for the gating contract.)
@@ -229,6 +263,7 @@ const VariantEditorPage = () => {
             onSubmit={handleGateSubmit}
             loading={gateLoading}
             error={gateError}
+            copyState={copyAccessState}
          />
       </div>
    );

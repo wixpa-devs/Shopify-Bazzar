@@ -1,109 +1,207 @@
 import crypto from "node:crypto";
-import { z } from "zod";
-import { asyncHandler } from "../middleware/asyncHandler.js";
-import { config } from "../config.js";
-import { Subscriber } from "../models/Subscriber.js";
+import { Router } from "express";
+import {
+  COOKIE_NAME,
+  COOKIE_SAME_SITE,
+  COOKIE_SECURE,
+  MAX_FREE_COPIES,
+  SESSION_TTL_DAYS,
+} from "../constants.js";
 import { AccessSession } from "../models/AccessSession.js";
+import { Subscriber } from "../models/Subscriber.model.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import { subscriberEmailValidation } from "../validations/subscriber.validation.js";
 
-export const accessRouter = (express) => {
-  const router = express.Router();
+const getSessionTokenFromCookie = (req) => req.cookies?.[COOKIE_NAME];
 
-  const emailSchema = z
-    .string()
-    .trim()
-    .min(5)
-    .max(254)
-    .email({ message: "Please enter a valid email address." });
+function getCopyState(subscriber) {
+  const copyCodeCount = subscriber?.copyCodeCount || 0;
+  return {
+    copyCodeCount,
+    maxFreeCopies: MAX_FREE_COPIES,
+    remainingCopies: Math.max(MAX_FREE_COPIES - copyCodeCount, 0),
+    limitReached: copyCodeCount >= MAX_FREE_COPIES,
+  };
+}
 
-  const getSessionTokenFromCookie = (req) => req.cookies?.[config.cookieName];
+async function findActiveSession(req) {
+  const token = getSessionTokenFromCookie(req);
+  if (!token) return null;
+
+  const session = await AccessSession.findOne({ token }).exec();
+  if (!session) return null;
+
+  if (session.expiresAt.getTime() < Date.now()) return null;
+
+  session.lastSeenAt = new Date();
+  await session.save();
+  return session;
+}
+
+async function createAccessSession(email) {
+  const token = crypto.randomBytes(32).toString("hex");
+  const expiresAt = new Date(Date.now() + SESSION_TTL_DAYS * 24 * 60 * 60 * 1000);
+
+  await AccessSession.create({
+    token,
+    email,
+    expiresAt,
+    lastSeenAt: new Date(),
+  });
+
+  return { token, expiresAt };
+}
+
+function setAccessCookie(res, token) {
+  res.cookie(COOKIE_NAME, token, {
+    httpOnly: true,
+    sameSite: COOKIE_SAME_SITE,
+    secure: COOKIE_SECURE,
+    path: "/",
+    maxAge: SESSION_TTL_DAYS * 24 * 60 * 60 * 1000,
+  });
+}
+
+export const accessRouter = () => {
+  const router = Router();
 
   router.get(
     "/status",
     asyncHandler(async (req, res) => {
-      const token = getSessionTokenFromCookie(req);
-      if (!token) return res.json({ allowed: false });
-
-      const session = await AccessSession.findOne({ token }).exec();
-      if (!session) return res.json({ allowed: false });
-
-      // If expired, we treat as not allowed (TTL will also clear it).
-      if (session.expiresAt.getTime() < Date.now()) {
-        return res.json({ allowed: false });
+      const session = await findActiveSession(req);
+      if (!session) {
+        return res.json({
+          allowed: false,
+          subscribed: false,
+          ...getCopyState(null),
+        });
       }
 
-      // Touch session for sliding behavior (small scale).
-      session.lastSeenAt = new Date();
-      await session.save();
-
-      return res.json({ allowed: true });
+      const subscriber = await Subscriber.findOne({ email: session.email }).exec();
+      return res.json({
+        allowed: Boolean(subscriber),
+        subscribed: Boolean(subscriber),
+        email: session.email,
+        ...getCopyState(subscriber),
+      });
     }),
   );
 
   router.post(
     "/email",
     asyncHandler(async (req, res) => {
-      const parsed = emailSchema.safeParse(req.body?.email);
+      const parsed = subscriberEmailValidation.safeParse(req.body);
       if (!parsed.success) {
         return res.status(400).json({
+          success: false,
           error: parsed.error.issues?.[0]?.message || "Invalid email.",
         });
       }
 
-      const email = parsed.data.toLowerCase();
-
-      // Upsert subscriber.
-      await Subscriber.findOneAndUpdate(
+      const email = parsed.data.email.toLowerCase();
+      const subscriber = await Subscriber.findOneAndUpdate(
         { email },
-        { $setOnInsert: { email } },
-        { upsert: true, new: true },
+        {
+          $setOnInsert: {
+            email,
+            copyCodeCount: 0,
+            subscribedAt: new Date(),
+          },
+        },
+        { upsert: true, new: true, setDefaultsOnInsert: true },
       ).exec();
 
-      // Create session token for this browser.
-      const token = crypto.randomBytes(32).toString("hex");
-      const expiresAt = new Date(
-        Date.now() + config.sessionTtlDays * 24 * 60 * 60 * 1000,
-      );
+      const session = await createAccessSession(email);
+      setAccessCookie(res, session.token);
 
-      await AccessSession.create({
-        token,
+      return res.json({
+        allowed: true,
+        subscribed: true,
         email,
-        expiresAt,
-        lastSeenAt: new Date(),
+        ...getCopyState(subscriber),
       });
-
-      res.cookie(config.cookieName, token, {
-        httpOnly: true,
-        sameSite: config.cookieSameSite,
-        secure: config.cookieSecure,
-        path: "/",
-        maxAge: config.sessionTtlDays * 24 * 60 * 60 * 1000,
-      });
-
-      return res.json({ allowed: true });
     }),
   );
 
   router.post(
     "/newsletter",
     asyncHandler(async (req, res) => {
-      const parsed = emailSchema.safeParse(req.body?.email);
+      const parsed = subscriberEmailValidation.safeParse(req.body);
       if (!parsed.success) {
         return res.status(400).json({
+          success: false,
           error: parsed.error.issues?.[0]?.message || "Invalid email.",
         });
       }
 
-      const email = parsed.data.toLowerCase();
-      await Subscriber.findOneAndUpdate(
+      const email = parsed.data.email.toLowerCase();
+      const subscriber = await Subscriber.findOneAndUpdate(
         { email },
-        { $setOnInsert: { email } },
-        { upsert: true, new: true },
+        {
+          $setOnInsert: {
+            email,
+            copyCodeCount: 0,
+            subscribedAt: new Date(),
+          },
+        },
+        { upsert: true, new: true, setDefaultsOnInsert: true },
       ).exec();
 
-      return res.json({ ok: true });
+      const session = await createAccessSession(email);
+      setAccessCookie(res, session.token);
+
+      return res.json({
+        ok: true,
+        success: true,
+        message: "Thanks for subscribing!",
+        data: { subscriber, ...getCopyState(subscriber) },
+      });
+    }),
+  );
+
+  router.post(
+    "/copy",
+    asyncHandler(async (req, res) => {
+      const session = await findActiveSession(req);
+      if (!session) {
+        return res.status(401).json({
+          success: false,
+          message: "Enter your email to continue.",
+          requiresEmail: true,
+        });
+      }
+
+      const subscriber = await Subscriber.findOne({ email: session.email }).exec();
+      if (!subscriber) {
+        return res.status(401).json({
+          success: false,
+          message: "Enter your email to continue.",
+          requiresEmail: true,
+        });
+      }
+
+      if ((subscriber.copyCodeCount || 0) >= MAX_FREE_COPIES) {
+        return res.status(403).json({
+          success: false,
+          message: "Create an account for unlimited component copies.",
+          redirectTo: "/signup",
+          ...getCopyState(subscriber),
+        });
+      }
+
+      subscriber.copyCodeCount = (subscriber.copyCodeCount || 0) + 1;
+      await subscriber.save();
+
+      return res.json({
+        success: true,
+        message:
+          getCopyState(subscriber).remainingCopies > 0
+            ? `You have ${getCopyState(subscriber).remainingCopies} free component copies remaining.`
+            : "This was your final free component copy. Create an account for unlimited access.",
+        ...getCopyState(subscriber),
+      });
     }),
   );
 
   return router;
 };
-
